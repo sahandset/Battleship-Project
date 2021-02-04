@@ -4,6 +4,7 @@ package edu.colorado.binarybuffs;
 public class Ship {
     private String name;
 
+    //Team BinaryBuffs, pair 1 was here
     // Team Binary Buffs, pair 2 was here
 
     // TODO: create appropriate getter and setter methods
@@ -13,4 +14,7 @@ public class Ship {
     public  void show()     {     // dunno why this is here maybe it is just an example method
         System.out.println("IF you can't see this then something is severely wrong!!");
     }
+
+    //
+
 }
