@@ -1,4 +1,4 @@
-package edu.colorado.csci44485448;
+package edu.colorado.binarybuffs;
 // This is the  baseclass for your ship.  Modify accordingly
 // TODO: practice good OO design
 public class Ship {
