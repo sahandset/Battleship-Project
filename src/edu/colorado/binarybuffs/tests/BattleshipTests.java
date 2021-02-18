@@ -1,6 +1,8 @@
-package tests;
+package edu.colorado.binarybuffs.tests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import edu.colorado.binarybuffs.Grid;
 import org.junit.jupiter.api.Test;
 
 public class BattleshipTests {
