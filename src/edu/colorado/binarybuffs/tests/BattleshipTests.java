@@ -15,6 +15,6 @@ public class BattleshipTests {
     @Test
     public void getGridSize() {
         Grid myGrid = new Grid();
-        assertEquals(0, myGrid.getSize(), "grid must be 10x10"); //checking for size of grid
+        assertEquals(10, myGrid.getSize(), "grid must be 10x10"); //checking for size of grid
     }
 }

@@ -4,6 +4,7 @@ public class Grid {
     //put some attributes here
     private static int length_x = 10;
     private static int length_y = 10;
+    public int [][] playerGrid;
 
     //put the constructor that initializes some attributes here
     //Cell status
@@ -19,7 +20,13 @@ public class Grid {
                 grid[i][j] = 1;
             }
         }
+
+        this.playerGrid = grid;
     }
     //add some methods here
+    public int getSize(){
+        //return length_x;
+        return playerGrid.length;
+    }
 
 }
