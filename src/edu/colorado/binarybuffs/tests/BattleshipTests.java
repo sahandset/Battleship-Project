@@ -11,4 +11,10 @@ public class BattleshipTests {
     public void checkGrid() {
         Grid myGrid = new Grid(); //testing the creation of grid
     }
+
+    @Test
+    public void getGridSize() {
+        Grid myGrid = new Grid();
+        assertEquals(0, myGrid.getSize(), "grid must be 10x10"); //checking for size of grid
+    }
 }
