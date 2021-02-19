@@ -3,6 +3,7 @@ package edu.colorado.binarybuffs.tests;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import edu.colorado.binarybuffs.Grid;
+import edu.colorado.binarybuffs.Player;
 import org.junit.jupiter.api.Test;
 
 public class BattleshipTests {
@@ -25,5 +26,12 @@ public class BattleshipTests {
                 assertEquals(1, myGrid.checkCellStatus(i, j));
             }
         }
+    }
+    @Test
+    public void testPlayer() {
+        Player player_1 = new Player("Sahand");
+        Player player_2 = new Player("Tanvi");
+        assertEquals("Tanvi", player_1.getName(player_1));
+        assertEquals(true, player_1.getTurn(player_1));
     }
 }

@@ -3,6 +3,8 @@ package edu.colorado.binarybuffs;
 // TODO: practice good OO design
 public class Ship {
     private String name;
+    private int length;
+    
 
     //Team BinaryBuffs, pair 1 was here
     // Team Binary Buffs, pair 2 was here

@@ -9,7 +9,7 @@ public class Grid {
     //put the constructor that initializes some attributes here
     //Cell status
     //  1: empty, not hit
-    //  2: empty, hit
+    //  2: empty, hit (missed)
     //  3: occupied, not hit
     //  4: occupied, hit
     public Grid() {
