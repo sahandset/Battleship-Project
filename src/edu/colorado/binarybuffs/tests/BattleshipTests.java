@@ -14,6 +14,18 @@ public class BattleshipTests {
     }
 
     @Test
+    public void checkOffensiveGrid() {
+        Grid myGrid = new Grid();
+        for (int i = 0; i < myGrid.getSize(); i++) {
+            for (int j = 0; j < myGrid.getSize(); j++) {
+                assertEquals("empty", myGrid.checkOffensiveGridStatus(i,j)[0];
+                assertEquals("hit", myGrid.checkOffensiveGridStatus(i,j)[1]);
+            }
+        }
+    }
+
+
+    @Test
     public void getGridSize() {
         Grid myGrid = new Grid();
         assertEquals(10, myGrid.getSize(), "grid must be 10x10"); //checking for size of grid
@@ -34,4 +46,5 @@ public class BattleshipTests {
         assertEquals("Sahand", player_1.getName(player_1));
         assertEquals(false, player_1.getTurn(player_1));
     }
+
 }

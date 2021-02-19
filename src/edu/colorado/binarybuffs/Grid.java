@@ -14,6 +14,18 @@ public class Grid {
     //  3: occupied, not hit
     //  4: occupied, hit
 
+    //Player Grid Status of Ships
+    //0: Ship does not exist
+    //1: Ship exists
+
+    //Offensive Grid Status of Moves
+    //Variable 1: Hit/miss
+    //Variable 2: Empty/not empty
+    //  (empty, not attacked)
+    //  (empty, missed)
+    //  (occupied, not hit)
+    //  (occupied, hit)
+
     public Grid() {
         int [][] grid = new int [length_x][length_y];
 
