@@ -22,7 +22,7 @@ public class BattleshipTests {
         Grid myGrid = new Grid();
         for (int i = 0; i < myGrid.getSize(); i++) {
             for (int j = 0; j < myGrid.getSize(); j++) {
-                assertEquals(2, myGrid.checkCellStatus(i, j));
+                assertEquals(1, myGrid.checkCellStatus(i, j));
             }
         }
     }
