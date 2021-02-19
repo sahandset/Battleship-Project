@@ -18,8 +18,7 @@ public class BattleshipTests {
         Grid myGrid = new Grid();
         for (int i = 0; i < myGrid.getSize(); i++) {
             for (int j = 0; j < myGrid.getSize(); j++) {
-                assertEquals("empty", myGrid.checkOffensiveGridStatus(i,j)[0];
-                assertEquals("hit", myGrid.checkOffensiveGridStatus(i,j)[1]);
+                assertEquals(2, myGrid.checkOffensiveGridStatus(i,j));
             }
         }
     }
