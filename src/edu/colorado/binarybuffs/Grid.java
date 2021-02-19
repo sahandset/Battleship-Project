@@ -29,4 +29,7 @@ public class Grid {
         return playerGrid.length;
     }
 
+    public int checkCellStatus(int x, int y) {
+    return playerGrid[x][y];
+    }
 }
