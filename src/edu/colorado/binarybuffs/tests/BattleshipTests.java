@@ -32,6 +32,6 @@ public class BattleshipTests {
         Player player_1 = new Player("Sahand");
         Player player_2 = new Player("Tanvi");
         assertEquals("Sahand", player_1.getName(player_1));
-        assertEquals(true, player_1.getTurn(player_1));
+        assertEquals(false, player_1.getTurn(player_1));
     }
 }
