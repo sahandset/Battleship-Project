@@ -4,7 +4,9 @@ package edu.colorado.binarybuffs;
 public class Ship {
     private String name;
     private int length;
-    
+    private int health_value;
+    private String status;
+
 
     //Team BinaryBuffs, pair 1 was here
     // Team Binary Buffs, pair 2 was here
