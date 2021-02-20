@@ -4,7 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import edu.colorado.binarybuffs.Grid;
 import edu.colorado.binarybuffs.Player;
+import edu.colorado.binarybuffs.Ship;
 import org.junit.jupiter.api.Test;
+
 
 public class BattleshipTests {
 
@@ -44,6 +46,13 @@ public class BattleshipTests {
         Player player_2 = new Player("Tanvi");
         assertEquals("Sahand", player_1.getName(player_1));
         assertEquals(false, player_1.getTurn(player_1));
+    }
+
+    @Test
+    public void testShip() {
+        Ship ship1 = new Ship("Minesweeper");
+        assertEquals("Battleship", ship1.getShipName(ship1));
+
     }
 
 }

@@ -2,10 +2,17 @@ package edu.colorado.binarybuffs;
 // This is the  baseclass for your ship.  Modify accordingly
 // TODO: practice good OO design
 public class Ship {
-    private String name;
+    private String ship_name;
     private int length;
     private int health_value;
     private String status;
+
+    public Ship(String ship_name) {
+        this.ship_name = ship_name;
+        this.length = length;
+        this.health_value = health_value;
+        this.status = status;
+    }
 
 
     //Team BinaryBuffs, pair 1 was here
@@ -20,5 +27,8 @@ public class Ship {
     }
 
     //
+    public String getShipName(Ship ship1) {
+        return this.ship_name;
+    }
 
 }
