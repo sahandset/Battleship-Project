@@ -51,7 +51,7 @@ public class BattleshipTests {
     @Test
     public void testShip() {
         Ship ship1 = new Ship("Minesweeper");
-        assertEquals("Battleship", ship1.getShipName(ship1));
+        assertEquals("Minesweeper", ship1.getShipName(ship1));
 
     }
 
