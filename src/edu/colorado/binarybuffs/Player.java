@@ -73,4 +73,8 @@ public class Player {
         System.out.println("This is invalid");
         return false;
     }
+
+    public void attack(int x, int y){
+
+    }
 }
