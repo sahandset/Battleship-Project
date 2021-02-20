@@ -3,13 +3,13 @@ package edu.colorado.binarybuffs;
 // TODO: practice good OO design
 public class Ship {
     private String ship_name;
-    private int length;
+    private int ship_length;
     private int health_value;
     private String status;
 
-    public Ship(String ship_name) {
+    public Ship(String ship_name, int ship_length) {
         this.ship_name = ship_name;
-        this.length = length;
+        this.ship_length = ship_length;
         this.health_value = health_value;
         this.status = status;
     }
@@ -29,6 +29,10 @@ public class Ship {
     //
     public String getShipName(Ship ship1) {
         return this.ship_name;
+    }
+
+    public int getShipLength(Ship ship1) {
+        return this.ship_length;
     }
 
 }
