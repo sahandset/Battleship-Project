@@ -54,7 +54,8 @@ public class BattleshipTests {
         Player player1 = new Player("Tanvi");
         Grid grid1 = new Grid();
         Ship test_ship = player1.createShip(2, 2, 2, 2, 4);
-        assertEquals(4, test_ship.getShipLength(test_ship));
+        assertEquals(2, test_ship.getShipLength(test_ship));
+        assertEquals("Minesweeper", test_ship.getShipName(test_ship));
         //grid1.placeShip();
     }
 }
