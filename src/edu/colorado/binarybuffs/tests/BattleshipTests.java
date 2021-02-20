@@ -56,4 +56,11 @@ public class BattleshipTests {
 
     }
 
+    @Test
+    public void testShipPlacement() {
+        Player player1 = new Player("Tanvi");
+        Grid grid1 = new Grid();
+        test_ship = player1.createShip();
+        grid1.placeShip();
+    }
 }

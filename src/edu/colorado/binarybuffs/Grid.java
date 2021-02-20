@@ -51,4 +51,6 @@ public class Grid {
     public int checkCellStatus(int x, int y) {
     return player_grid[x][y];
     }
+
+    //public void placeShip() { }
 }
