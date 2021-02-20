@@ -48,19 +48,13 @@ public class BattleshipTests {
         assertEquals(false, player_1.getTurn(player_1));
     }
 
-    @Test
-    public void testShip() {
-        Ship ship1 = new Ship("Minesweeper", 3);
-        assertEquals("Minesweeper", ship1.getShipName(ship1));
-        assertEquals(4, ship1.getShipLength(ship1));
-
-    }
 
     @Test
     public void testShipPlacement() {
         Player player1 = new Player("Tanvi");
         Grid grid1 = new Grid();
-        test_ship = player1.createShip();
-        grid1.placeShip();
+        Ship test_ship = player1.createShip("Minesweeper", 2, 2, 2, 2, 4);
+        assertEquals(4, test_ship.getShipLength(test_ship));
+        //grid1.placeShip();
     }
 }

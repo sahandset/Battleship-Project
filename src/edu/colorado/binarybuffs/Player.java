@@ -18,11 +18,9 @@ public class Player {
         return this.turn;
     }
 
-    public void createShip(Ship ship_name, Ship ship_length, Grid grid1) {
-        Ship ship1 = new Ship("Minesweeper", 2);
-        Ship ship2 = new Ship("Destroyer", 3);
-        Ship ship3 = new Ship("Battleship", 4);
+    public Ship createShip(String ship_name, int ship_length, int start_x, int start_y, int end_x, int end_y) {
+        Ship ship1 = new Ship(ship_name, ship_length, start_x, start_y, end_x, end_y);
 
-        //grid1.placeShip(ship1, ship2, ship3);
+        return ship1;
     }
 }

@@ -4,14 +4,23 @@ package edu.colorado.binarybuffs;
 public class Ship {
     private String ship_name;
     private int ship_length;
+    private int start_x;
+    private int start_y;
+    private int end_x;
+    private int end_y;
+    private int direction;
     private int health_value;
     private String status;
 
-    public Ship(String ship_name, int ship_length) {
+    public Ship(String ship_name, int ship_length, int start_x, int start_y, int end_x, int end_y) {
         this.ship_name = ship_name;
         this.ship_length = ship_length;
-        this.health_value = health_value;
-        this.status = status;
+        this.health_value = ship_length;
+        this.status = "alive";
+        this.start_x = start_x;
+        this.start_y = start_y;
+        this.end_x = end_x;
+        this.end_y = end_y;
     }
 
 
