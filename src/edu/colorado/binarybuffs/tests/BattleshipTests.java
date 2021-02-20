@@ -53,7 +53,7 @@ public class BattleshipTests {
     public void testShipPlacement() {
         Player player1 = new Player("Tanvi");
         Grid grid1 = new Grid();
-        Ship test_ship = player1.createShip("Minesweeper", 2, 2, 2, 2, 4);
+        Ship test_ship = player1.createShip(2, 2, 2, 2, 4);
         assertEquals(4, test_ship.getShipLength(test_ship));
         //grid1.placeShip();
     }
