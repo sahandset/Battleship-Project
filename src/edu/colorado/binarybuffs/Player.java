@@ -64,9 +64,9 @@ public class Player {
                 for(int i = 0; i < opponent.shipFleet.size(); i++){
                     //Array = getShipCoordinates(Ship ship)
                     ArrayList<Coordinate> listOfCoords = opponent.shipFleet.get(i).getShipCoordinates(opponent.shipFleet.get(i));
-                    for(int j = 0; i < listOfCoords.size(); i++){
-                        if (x == listOfCoords.get(j).x && y == listOfCoords.get(j).y){
-                            opponent.shipFleet.get(i).reduceHealth();
+                    for(int j = 0; j < listOfCoords.size(); j++){
+                        if ((x == listOfCoords.get(j).x) && (y == listOfCoords.get(j).y)){
+                            opponent.shipFleet.get(i).reduceHealth(opponent.shipFleet.get(i));
                         }
                     }
                 }
@@ -76,6 +76,7 @@ public class Player {
             System.out.println("You've already attacked here");
         }
     }
+
 
     //we need to:
         //check if ship has been sunk

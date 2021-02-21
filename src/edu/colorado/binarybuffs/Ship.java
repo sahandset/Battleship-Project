@@ -73,7 +73,7 @@ public class Ship {
         this.ship_cells = ship_cells;
     }
 
-    public void reduceHealth(){
+    public void reduceHealth(Ship ship1){
         this.health_value--;
         if (health_value == 0){
             this.status = "sunk";
