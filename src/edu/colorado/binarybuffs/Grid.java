@@ -1,11 +1,14 @@
 package edu.colorado.binarybuffs;
 
+import java.util.ArrayList;
+
 public class Grid {
     //put some attributes here
     private static int length_x = 10;
     private static int length_y = 10;
     public int [][] player_grid = new int [length_x][length_y];
     public int [][] offensive_grid = new int [length_x][length_y];
+
 
     //put the constructor that initializes some attributes here
     //Cell status
@@ -52,5 +55,80 @@ public class Grid {
     return player_grid[x][y];
     }
 
-    //public void placeShip() { }
+    public void placeShip(Ship ship, int start_x, int start_y, int end_x, int end_y) {
+        if (validateShip(ship.getShipLength(ship), start_x,  start_y,  end_x, end_y)) {
+            ship.setShipCoordinates(start_x, start_y, end_x, end_y);
+
+//
+//            for (int i = start_x; i <= end_x; i++) {
+//                for (int j = start_y; i <= end_y; j++) {
+//                    setCellStatus(1, i, j);
+//                }
+//            }
+        }
+    }
+
+    public void setCellStatus(int condition, int x, int y) {
+        player_grid[x][y] = 1;
+    }
+
+    public boolean validateShip(int ship_length, int start_x, int start_y, int end_x, int end_y)
+    {
+        if(start_x == end_x)
+        {
+//            if(start_y + ship_length == end_y) || start_y - ship_length == end_y)
+//            {
+//                return true;
+//            }
+            if (start_y + ship_length == end_y) {
+                for (int i = start_y; i <= end_y; i++) {
+                    if (player_grid[start_x][i] == 1) {
+                        System.out.println("There's already a ship here!");
+                        return false;
+                    }
+                }
+                return true;
+            }
+            if (start_y - ship_length == end_y) {
+                for (int i = end_y; i <= start_y; i++) {
+                    if (player_grid[start_x][i] == 1) {
+                        System.out.println("There's already a ship here!");
+                        return false;
+                    }
+                }
+            }
+        }
+        else if(start_y == end_y)
+        {
+//            if(start_x + ship_length == end_x || start_x - ship_length == end_x )
+//            {
+//                return true;
+//            }
+
+            if (start_x + ship_length == end_y) {
+                for (int i = start_x; i <= end_x; i++) {
+                    if (player_grid[i][start_y] == 1) {
+                        System.out.println("There's already a ship here!");
+                        return false;
+                    }
+                }
+                return true;
+            }
+            if (start_x - ship_length == end_y) {
+                for (int i = end_x; i <= start_x; i++) {
+                    if (player_grid[i][start_y] == 1) {
+                        System.out.println("There's already a ship here!");
+                        return false;
+                    }
+                }
+            }
+        }
+        else if (start_x < 0 || start_y < 0 || end_x > length_x || end_y > length_y)
+        {
+            return false;
+        }
+
+        System.out.println("This is invalid");
+        return false;
+    }
 }

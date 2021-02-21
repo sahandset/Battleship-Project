@@ -48,7 +48,6 @@ public class BattleshipTests {
         assertEquals(false, player_1.getTurn(player_1));
     }
 
-
     @Test
     public void testShipPlacement() {
         Player player1 = new Player("Tanvi");
