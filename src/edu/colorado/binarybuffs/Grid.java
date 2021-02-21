@@ -80,6 +80,7 @@ public class Grid {
                 for (int i = start_y; i <= end_y; i++) {
                     if (player_grid[start_x][i] == 1) {
                         System.out.println("There's already a ship here!");
+                        System.out.println("Make sure to place ships horizontally or vertically, not diagonally!");
                         return false;
                     }
                 }
@@ -100,6 +101,7 @@ public class Grid {
                 for (int i = start_x; i <= end_x; i++) {
                     if (player_grid[i][start_y] == 1) {
                         System.out.println("There's already a ship here!");
+                        System.out.println("Make sure to place ships horizontally or vertically, not diagonally!");
                         return false;
                     }
                 }
