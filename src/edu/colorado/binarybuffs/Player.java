@@ -33,6 +33,7 @@ public class Player {
         fleet.add(Battleship);
 
         this.shipFleet = fleet;
+        this.num_boats = fleet.size();
         return fleet;
     }
 
@@ -66,7 +67,8 @@ public class Player {
                     ArrayList<Coordinate> listOfCoords = opponent.shipFleet.get(i).getShipCoordinates(opponent.shipFleet.get(i));
                     for(int j = 0; j < listOfCoords.size(); j++){
                         if ((x == listOfCoords.get(j).x) && (y == listOfCoords.get(j).y)){
-                            opponent.shipFleet.get(i).reduceHealth(opponent.shipFleet.get(i));
+                            opponent.shipFleet.get(i).reduceHealth(opponent.shipFleet.get(i), opponent);
+
                         }
                     }
                 }
@@ -76,8 +78,17 @@ public class Player {
             System.out.println("You've already attacked here");
         }
     }
-
-
-    //we need to:
-        //check if ship has been sunk
+    public void reduceBoats() {
+        this.num_boats--;
+        if (this.surrender()) {
+            System.out.println("You've sunk all of " + this.player_name + "'s boats! You are the winner." );
+            System.out.println(this.player_name + " surrenders.");
+        }
+    }
+    public boolean surrender() {
+        if (this.num_boats == 0) {
+            return true;
+        }
+        return false;
+    }
 }
