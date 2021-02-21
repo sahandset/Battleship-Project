@@ -70,6 +70,7 @@ public class Ship {
                 }
             }
         }
+        this.ship_cells = ship_cells;
     }
 
     public String getShipName(Ship ship1) {
