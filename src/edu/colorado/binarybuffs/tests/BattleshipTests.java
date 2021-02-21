@@ -71,6 +71,6 @@ public class BattleshipTests {
         Ship player2_ship = player2.createShip(3, 3, 3, 3, 6);
         //grid2.placeShip(player2_fleet)
 
-        player1.attack(3,3);
+        //player1.attack(3,3, grid1, grid2);
     }
 }
