@@ -7,6 +7,8 @@ import edu.colorado.binarybuffs.Player;
 import edu.colorado.binarybuffs.Ship;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 
 public class BattleshipTests {
 
@@ -53,24 +55,25 @@ public class BattleshipTests {
     public void testShipPlacement() {
         Player player1 = new Player("Tanvi");
         Grid grid1 = new Grid();
-        Ship test_ship = player1.createShip(2, 2, 2, 2, 4);
-        assertEquals(2, test_ship.getShipLength(test_ship));
-        assertEquals("Minesweeper", test_ship.getShipName(test_ship));
-        System.out.println("This is tahmina's test");
-        //grid1.placeShip();
+        ArrayList<Ship> test_fleet = new ArrayList<Ship>();
+        test_fleet = player1.createFleet();
+        assertEquals(test_fleet.get(0).getShipName(test_fleet.get(0)), "Minesweeper");
+        assertEquals(test_fleet.get(1).getShipName(test_fleet.get(1)), "Destroyer");
+        assertEquals(test_fleet.get(2).getShipName(test_fleet.get(2)), "Battleship");
     }
 
-    public void attackTest(){
-        Player player1 = new Player("Tanvi");
-        Grid grid1 = new Grid();
-        Player player2 = new Player("Sahand");
-        Grid grid2 = new Grid();
-
-        Ship player1_fleet = player1.createShip(2, 2, 2, 2, 4);
-        //grid1.placeShip(player1_fleet)
-        Ship player2_ship = player2.createShip(3, 3, 3, 3, 6);
-        //grid2.placeShip(player2_fleet)
-
-        //player1.attack(3,3, grid1, grid2);
-    }
+//    @Test
+//    public void attackTest(){
+//        Player player1 = new Player("Tanvi");
+//        Grid grid1 = new Grid();
+//        Player player2 = new Player("Sahand");
+//        Grid grid2 = new Grid();
+//
+//        Ship player1_fleet = player1.createFleet(2, 2, 2, 2, 4);
+//        //grid1.placeShip(player1_fleet)
+//        Ship player2_ship = player2.createFleet(3, 3, 3, 3, 6);
+//        //grid2.placeShip(player2_fleet)
+//
+//        //player1.attack(3,3, grid1, grid2);
+//    }
 }

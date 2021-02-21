@@ -59,12 +59,11 @@ public class Grid {
         if (validateShip(ship.getShipLength(ship), start_x,  start_y,  end_x, end_y)) {
             ship.setShipCoordinates(start_x, start_y, end_x, end_y);
 
-//
-//            for (int i = start_x; i <= end_x; i++) {
-//                for (int j = start_y; i <= end_y; j++) {
-//                    setCellStatus(1, i, j);
-//                }
-//            }
+            int num_cells = ship.getShipCoordinates(ship).size();
+            ArrayList<Coordinate> ship_cells = ship.getShipCoordinates(ship);
+            for (int i = 0; i < num_cells; i++) {
+                setCellStatus(1, ship_cells.get(i).x, ship_cells.get(i).y);
+            }
         }
     }
 
@@ -76,10 +75,6 @@ public class Grid {
     {
         if(start_x == end_x)
         {
-//            if(start_y + ship_length == end_y) || start_y - ship_length == end_y)
-//            {
-//                return true;
-//            }
             if (start_y + ship_length == end_y) {
                 for (int i = start_y; i <= end_y; i++) {
                     if (player_grid[start_x][i] == 1) {
@@ -100,11 +95,6 @@ public class Grid {
         }
         else if(start_y == end_y)
         {
-//            if(start_x + ship_length == end_x || start_x - ship_length == end_x )
-//            {
-//                return true;
-//            }
-
             if (start_x + ship_length == end_y) {
                 for (int i = start_x; i <= end_x; i++) {
                     if (player_grid[i][start_y] == 1) {
