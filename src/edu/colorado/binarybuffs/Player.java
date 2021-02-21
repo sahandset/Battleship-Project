@@ -6,7 +6,7 @@ public class Player {
     private String player_name;
     private int num_boats;
     private boolean turn;
-    //public array shipFleet;
+    public ArrayList<Ship> shipFleet;
 
     public Player(String name) {
         this.player_name = name;
@@ -23,22 +23,23 @@ public class Player {
 
     public ArrayList<Ship> createFleet() {
 
-        ArrayList<Ship> Fleet = new ArrayList<Ship>();
+        ArrayList<Ship> fleet = new ArrayList<Ship>();
 
         Ship Minesweeper = new Ship("Minesweeper", 2);
         Ship Destroyer = new Ship("Destroyer", 3);
         Ship Battleship = new Ship("Battleship", 4);
-        Fleet.add(Minesweeper);
-        Fleet.add(Destroyer);
-        Fleet.add(Battleship);
+        fleet.add(Minesweeper);
+        fleet.add(Destroyer);
+        fleet.add(Battleship);
 
-        return Fleet;
+        this.shipFleet = fleet;
+        return fleet;
     }
 
-    public void attack(int x, int y, Grid grid1, Grid grid2, Player player2){
+    public void attack(int x, int y, Grid playerGrid, Grid opponentGrid, Player opponent){
         //first check if cell has already been attacked
         //if yes --> be like this is invalid
-        //if no --> be like okur
+        //if no --> be like okay
             //okay do the attack thing
             //see if that cell is occupied
                 //decrease length of ship by 1
@@ -46,16 +47,29 @@ public class Player {
             //change status of current player offensive grid
             //print you hit a cell
 
-        int status = grid1.offensive_grid[x][y];
-        if (status % 2 != 0){
-            if (status == 1){
+        int statusHit = playerGrid.offensive_grid[x][y];
+        int statusOccupied = opponentGrid.player_grid[x][y];
+        if (statusHit % 2 != 0){
+            if (statusOccupied == 0){
                 System.out.println("You've attempted attack, but there's nothing at this location");
-                grid1.offensive_grid[x][y] = 2;
+                playerGrid.offensive_grid[x][y] = 2;
             }
-            else if (status == 3){
+            else if (statusOccupied == 1){
                 System.out.println("You've attempted attack. Congrats! You hit a ship!");
-                grid1.offensive_grid[x][y] = 4;
+                playerGrid.offensive_grid[x][y] = 4;
+
                 //access ships and change their health
+
+                //for ship in player2 ship fleet
+                for(int i = 0; i < opponent.shipFleet.size(); i++){
+                    //Array = getShipCoordinates(Ship ship)
+                    ArrayList<Coordinate> listOfCoords = opponent.shipFleet.get(i).getShipCoordinates(opponent.shipFleet.get(i));
+                    for(int j = 0; i < listOfCoords.size(); i++){
+                        if (x == listOfCoords.get(j).x && y == listOfCoords.get(j).y){
+                            opponent.shipFleet.get(i).reduceHealth();
+                        }
+                    }
+                }
             }
         }
         else {

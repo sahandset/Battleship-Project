@@ -73,6 +73,13 @@ public class Ship {
         this.ship_cells = ship_cells;
     }
 
+    public void reduceHealth(){
+        this.health_value--;
+        if (health_value == 0){
+            this.status = "sunk";
+            System.out.println("You sank the " + this.ship_name + "! Congrats!");
+        }
+    }
     public String getShipName(Ship ship1) {
         return this.ship_name;
     }

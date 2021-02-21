@@ -10,6 +10,7 @@ public class Grid {
     public int [][] offensive_grid = new int [length_x][length_y];
 
 
+
     //put the constructor that initializes some attributes here
     //Cell status
     //  1: empty, not attacked
