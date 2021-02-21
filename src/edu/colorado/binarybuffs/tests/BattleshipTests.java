@@ -52,15 +52,29 @@ public class BattleshipTests {
     }
 
     @Test
-    public void testShipPlacement() {
+    public void testShipFleetCreation() {
         Player player1 = new Player("Tanvi");
         Grid grid1 = new Grid();
-        ArrayList<Ship> test_fleet = new ArrayList<Ship>();
+        ArrayList<Ship> test_fleet;
         test_fleet = player1.createFleet();
         assertEquals(test_fleet.get(0).getShipName(test_fleet.get(0)), "Minesweeper");
         assertEquals(test_fleet.get(1).getShipName(test_fleet.get(1)), "Destroyer");
         assertEquals(test_fleet.get(2).getShipName(test_fleet.get(2)), "Battleship");
     }
+
+    @Test
+    public void testShipPlacement() {
+        Player player1 = new Player("Tanvi");
+        Grid grid1 = new Grid();
+        ArrayList<Ship> test_fleet;
+        test_fleet = player1.createFleet();
+        for (int i = 0; i < test_fleet.size(); i++) {
+            grid1.placeShip(test_fleet.get(i), 1, 1, 1, 1);
+        }
+        assertEquals(1, grid1.player_grid[1][1]);
+    }
+
+
 
 //    @Test
 //    public void attackTest(){
