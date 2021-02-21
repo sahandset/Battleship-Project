@@ -6,7 +6,7 @@ public class Player {
     private String player_name;
     private int num_boats;
     private boolean turn;
-    public ArrayList<Ship> shipFleet;
+    public ArrayList<Ship> ship_fleet;
 
     public Player(String name) {
         this.player_name = name;
@@ -32,7 +32,7 @@ public class Player {
         fleet.add(Destroyer);
         fleet.add(Battleship);
 
-        this.shipFleet = fleet;
+        this.ship_fleet = fleet;
         this.num_boats = fleet.size();
         return fleet;
     }
@@ -62,12 +62,12 @@ public class Player {
                 //access ships and change their health
 
                 //for ship in player2 ship fleet
-                for(int i = 0; i < opponent.shipFleet.size(); i++){
+                for(int i = 0; i < opponent.ship_fleet.size(); i++){
                     //Array = getShipCoordinates(Ship ship)
-                    ArrayList<Coordinate> listOfCoords = opponent.shipFleet.get(i).getShipCoordinates(opponent.shipFleet.get(i));
-                    for(int j = 0; j < listOfCoords.size(); j++){
-                        if ((x == listOfCoords.get(j).x) && (y == listOfCoords.get(j).y)){
-                            opponent.shipFleet.get(i).reduceHealth(opponent.shipFleet.get(i), opponent);
+                    ArrayList<Coordinate> list_of_coords = opponent.ship_fleet.get(i).getShipCoordinates(opponent.ship_fleet.get(i));
+                    for(int j = 0; j < list_of_coords.size(); j++){
+                        if ((x == list_of_coords.get(j).x) && (y == list_of_coords.get(j).y)){
+                            opponent.ship_fleet.get(i).reduceHealth(opponent.ship_fleet.get(i), opponent);
 
                         }
                     }

@@ -20,18 +20,7 @@ public class Ship {
         this.ship_length = ship_length;
         this.health_value = ship_length;
         this.status = "alive";
-//        this.start_x = start_x;
-//        this.start_y = start_y;
-//        this.end_x = end_x;
-//        this.end_y = end_y;
     }
-
-    //Team BinaryBuffs, pair 1 was here
-    // Team Binary Buffs, pair 2 was here
-
-    // TODO: create appropriate getter and setter methods
-    // TODO: Understand encapsulation
-    // TODO: Understand what these todo comments mean
 
     public void show() {     // dunno why this is here maybe it is just an example method
         System.out.println("IF you can't see this then something is severely wrong!!");
@@ -73,7 +62,7 @@ public class Ship {
         this.ship_cells = ship_cells;
     }
 
-    public void reduceHealth(Ship ship1, Player opponent){
+    public void reduceHealth(Ship ship, Player opponent){
         this.health_value--;
         if (health_value == 0){
             this.status = "sunk";
@@ -81,11 +70,11 @@ public class Ship {
             opponent.reduceBoats();
         }
     }
-    public String getShipName(Ship ship1) {
+    public String getShipName(Ship ship) {
         return this.ship_name;
     }
 
-    public int getShipLength(Ship ship1) {
+    public int getShipLength(Ship ship) {
         return this.ship_length;
     }
 
