@@ -24,8 +24,8 @@ public class Grid {
     //Offensive Grid Status of Moves
     //Variable 1: Hit/miss
     //Variable 2: Empty/not empty
-    //  1: (empty, not attacked)
-    //  2: (empty, missed)
+    //  1: (empty, not hit)
+    //  2: (empty, hit and missed)
     //  3: (occupied, not hit)
     //  4: (occupied, hit)
 
