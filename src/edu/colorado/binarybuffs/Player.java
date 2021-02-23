@@ -52,11 +52,10 @@ public class Player {
         int statusOccupied = opponentGrid.player_grid[x][y];
         if (statusHit % 2 != 0){
             if (statusOccupied == 0){
-                System.out.println("You've attempted attack, but there's nothing at this location");
+                System.out.println("You've attempted attack, but you've missed!");
                 playerGrid.offensive_grid[x][y] = 2;
             }
             else if (statusOccupied == 1){
-                System.out.println("You've attempted attack. Congrats! You hit a ship!");
                 playerGrid.offensive_grid[x][y] = 4;
 
                 //access ships and change their health
@@ -65,7 +64,15 @@ public class Player {
                     //see if cell hit was captain's quarters
                     Coordinate capt_quart = opponent.ship_fleet.get(i).getCaptainsQuarters(opponent.ship_fleet.get(i));
                     if (x == capt_quart.x && y == capt_quart.y){
-                        opponent.ship_fleet.get(i).sinkShip(opponent.ship_fleet.get(i), opponent);
+                        if (opponent.ship_fleet.get(i).getArmorStatus(opponent.ship_fleet.get(i))) {
+                            playerGrid.offensive_grid[x][y] = 2;
+                            System.out.println("You've attempted attack, but you've missed!");
+                            return;
+                        }
+                        else{
+                            System.out.println("You've hit a captain's quarters!");
+                            opponent.ship_fleet.get(i).sinkShip(opponent.ship_fleet.get(i), opponent);
+                        }
                     }
                     else {
                         //Array = getShipCoordinates(Ship ship)
@@ -78,10 +85,19 @@ public class Player {
                         }
                     }
                 }
+                System.out.println("You've attempted attack. Congrats! You hit a ship!");
             }
         }
         else {
             System.out.println("You've already attacked here");
+            for (int i = 0; i < opponent.ship_fleet.size(); i++) {
+                //see if cell hit was captain's quarters
+                Coordinate capt_quart = opponent.ship_fleet.get(i).getCaptainsQuarters(opponent.ship_fleet.get(i));
+                if (x == capt_quart.x && y == capt_quart.y) {
+                    System.out.println("You've hit a captain's quarters!");
+                    opponent.ship_fleet.get(i).sinkShip(opponent.ship_fleet.get(i), opponent);
+                }
+            }
         }
     }
     public void reduceBoats() {

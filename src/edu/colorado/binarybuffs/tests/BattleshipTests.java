@@ -301,13 +301,12 @@ public class BattleshipTests {
             player1Grid.placeShip(test_fleet.get(i), coordinates.get(2 * i).x, coordinates.get(2 * i).y, coordinates.get(2 * i + 1).x, coordinates.get(2 * i + 1).y);
         }
 
-        player2.attack(2,6, player2Grid, player1Grid, player1); //This should attack captain's quarters of destroyer. Ship should not sink.
-        player2.attack(2,6, player2Grid, player1Grid, player1); //This should attack captain's quarters of destroyer again. Ship should sink.
+        player2.attack(2,5, player2Grid, player1Grid, player1); //This should attack captain's quarters of destroyer. Should count as a miss, Ship should not sink.
+        player2.attack(2,5, player2Grid, player1Grid, player1); //This should attack captain's quarters of destroyer again. Ship should sink.
 
-        player2.attack(3,7, player2Grid, player1Grid, player1); // This should attack captain's quarters of battleship. Ship should not sink.
+        player2.attack(3,7, player2Grid, player1Grid, player1); // This should attack captain's quarters of battleship. Should count as a miss, Ship should not sink.
         player2.attack(3,7, player2Grid, player1Grid, player1); // This should attack captain's quarters of battleship. Ship should sink.
 
-        //Player2 should win!
     }
 
 

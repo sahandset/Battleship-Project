@@ -15,12 +15,18 @@ public class Ship {
     private String status;
     private ArrayList<Coordinate> ship_cells;
     private Coordinate captains_quarters;
+    private boolean is_armored;
 
     public Ship(String ship_name, int ship_length) {
         this.ship_name = ship_name;
         this.ship_length = ship_length;
         this.health_value = ship_length;
         this.status = "alive";
+        if (this.ship_length > 2) {
+            this.is_armored = true;
+        } else {
+            this.is_armored = false;
+        }
     }
 
     public void show() {     // dunno why this is here maybe it is just an example method
@@ -104,6 +110,10 @@ public class Ship {
 
     public Coordinate getCaptainsQuarters(Ship ship) {
         return this.captains_quarters;
+    }
+
+    public boolean getArmorStatus(Ship ship) {
+        return this.is_armored;
     }
 }
 
