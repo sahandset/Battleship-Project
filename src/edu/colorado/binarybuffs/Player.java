@@ -60,15 +60,21 @@ public class Player {
                 playerGrid.offensive_grid[x][y] = 4;
 
                 //access ships and change their health
-
-                //for ship in player2 ship fleet
                 for(int i = 0; i < opponent.ship_fleet.size(); i++){
-                    //Array = getShipCoordinates(Ship ship)
-                    ArrayList<Coordinate> list_of_coords = opponent.ship_fleet.get(i).getShipCoordinates(opponent.ship_fleet.get(i));
-                    for(int j = 0; j < list_of_coords.size(); j++){
-                        if ((x == list_of_coords.get(j).x) && (y == list_of_coords.get(j).y)){
-                            opponent.ship_fleet.get(i).reduceHealth(opponent.ship_fleet.get(i), opponent);
 
+                    //see if cell hit was captain's quarters
+                    Coordinate capt_quart = opponent.ship_fleet.get(i).getCaptainsQuarters(opponent.ship_fleet.get(i));
+                    if (x == capt_quart.x && y == capt_quart.y){
+                        opponent.ship_fleet.get(i).sinkShip(opponent.ship_fleet.get(i), opponent);
+                    }
+                    else {
+                        //Array = getShipCoordinates(Ship ship)
+                        ArrayList<Coordinate> list_of_coords = opponent.ship_fleet.get(i).getShipCoordinates(opponent.ship_fleet.get(i));
+                        for (int j = 0; j < list_of_coords.size(); j++) {
+                            if ((x == list_of_coords.get(j).x) && (y == list_of_coords.get(j).y)) {
+                                opponent.ship_fleet.get(i).reduceHealth(opponent.ship_fleet.get(i), opponent);
+
+                            }
                         }
                     }
                 }

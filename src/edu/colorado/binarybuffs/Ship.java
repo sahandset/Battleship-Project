@@ -14,7 +14,7 @@ public class Ship {
     private int health_value;
     private String status;
     private ArrayList<Coordinate> ship_cells;
-    //private array ship_cells status
+    private Coordinate captains_quarters;
 
     public Ship(String ship_name, int ship_length) {
         this.ship_name = ship_name;
@@ -61,16 +61,35 @@ public class Ship {
             }
         }
         this.ship_cells = ship_cells;
+        this.setCaptainsQuarters(this);
     }
 
     public void reduceHealth(Ship ship, Player opponent){
         this.health_value--;
         if (health_value == 0){
-            this.status = "sunk";
-            System.out.println("You sank the " + this.ship_name + "! Congrats!");
-            opponent.reduceBoats();
+            this.sinkShip(ship, opponent);
         }
     }
+
+    public void setCaptainsQuarters(Ship ship){
+        if (ship.ship_length == 2) {
+            this.captains_quarters = ship.getShipCoordinates(ship).get(0);
+        }
+        else if (ship.ship_length == 3) {
+            this.captains_quarters = ship.getShipCoordinates(ship).get(1);
+        }
+        else if (ship.ship_length == 4) {
+            this.captains_quarters = ship.getShipCoordinates(ship).get(2);
+        }
+    }
+
+    public void sinkShip(Ship ship, Player opponent){
+        this.status = "sunk";
+        ship.health_value = 0;
+        System.out.println("You sank the " + this.ship_name + "! Congrats!");
+        opponent.reduceBoats();
+    }
+
     public String getShipName(Ship ship) {
         return this.ship_name;
     }
@@ -81,6 +100,10 @@ public class Ship {
 
     public ArrayList<Coordinate> getShipCoordinates(Ship ship) {
         return this.ship_cells;
+    }
+
+    public Coordinate getCaptainsQuarters(Ship ship) {
+        return this.captains_quarters;
     }
 }
 
