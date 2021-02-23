@@ -239,4 +239,39 @@ public class BattleshipTests {
         player2.attack(1,2, player2Grid, player1Grid, player1); //This should attack first cell of minesweeper. Ship should sink.
     }
 
+    @Test
+    public void captainsQuartersAllShipsWithoutArmorTest(){
+        Player player1 = new Player("Tanvi");
+        Grid player1Grid = new Grid();
+        Player player2 = new Player("Sahand");
+        Grid player2Grid = new Grid();
+
+        ArrayList<Ship> test_fleet;
+        test_fleet = player1.createFleet();
+        ArrayList<Coordinate> coordinates = new ArrayList<Coordinate>();
+        Coordinate coord1 = new Coordinate(1, 2);
+        Coordinate coord2 = new Coordinate(1, 4);
+        Coordinate coord3 = new Coordinate(2, 4);
+        Coordinate coord4 = new Coordinate(2, 7);
+        Coordinate coord5 = new Coordinate(3, 5);
+        Coordinate coord6 = new Coordinate(3, 9);
+
+        coordinates.add(coord1);
+        coordinates.add(coord2);
+        coordinates.add(coord3);
+        coordinates.add(coord4);
+        coordinates.add(coord5);
+        coordinates.add(coord6);
+
+        for (int i = 0; i < test_fleet.size(); i++) {
+            player1Grid.placeShip(test_fleet.get(i), coordinates.get(2 * i).x, coordinates.get(2 * i).y, coordinates.get(2 * i + 1).x, coordinates.get(2 * i + 1).y);
+        }
+
+        player2.attack(1,2, player2Grid, player1Grid, player1); //This should attack first cell of minesweeper. Ship should sink.
+        player2.attack(2,5, player2Grid, player1Grid, player1); //This should attack first cell of destroyer. Ship should sink.
+        player2.attack(3,7, player2Grid, player1Grid, player1); //This should attack first cell of battleship. Ship should sink.
+        //Player2 should win!
+    }
+
+
 }
