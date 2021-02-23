@@ -72,6 +72,7 @@ public class Player {
                         else{
                             System.out.println("You've hit a captain's quarters!");
                             opponent.ship_fleet.get(i).sinkShip(opponent.ship_fleet.get(i), opponent);
+                            return;
                         }
                     }
                     else {
