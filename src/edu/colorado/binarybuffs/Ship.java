@@ -14,6 +14,7 @@ public class Ship {
     private int health_value;
     private String status;
     private ArrayList<Coordinate> ship_cells;
+    //private array ship_cells status
 
     public Ship(String ship_name, int ship_length) {
         this.ship_name = ship_name;
