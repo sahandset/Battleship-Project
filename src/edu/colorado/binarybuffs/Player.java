@@ -1,12 +1,14 @@
 package edu.colorado.binarybuffs;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 public class Player {
     private String player_name;
     private int num_boats;
     private boolean turn;
     public ArrayList<Ship> ship_fleet;
+    SonarPulse my_sonar_pulse = new SonarPulse();
 
     public Player(String name) {
         this.player_name = name;
@@ -20,6 +22,8 @@ public class Player {
     public boolean getTurn(Player player) {
         return this.turn;
     }
+
+    public int getNumBoats(Player player){return this.num_boats;}
 
     public ArrayList<Ship> createFleet() {
 
@@ -101,6 +105,8 @@ public class Player {
             }
         }
     }
+
+
     public void reduceBoats() {
         this.num_boats--;
         if (this.surrender()) {
@@ -113,5 +119,16 @@ public class Player {
             return true;
         }
         return false;
+    }
+
+    public Hashtable<String, String> useSonarPulse(int x, int y, Grid playerGrid, Player player1){
+        Hashtable<String, String> grid_vision = my_sonar_pulse.sonarPulse(x, y, playerGrid, player1);
+        if (grid_vision != null) {
+            System.out.println(grid_vision);
+        }
+        else{
+            System.out.println("You can't use the sonar pulse! You either have not sunk a ship or already used it more than 2 times.");
+        }
+        return grid_vision;
     }
 }

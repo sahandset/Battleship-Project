@@ -2,10 +2,7 @@ package edu.colorado.binarybuffs.tests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import edu.colorado.binarybuffs.Coordinate;
-import edu.colorado.binarybuffs.Grid;
-import edu.colorado.binarybuffs.Player;
-import edu.colorado.binarybuffs.Ship;
+import edu.colorado.binarybuffs.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -374,11 +371,12 @@ public class BattleshipTests {
         for (int i = 0; i < test_fleet.size(); i++) {
             player1Grid.placeShip(test_fleet.get(i), coordinates.get(2 * i).x, coordinates.get(2 * i).y, coordinates.get(2 * i + 1).x, coordinates.get(2 * i + 1).y);
         }
+        player2.attack(1,2, player2Grid, player1Grid, player1); //This should attack captains' quarters of minesweeper. Ship should sink.
 
-        Hashtable<Coordinate, String> revealedCoords = new Hashtable<Coordinate, String>();
+        Hashtable<String, String> revealedCoords = new Hashtable<String, String>();
 
+        revealedCoords = player2.useSonarPulse(4,4, player1Grid, player1);
 
-        revealedCoords = player2.sonarPulse(4,4, player1Grid, player1);
-
+        assertEquals("Black", revealedCoords.get("(4, 4)"));
     }
 }
