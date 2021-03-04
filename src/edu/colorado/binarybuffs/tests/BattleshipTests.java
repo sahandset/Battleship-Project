@@ -417,7 +417,7 @@ public class BattleshipTests {
 
         revealedCoords = player2.useSonarPulse(6,6, player1Grid, player1);
 
-        assertEquals(1, player2.my_sonar_pulse.possible_uses);
+        assertEquals(0, player2.my_sonar_pulse.possible_uses);
 
     }
 }
