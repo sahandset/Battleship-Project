@@ -8,7 +8,7 @@ public class Player {
     private int num_boats;
     private boolean turn;
     public ArrayList<Ship> ship_fleet;
-    SonarPulse my_sonar_pulse = new SonarPulse();
+    public SonarPulse my_sonar_pulse = new SonarPulse();
 
     public Player(String name) {
         this.player_name = name;
@@ -24,6 +24,8 @@ public class Player {
     }
 
     public int getNumBoats(Player player){return this.num_boats;}
+
+
 
     public ArrayList<Ship> createFleet() {
 
