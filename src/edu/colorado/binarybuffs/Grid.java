@@ -54,7 +54,29 @@ public class Grid {
     return player_grid[x][y];
     }
 
-    public void placeShip(Ship ship, int start_x, int start_y, int end_x, int end_y) {
+    public void placeShip(Ship ship, int start_x, int start_y, String direction) {
+        int length = ship.getShipLength(ship);
+        int end_x = 0;
+        int end_y = 0;
+
+        if ((direction.toLowerCase() == "north") || (direction.toLowerCase() == "n")) {
+             end_x = start_x;
+             end_y = start_y - length;
+        }
+        else if ((direction.toLowerCase() == "south") || (direction.toLowerCase() == "s")) {
+             end_x = start_x;
+             end_y = start_y + length;
+        }
+        else if ((direction.toLowerCase() == "east") || (direction.toLowerCase() == "e")) {
+             end_x = start_x + length;
+             end_y = start_y;
+        }
+        else if ((direction.toLowerCase() == "west") || (direction.toLowerCase() == "w")) {
+             end_x = start_x - length;
+             end_y = start_y;
+        }
+
+
         if (validateShip(ship.getShipLength(ship), start_x,  start_y,  end_x, end_y)) {
             ship.setShipCoordinates(start_x, start_y, end_x, end_y);
 
@@ -65,6 +87,8 @@ public class Grid {
             }
         }
     }
+
+
 
     public void setCellStatus(int condition, int x, int y) {
         player_grid[x][y] = 1;
