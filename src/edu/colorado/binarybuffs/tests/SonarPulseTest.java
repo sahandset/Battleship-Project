@@ -74,6 +74,10 @@ public class SonarPulseTest {
 
         revealedCoords = player2.useSonarPulse(6,6, player1Grid, player1);
 
+        player2.attack(3,7, player2Grid, player1Grid, player1);
+
+        player2.attack(3,7, player2Grid, player1Grid, player1);
+
         assertEquals(0, player2.my_sonar_pulse.possible_uses);
 
     }
