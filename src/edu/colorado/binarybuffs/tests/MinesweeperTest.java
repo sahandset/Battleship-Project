@@ -18,4 +18,14 @@ public class MinesweeperTest {
         assertEquals(2, results.get(1).y);
     }
 
+    @Test
+    public void MinesweeperGetCoords2() {
+        Minesweeper sweeper = new Minesweeper();
+        ArrayList<Coordinate> results = sweeper.getCoordOffsets(1, 1, "north");
+        assertEquals(1, results.get(1).x);
+        assertEquals(2, results.get(1).y);
+        assertEquals(1, results.get(0).x);
+        assertEquals(3, results.get(0).y);
+    }
+
 }
