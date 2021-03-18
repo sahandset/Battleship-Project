@@ -25,7 +25,15 @@ public class MinesweeperTest {
         assertEquals(1, results.get(1).x);
         assertEquals(2, results.get(1).y);
         assertEquals(1, results.get(0).x);
-        assertEquals(3, results.get(0).y);
+        assertEquals(1, results.get(0).y);
+    }
+
+    @Test
+    public void MinesweeperGetCaptsCoords() {
+        Minesweeper sweeper = new Minesweeper();
+        Coordinate cord1 = sweeper.getCaptsOffset(1, 1, "north");
+        assertEquals(1, cord1.x);
+        assertEquals(1, cord1.y);
     }
 
 }
