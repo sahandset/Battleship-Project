@@ -6,26 +6,18 @@ import java.util.Hashtable;
 public class Player {
     private String player_name;
     private int num_boats;
-    private boolean turn;
     public ArrayList<Ship> ship_fleet;
     public SonarPulse my_sonar_pulse = new SonarPulse();
 
     public Player(String name) {
         this.player_name = name;
-        this.turn = false;
     }
 
     public String getName(Player player) {
         return this.player_name;
     }
 
-    public boolean getTurn(Player player) {
-        return this.turn;
-    }
-
     public int getNumBoats(Player player){return this.num_boats;}
-
-
 
     public ArrayList<Ship> createFleet() {
 
@@ -116,6 +108,19 @@ public class Player {
             System.out.println(this.player_name + " surrenders.");
         }
     }
+
+//    public boolean checkAvailability(Player opponent_player){
+//        if (possible_uses > 0)  {
+//            if (opponent_player.getNumBoats(opponent_player) < 3){
+//                return true;
+//            }
+//        }
+//        else {
+//            return false;
+//        }
+//        return false;
+//    }
+
     public boolean surrender() {
         if (this.num_boats == 0) {
             return true;
@@ -123,14 +128,22 @@ public class Player {
         return false;
     }
 
-    public Hashtable<String, String> useSonarPulse(int x, int y, Grid playerGrid, Player player1){
-        Hashtable<String, String> grid_vision = my_sonar_pulse.sonarPulse(x, y, playerGrid, player1);
-        if (grid_vision != null) {
-            System.out.println(grid_vision);
+    public String [][] useSonarPulse(int x, int y, Grid playerGrid, Player player1){
+        String [][] grid_vision = my_sonar_pulse.sonarPulse(x, y, playerGrid, player1);
+//        if (grid_vision != null) {
+//            System.out.println(grid_vision);
+//        }
+//        else{
+//            System.out.println("You can't use the sonar pulse! You either have not sunk a ship or already used it more than 2 times.");
+//        }
+        String vision = "";
+        for(int row = 0; row < grid_vision.length; row++) {
+            for(int col = 0; col < grid_vision[row].length; col++) {
+                vision += " " + grid_vision[row][col];
+            }
+            vision += "\n" + "---------------------------------------------------------------------------------------------------" + "\n";
         }
-        else{
-            System.out.println("You can't use the sonar pulse! You either have not sunk a ship or already used it more than 2 times.");
-        }
+        System.out.println(vision);
         return grid_vision;
     }
 }
