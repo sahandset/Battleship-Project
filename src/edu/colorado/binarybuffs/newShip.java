@@ -10,6 +10,9 @@ public abstract class newShip {
     public newShip() {
 
     }
+    public String getName() {
+        return this.ship_name;
+    }
 
     public abstract ArrayList<Coordinate> getCoords(int start_x, int start_y, String direction);
 
