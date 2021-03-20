@@ -17,4 +17,8 @@ public class newGrid {
     public int checkCellStatus(int x, int y) {
         return grid[x][y];
     }
+
+    public void setCellStatus(int condition, int x, int y) {
+        grid[x][y] = condition;
+    }
 }

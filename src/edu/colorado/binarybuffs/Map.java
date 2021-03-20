@@ -24,7 +24,18 @@ public abstract class Map {
         ArrayList<Coordinate> coords = ship.getCoords(start_x, start_y, direction);
         //get the capts quart
         Coordinate captsQuart = ship.getCaptsCoords(start_x, start_y, direction);
+
+        //validated it
+        //boolean ship_is_legit ...
+        //if(ship_is_legit){
+        //set sell status == 1 for each in coords
+        //add to hashtable of shipCoordinates
+        //add capts quarts to captainsQuarters
     }
 
+    //validateShip(coords)
+    // went through each cord and checked out of bounds
+    // checked cell status
+    // returned true or false
 
 }
