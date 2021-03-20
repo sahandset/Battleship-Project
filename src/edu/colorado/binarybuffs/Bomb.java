@@ -9,8 +9,19 @@ public class Bomb extends Weapon {
         this.num_uses = 100; //constant set num times we can use this
     }
 
-    public boolean deployWeapon(int x, int y, newPlayer opponent, Map attacked_map) {
-        int status_hit =
+    public boolean deployWeapon(int x, int y, newPlayer opponent, Map attacked_map, Map current_player_map) {
+        int has_been_attacked = current_player_map.offensiveGrid.checkCellStatus(x,y);
+        int is_occupied = attacked_map.defensiveGrid.checkCellStatus(x,y);
+
+        if (has_been_attacked == 0) {
+            if (is_occupied == 0) {
+                System.out.println("You've attempted an attack, but you've missed!");
+                current_player_map.offensiveGrid.setCellStatus(1, x, y);
+            } else if (is_occupied == 1) {
+                System.out.println("You've attempted an attack - it's a hit!");
+                current_player_map.offensiveGrid.setCellStatus(2, x, y);
+            }
+        }
         return true;
     }
 

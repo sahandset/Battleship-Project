@@ -16,7 +16,8 @@ public class newPlayer {
 
     public boolean useWeapon(Weapon weapon, int x, int y, newPlayer opponent, int map_choice) {
         Map attacked_map = opponent.player_maps.get(map_choice);
-        return weapon.deployWeapon(x, y, opponent, attacked_map);
+        Map curr_players_map = this.player_maps.get(map_choice);
+        return weapon.deployWeapon(x, y, opponent, attacked_map, curr_players_map);
 
     }
 

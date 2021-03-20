@@ -11,11 +11,13 @@ public abstract class Map {
     newGrid offensiveGrid;
     newGrid defensiveGrid;
 
-    Hashtable<newShip, Coordinate> captainsQuarters = new Hashtable<>();
+    Hashtable<newShip, Coordinate> captains_quarters = new Hashtable<>();
 
-    Hashtable<newShip, ArrayList<Coordinate>> shipCoordinates = new Hashtable<>();
+    Hashtable<newShip, ArrayList<Coordinate>> ship_coordinates = new Hashtable<>();
 
-    Hashtable<newShip, String> shipDirections = new Hashtable<>();
+    Hashtable<newShip, String> ship_directions = new Hashtable<>();
+
+    Hashtable<newShip, Integer> ship_health = new Hashtable<>();
     
     public Map(){
         offensiveGrid = new newGrid();
@@ -42,9 +44,11 @@ public abstract class Map {
             for (int i = 0; i < coords.size(); i++) {
                 defensiveGrid.setCellStatus(1, coords.get(i).x, coords.get(i).y);
             }
-            shipCoordinates.put(ship, coords);
-            captainsQuarters.put(ship, captsQuart);
-            shipDirections.put(ship, direction);
+            ship_coordinates.put(ship, coords);
+            captains_quarters.put(ship, captsQuart);
+            ship_directions.put(ship, direction);
+            ship_health.put(ship, ship.getShipSize());
+
             System.out.println("Successfully placed the " + ship.getName()  + "!");
             return true;
         } else {

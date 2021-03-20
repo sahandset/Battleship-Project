@@ -5,7 +5,7 @@ public class Lazer extends Weapon {
 
     }
 
-    public boolean deployWeapon(int x, int y, newPlayer opponent, Map attacked_map) {
+    public boolean deployWeapon(int x, int y, newPlayer opponent, Map attacked_map, Map current_player_map) {
         return true;
     }
 }

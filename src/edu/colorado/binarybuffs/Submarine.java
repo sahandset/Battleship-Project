@@ -10,8 +10,14 @@ public class Submarine extends newShip implements SubmersibleShip {
 
     }
 
+    @Override
     public String getName() {
         return this.ship_name;
+    }
+
+    @Override
+    public int getShipSize() {
+        return this.ship_size;
     }
 
     public ArrayList<Coordinate> getCoords(int start_x, int start_y, String direction) {
