@@ -8,6 +8,11 @@ public class Destroyer extends newShip{
     public Destroyer() {
 
     }
+
+    public String getName() {
+        return this.ship_name;
+    }
+
     public ArrayList<Coordinate> getCoords(int start_x, int start_y, String direction) {
         ArrayList<Coordinate> ship_cells = new ArrayList<Coordinate>();
 
@@ -63,4 +68,5 @@ public class Destroyer extends newShip{
         }
         return null;
     }
+
 }

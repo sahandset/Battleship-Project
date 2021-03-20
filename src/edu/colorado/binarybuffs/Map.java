@@ -6,6 +6,8 @@ import java.util.Hashtable;
 
 public abstract class Map {
 
+    private String name;
+
     newGrid offensiveGrid;
     newGrid defensiveGrid;
 
@@ -19,6 +21,8 @@ public abstract class Map {
         offensiveGrid = new newGrid();
         defensiveGrid = new newGrid();
     }
+
+    public abstract String getName();
 
     public boolean placeShip(newShip ship, int start_x, int start_y, String direction) {
         //get the cords
@@ -44,7 +48,7 @@ public abstract class Map {
             System.out.println("Successfully placed the " + ship.getName()  + "!");
             return true;
         } else {
-            System.out.println("You can't place a ship there! Try again.");
+            System.out.println("You can't place the " + ship.getName()+  " there! Try again.");
             return false;
         }
 
@@ -54,6 +58,9 @@ public abstract class Map {
         // went through each coord and checked out of bounds
         // checked cell status
         // returned true or false
+
+    public abstract boolean validateDeployment(newShip ship);
+
     public boolean validateShip(ArrayList<Coordinate> coords){
 
         for (int i = 0; i < coords.size(); i++) {

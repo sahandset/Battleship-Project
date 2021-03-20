@@ -133,22 +133,23 @@ public class Player {
         return false;
     }
 
-    public String [][] useSonarPulse(int x, int y, Grid playerGrid, Player player1){
-        String [][] grid_vision = my_sonar_pulse.sonarPulse(x, y, playerGrid, player1);
+//    public String [][] useSonarPulse(int x, int y, Grid playerGrid, Player player1) {
+////        String [][] grid_vision = my_sonar_pulse.sonarPulse(x, y, playerGrid, player1);
 //        if (grid_vision != null) {
-//            System.out.println(grid_vision);
+////            System.out.println(grid_vision);
+////        }
+////        else{
+////            System.out.println("You can't use the sonar pulse! You either have not sunk a ship or already used it more than 2 times.");
+////        }
+//            String vision = "";
+//            for (int row = 0; row < grid_vision.length; row++) {
+//                for (int col = 0; col < grid_vision[row].length; col++) {
+//                    vision += " " + grid_vision[row][col];
+//                }
+//                vision += "\n" + "---------------------------------------------------------------------------------------------------" + "\n";
+//            }
+//            System.out.println(vision);
+//            return grid_vision;
 //        }
-//        else{
-//            System.out.println("You can't use the sonar pulse! You either have not sunk a ship or already used it more than 2 times.");
-//        }
-        String vision = "";
-        for(int row = 0; row < grid_vision.length; row++) {
-            for(int col = 0; col < grid_vision[row].length; col++) {
-                vision += " " + grid_vision[row][col];
-            }
-            vision += "\n" + "---------------------------------------------------------------------------------------------------" + "\n";
-        }
-        System.out.println(vision);
-        return grid_vision;
-    }
+//    }
 }

@@ -2,12 +2,16 @@ package edu.colorado.binarybuffs;
 
 import java.util.ArrayList;
 
-public class Submarine extends newShip{
+public class Submarine extends newShip implements SubmersibleShip {
     private String ship_name = "Submarine";
     private static int ship_size = 5;
 
     public Submarine() {
 
+    }
+
+    public String getName() {
+        return this.ship_name;
     }
 
     public ArrayList<Coordinate> getCoords(int start_x, int start_y, String direction) {

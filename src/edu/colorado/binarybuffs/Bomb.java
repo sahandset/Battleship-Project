@@ -9,7 +9,12 @@ public class Bomb extends Weapon {
         this.num_uses = 100; //constant set num times we can use this
     }
 
-    public void attack(int x, int y, Grid playerGrid, Grid opponentGrid, Player opponent){
+    public boolean deployWeapon(int x, int y, newPlayer opponent, Map attacked_map) {
+        int status_hit =
+        return true;
+    }
+
+        public void attack(int x, int y, Grid playerGrid, Grid opponentGrid, Player opponent){
         int statusHit = playerGrid.offensive_grid[x][y];
         int statusOccupied = opponentGrid.player_grid[x][y];
         if (statusHit % 2 != 0){
