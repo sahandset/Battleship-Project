@@ -31,8 +31,8 @@ public class ShipTest {
             player1Grid.placeShip(test_fleet.get(i), coordinates.get(i).x, coordinates.get(i).y, "south");
         }
 
-        player2.attack(1,2, player2Grid, player1Grid, player1);
-        player2.attack(1,3, player2Grid, player1Grid, player1);
+        player2.useWeapon(1,2, player2Grid, player1Grid, player1);
+        player2.useWeapon(1,3, player2Grid, player1Grid, player1);
     }
 
     @Test
@@ -57,7 +57,7 @@ public class ShipTest {
             player1Grid.placeShip(test_fleet.get(i), coordinates.get(i).x, coordinates.get(i).y, "south");
         }
 
-        player2.attack(1,2, player2Grid, player1Grid, player1); //This should attack first cell of minesweeper. Ship should sink.
+        player2.useWeapon(1,2, player2Grid, player1Grid, player1); //This should attack first cell of minesweeper. Ship should sink.
     }
 
     @Test
@@ -82,9 +82,9 @@ public class ShipTest {
             player1Grid.placeShip(test_fleet.get(i), coordinates.get(i).x, coordinates.get(i).y, "south");
         }
 
-        player2.attack(1,2, player2Grid, player1Grid, player1); //This should attack captains' quarters cell of minesweeper. Ship should sink.
-        player2.attack(2,5, player2Grid, player1Grid, player1); //This should attack captains' quarters of destroyer. Ship should not sink.
-        player2.attack(3,7, player2Grid, player1Grid, player1); //This should attack captains' quarters of battleship. Ship should not sink.
+        player2.useWeapon(1,2, player2Grid, player1Grid, player1); //This should attack captains' quarters cell of minesweeper. Ship should sink.
+        player2.useWeapon(2,5, player2Grid, player1Grid, player1); //This should attack captains' quarters of destroyer. Ship should not sink.
+        player2.useWeapon(3,7, player2Grid, player1Grid, player1); //This should attack captains' quarters of battleship. Ship should not sink.
         //Player2 should win!
     }
 
@@ -110,11 +110,11 @@ public class ShipTest {
             player1Grid.placeShip(test_fleet.get(i), coordinates.get(i).x, coordinates.get(i).y, "south");
         }
 
-        player2.attack(2,5, player2Grid, player1Grid, player1); //This should attack captain's quarters of destroyer. Should count as a miss, Ship should not sink.
-        player2.attack(2,5, player2Grid, player1Grid, player1); //This should attack captain's quarters of destroyer again. Ship should sink.
+        player2.useWeapon(2,5, player2Grid, player1Grid, player1); //This should attack captain's quarters of destroyer. Should count as a miss, Ship should not sink.
+        player2.useWeapon(2,5, player2Grid, player1Grid, player1); //This should attack captain's quarters of destroyer again. Ship should sink.
 
-        player2.attack(3,7, player2Grid, player1Grid, player1); // This should attack captain's quarters of battleship. Should count as a miss, Ship should not sink.
-        player2.attack(3,7, player2Grid, player1Grid, player1); // This should attack captain's quarters of battleship. Ship should sink.
+        player2.useWeapon(3,7, player2Grid, player1Grid, player1); // This should attack captain's quarters of battleship. Should count as a miss, Ship should not sink.
+        player2.useWeapon(3,7, player2Grid, player1Grid, player1); // This should attack captain's quarters of battleship. Ship should sink.
 
     }
 
@@ -139,13 +139,13 @@ public class ShipTest {
         for (int i = 0; i < test_fleet.size(); i++) {
             player1Grid.placeShip(test_fleet.get(i), coordinates.get(i).x, coordinates.get(i).y, "south");
         }
-        player2.attack(1,2, player2Grid, player1Grid, player1); //This should attack captains' quarters of minesweeper. Ship should sink.
+        player2.useWeapon(1,2, player2Grid, player1Grid, player1); //This should attack captains' quarters of minesweeper. Ship should sink.
 
-        player2.attack(2,5, player2Grid, player1Grid, player1); //This should attack captain's quarters of destroyer. Should count as a miss, Ship should not sink.
-        player2.attack(2,5, player2Grid, player1Grid, player1); //This should attack captain's quarters of destroyer again. Ship should sink.
+        player2.useWeapon(2,5, player2Grid, player1Grid, player1); //This should attack captain's quarters of destroyer. Should count as a miss, Ship should not sink.
+        player2.useWeapon(2,5, player2Grid, player1Grid, player1); //This should attack captain's quarters of destroyer again. Ship should sink.
 
-        player2.attack(3,7, player2Grid, player1Grid, player1); // This should attack captain's quarters of battleship. Should count as a miss, Ship should not sink.
-        player2.attack(3,7, player2Grid, player1Grid, player1); // This should attack captain's quarters of battleship. Ship should sink.
+        player2.useWeapon(3,7, player2Grid, player1Grid, player1); // This should attack captain's quarters of battleship. Should count as a miss, Ship should not sink.
+        player2.useWeapon(3,7, player2Grid, player1Grid, player1); // This should attack captain's quarters of battleship. Ship should sink.
 
     }
 

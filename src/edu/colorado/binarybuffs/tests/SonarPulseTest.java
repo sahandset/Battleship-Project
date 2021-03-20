@@ -102,7 +102,7 @@ public class SonarPulseTest {
         for (int i = 0; i < test_fleet.size(); i++) {
             player1Grid.placeShip(test_fleet.get(i), coordinates.get(i).x, coordinates.get(i).y, "south");
         }
-        player2.attack(1,2, player2Grid, player1Grid, player1); //This should attack captains' quarters of minesweeper. Ship should sink.
+        player2.useWeapon(1,2, player2Grid, player1Grid, player1); //This should attack captains' quarters of minesweeper. Ship should sink.
 
         String[][] revealedCoords = new String[10][10];
 
@@ -112,8 +112,8 @@ public class SonarPulseTest {
 
         revealedCoords = player2.useSonarPulse(6,6, player1Grid, player1);
 
-        player2.attack(3,7, player2Grid, player1Grid, player1);
+        player2.useWeapon(3,7, player2Grid, player1Grid, player1);
 
-        player2.attack(3,7, player2Grid, player1Grid, player1);
+        player2.useWeapon(3,7, player2Grid, player1Grid, player1);
     }
 }

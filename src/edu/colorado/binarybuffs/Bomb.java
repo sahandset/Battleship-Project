@@ -10,16 +10,6 @@ public class Bomb extends Weapon {
     }
 
     public void attack(int x, int y, Grid playerGrid, Grid opponentGrid, Player opponent){
-        //first check if cell has already been attacked
-        //if yes --> be like this is invalid
-        //if no --> be like okay
-        //okay do the attack thing
-        //see if that cell is occupied
-        //decrease length of ship by 1
-        //if length of ship is 0: print "sunk ship"
-        //change status of current player offensive grid
-        //print you hit a cell
-
         int statusHit = playerGrid.offensive_grid[x][y];
         int statusOccupied = opponentGrid.player_grid[x][y];
         if (statusHit % 2 != 0){

@@ -1,0 +1,30 @@
+package edu.colorado.binarybuffs;
+
+import java.util.ArrayList;
+import java.util.Hashtable;
+
+public abstract class Map {
+
+    newGrid offensiveGrid;
+    newGrid defensiveGrid;
+
+    Hashtable<Ship, Coordinate> captainsQuarters = new Hashtable<>();
+
+    Hashtable<Ship, ArrayList<Coordinate>> shipCoordinates = new Hashtable<>();
+
+    Hashtable<Ship, ArrayList<Coordinate>> shipDirections = new Hashtable<>();
+    
+    public Map(){
+        offensiveGrid = new newGrid();
+        defensiveGrid = new newGrid();
+    }
+
+    public void placeShip(newShip ship, int start_x, int start_y, String direction) {
+        //get the cords
+        ArrayList<Coordinate> coords = ship.getCoords(start_x, start_y, direction);
+        //get the capts quart
+        Coordinate captsQuart = ship.getCaptsCoords(start_x, start_y, direction);
+    }
+
+
+}

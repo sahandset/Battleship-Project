@@ -28,6 +28,10 @@ public class Grid {
     //  3: (occupied, not hit)
     //  4: (occupied, hit)
 
+    // 0: not hit
+    // 1: hit, empty
+    // 2: hit, occupied
+
     public Grid() {
 
         for (int i = 0; i < length_x; i++) {

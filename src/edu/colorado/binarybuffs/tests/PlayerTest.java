@@ -52,7 +52,7 @@ public class PlayerTest {
             player1Grid.placeShip(test_fleet.get(i), coordinates.get(i).x, coordinates.get(i).y, "south" );
         }
 
-        player2.attack(1,2, player2Grid, player1Grid, player1);
+        player2.useWeapon(1,2, player2Grid, player1Grid, player1);
     }
 
     @Test
@@ -77,17 +77,17 @@ public class PlayerTest {
             player1Grid.placeShip(test_fleet.get(i), coordinates.get(i).x, coordinates.get(i).y, "south");
         }
 
-        player2.attack(1,2, player2Grid, player1Grid, player1);
-        player2.attack(1,3, player2Grid, player1Grid, player1);
+        player2.useWeapon(1,2, player2Grid, player1Grid, player1);
+        player2.useWeapon(1,3, player2Grid, player1Grid, player1);
 
-        player2.attack(2,4, player2Grid, player1Grid, player1);
-        player2.attack(2,5, player2Grid, player1Grid, player1);
-        player2.attack(2,6, player2Grid, player1Grid, player1);
+        player2.useWeapon(2,4, player2Grid, player1Grid, player1);
+        player2.useWeapon(2,5, player2Grid, player1Grid, player1);
+        player2.useWeapon(2,6, player2Grid, player1Grid, player1);
 
-        player2.attack(3,5, player2Grid, player1Grid, player1);
-        player2.attack(3,6, player2Grid, player1Grid, player1);
-        player2.attack(3,7, player2Grid, player1Grid, player1);
-        player2.attack(3,8, player2Grid, player1Grid, player1);
+        player2.useWeapon(3,5, player2Grid, player1Grid, player1);
+        player2.useWeapon(3,6, player2Grid, player1Grid, player1);
+        player2.useWeapon(3,7, player2Grid, player1Grid, player1);
+        player2.useWeapon(3,8, player2Grid, player1Grid, player1);
     }
 
 
