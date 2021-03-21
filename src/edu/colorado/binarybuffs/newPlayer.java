@@ -29,10 +29,12 @@ public class newPlayer {
             boolean result = weapon.deployWeapon(x, y, opponent, attacked_map, curr_players_map);
 
             if (attacked_map.getNumSunkShips() > 0) {
-                SpaceLaser sl = new SpaceLaser();
                 Weapon remove_bomb = player_weapons.get(0);
                 player_weapons.remove(0);
                 weapon_uses.remove(remove_bomb);
+                SpaceLaser sl = new SpaceLaser();
+                player_weapons.add(sl);
+                weapon_uses.put(sl, 0);
                 SonarPulse sp = new SonarPulse();
                 player_weapons.add(sp);
                 weapon_uses.put(sp, 0);
