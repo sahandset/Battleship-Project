@@ -24,7 +24,7 @@ public class SonarPulse extends Weapon{
             // Reveal diagonals - (x-1, y-1) and (x-1, y+1)      (x+1, y-1) and (x+1, y+1)
 
             if (x > 10 || x < 0 || y > 10 || y < 0) {
-                System.out.println("You cannot reveal outside of the grid! (Attempted reveal at (" + x + "," + y + ")");
+                System.out.println("You cannot reveal outside of the grid! (Attempted reveal at (" + x + "," + y + "))");
                 return false;
             }
 

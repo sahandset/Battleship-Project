@@ -7,7 +7,6 @@ public class createPlayerMapTest {
     @Test
     public void createPlayerMapTest() {
         newPlayer player1 = new newPlayer("Tanvi");
-        newPlayer player2 = new newPlayer("Sahand");
 
         OceanMap om1 = new OceanMap();
         UnderwaterMap uw1 = new UnderwaterMap();

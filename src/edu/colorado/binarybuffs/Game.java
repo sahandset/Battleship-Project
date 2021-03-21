@@ -2,13 +2,13 @@ package edu.colorado.binarybuffs;
 
 public class Game {
 
-    private Player player1;
-    private Player player2;
+    private newPlayer player1;
+    private newPlayer player2;
 
     public Game(String player1_name, String player2_name) {
 
-        Player player1 = new Player(player1_name);
-        Player player2 = new Player(player2_name);
+        newPlayer player1 = new newPlayer(player1_name);
+        newPlayer player2 = new newPlayer(player2_name);
 
     }
 
@@ -23,7 +23,7 @@ public class Game {
         }
     }
 
-    public void turn(Player current_player, Player opponent_player, String user_input) {
+    public void turn(newPlayer current_player, newPlayer opponent_player, String user_input) {
         showMenu();
         String attack = "a";
         String move_fleet = "m";

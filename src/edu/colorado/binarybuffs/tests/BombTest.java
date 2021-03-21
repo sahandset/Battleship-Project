@@ -11,6 +11,25 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class BombTest {
 
     @Test
+    public void OOB() {
+        newPlayer player1 = new newPlayer("Tanvi");
+        newPlayer player2 = new newPlayer("Sahand");
+
+        Minesweeper sweeper = new Minesweeper();
+        Submarine sub = new Submarine();
+        Destroyer dest = new Destroyer();
+        Battleship bat = new Battleship();
+
+        player1.deployShip(sweeper, 1,2,"south", 0);
+
+        assertEquals(false, player2.useWeapon(0, -1,-1, player1, 0));
+        assertEquals(false, player2.useWeapon(0, 11,11, player1, 0));
+        assertEquals(false, player2.useWeapon(0, -1,11, player1, 0));
+
+
+    }
+
+    @Test
     public void Hit() {
         newPlayer player1 = new newPlayer("Tanvi");
         newPlayer player2 = new newPlayer("Sahand");

@@ -18,7 +18,7 @@ public class SpaceLaser extends Weapon {
 
     public boolean deployWeapon(int x, int y, newPlayer opponent, Map attacked_map, Map current_player_map, newPlayer currentPlayer) {
         if (x > 10 || x < 0 || y > 10 || y < 0) {
-            System.out.println("You cannot attack outside of the grid! (Attempted an attack at (" + x + "," + y + ")");
+            System.out.println("You cannot attack outside of the grid! (Attempted an attack at (" + x + "," + y + "))");
             return false;
         }
 
