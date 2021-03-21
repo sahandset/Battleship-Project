@@ -9,15 +9,16 @@ public class Bomb extends Weapon {
     private String name = "Bomb";
 
     public Bomb(){
-        this.num_uses = 100; //constant set num times we can use this
+        this.num_uses = 100; // Constant set num times we can use this
     }
 
     public String getName() {
         return this.name;
     }
 
-    public boolean deployWeapon(int x, int y, newPlayer opponent, Map attacked_map, Map current_player_map) {
-        if (attacked_map.getName() != "OceanMap") {
+    public boolean deployWeapon(int x, int y, newPlayer opponent, Map attacked_map, Map current_player_map, newPlayer current_player) {
+
+        if (current_player.player_weapons.contains(this) && attacked_map.getName() == "UnderwaterMap") {
             System.out.println("You cannot use the bomb on " + attacked_map.getName());
             return false;
         }
@@ -88,11 +89,6 @@ public class Bomb extends Weapon {
                 }
             }
         }
-
-
-        //now check some status' of your opponents attacked_map and update opponent player's shipsAlive --> calls a method
-            //if this finds that shipsAlive == 0, then current player wins
-
         return true;
     }
 
