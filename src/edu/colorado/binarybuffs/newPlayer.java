@@ -30,6 +30,9 @@ public class newPlayer {
             if (result) {
                 int current_uses = weapon_uses.get(weapon);
                 weapon_uses.replace(weapon, current_uses, current_uses++);
+                if (weapon.checkAvailability(weapon_uses.get(weapon)) == false){
+                    player_weapons.remove(weapon);
+                    weapon_uses.remove(weapon);
             }
 
             if (attacked_map.getNumSunkShips() > 0) {
