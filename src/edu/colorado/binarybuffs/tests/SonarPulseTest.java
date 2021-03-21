@@ -79,7 +79,7 @@ public class SonarPulseTest {
 //    }
 
     @Test
-    public void sonarPulseTestRefactor(){
+    public void sonarPulseTest(){
         newPlayer player1 = new newPlayer("Tanvi");
         newPlayer player2 = new newPlayer("Sahand");
 
@@ -94,6 +94,29 @@ public class SonarPulseTest {
         assertEquals(true, player1.deployShip(bat, 3, 3, "east", 0));
 
         SonarPulse sp = new SonarPulse();
+        player2.useWeapon(1, 1,2, player1, 1);
+    }
+
+    @Test
+    public void sonarPulseMaxUsesTest(){
+        newPlayer player1 = new newPlayer("Tanvi");
+        newPlayer player2 = new newPlayer("Sahand");
+
+        Minesweeper sweeper = new Minesweeper();
+        Submarine sub = new Submarine();
+        Destroyer dest = new Destroyer();
+        Battleship bat = new Battleship();
+
+        assertEquals(true, player1.deployShip(sweeper, 1, 1, "south", 0));
+        assertEquals(true, player1.deployShip(sub, 1, 4, "south", 1));
+        assertEquals(true, player1.deployShip(dest, 5, 5, "north", 0));
+        assertEquals(true, player1.deployShip(bat, 3, 3, "east", 0));
+
+        SonarPulse sp = new SonarPulse();
+        player2.useWeapon(0, 1,1, player1, 0);
+        player2.useWeapon(1, 1,2, player1, 0);
+        player2.useWeapon(1, 1,2, player1, 0);
+
         player2.useWeapon(1, 1,2, player1, 1);
     }
 }

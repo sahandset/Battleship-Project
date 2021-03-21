@@ -52,7 +52,7 @@ public class newPlayer {
             boolean result = weapon.deployWeapon(x, y, opponent, attacked_map, curr_players_map, this);
             if (result && weapon_uses.containsKey(weapon)) {
                 int current_uses = weapon_uses.get(weapon);
-                weapon_uses.replace(weapon, current_uses, current_uses++);
+                weapon_uses.replace(weapon, current_uses + 1);
                 if (weapon.checkAvailability(weapon_uses.get(weapon)) == false) {
                     player_weapons.remove(weapon);
                     weapon_uses.remove(weapon);
@@ -66,7 +66,7 @@ public class newPlayer {
             }
             return result;
         }
-        System.out.println("You cannot use that weapon yet!");
+        System.out.println("You cannot use that weapon!");
         return false;
     }
 
