@@ -27,6 +27,10 @@ public class newPlayer {
             Map attacked_map = opponent.player_maps.get(map_choice);
             Map curr_players_map = this.player_maps.get(map_choice);
             boolean result = weapon.deployWeapon(x, y, opponent, attacked_map, curr_players_map);
+            if (result) {
+                int current_uses = weapon_uses.get(weapon);
+                weapon_uses.replace(weapon, current_uses, current_uses++);
+            }
 
             if (attacked_map.getNumSunkShips() > 0) {
                 Weapon remove_bomb = player_weapons.get(0);
