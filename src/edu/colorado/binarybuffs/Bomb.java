@@ -57,6 +57,8 @@ public class Bomb extends Weapon {
                     else {
                         System.out.println("You've hit a captain's quarters! You've sunk a " + attacked_ship.getName() + "!");
                         attacked_map.sinkShip(attacked_ship);
+                        current_player.incrementShipSunkCount();
+                        current_player.hasSunkFirstShip();
                         int current_health = attacked_map.ship_health.get(attacked_ship);
                         attacked_map.ship_health.replace(attacked_ship, current_health, 0);
                         ArrayList<Coordinate> coordsList = attacked_map.ship_coordinates.get(attacked_ship);
@@ -80,6 +82,8 @@ public class Bomb extends Weapon {
                 if (attacked_map.captains_quarters.get(attacked_ship).x == x && attacked_map.captains_quarters.get(attacked_ship).y == y) {
                     System.out.println("-- But you've hit a captain's quarters! You've sunk a " + attacked_ship.getName() + "!");
                     attacked_map.sinkShip(attacked_ship);
+                    current_player.incrementShipSunkCount();
+                    current_player.hasSunkFirstShip();
                     int current_health = attacked_map.ship_health.get(attacked_ship);
                     attacked_map.ship_health.replace(attacked_ship, current_health, 0);
                     ArrayList<Coordinate> coordsList = attacked_map.ship_coordinates.get(attacked_ship);

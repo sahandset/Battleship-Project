@@ -12,6 +12,8 @@ public class newPlayer {
     Hashtable<Weapon, Integer> weapon_uses = new Hashtable<Weapon, Integer>();
     Stack<Coordinate> fleet_moves = new Stack<Coordinate>();
     Stack<Coordinate> undo_moves = new Stack<Coordinate>();
+    private int ships_sunk = 0;
+    private boolean surrender = false;
 
 
     public newPlayer(String name) {
@@ -30,6 +32,17 @@ public class newPlayer {
     public ArrayList<Map> getPlayerMaps() {
         return this.player_maps;
     }
+    public int getShipsSunk() {
+        return this.ships_sunk;
+    }
+
+    public void incrementShipSunkCount(){
+        this.ships_sunk++;
+    }
+
+    public boolean getSurrenderStatus() {
+        return this.surrender;
+    }
 
     public boolean useWeapon(int weapon_choice, int x, int y, newPlayer opponent, int map_choice) {
         if (weapon_choice >= 0 && weapon_choice < this.player_weapons.size()) {
@@ -37,7 +50,7 @@ public class newPlayer {
             Map attacked_map = opponent.player_maps.get(map_choice);
             Map curr_players_map = this.player_maps.get(map_choice);
             boolean result = weapon.deployWeapon(x, y, opponent, attacked_map, curr_players_map, this);
-            if (result) {
+            if (result && weapon_uses.containsKey(weapon)) {
                 int current_uses = weapon_uses.get(weapon);
                 weapon_uses.replace(weapon, current_uses, current_uses++);
                 if (weapon.checkAvailability(weapon_uses.get(weapon)) == false) {
@@ -45,27 +58,30 @@ public class newPlayer {
                     weapon_uses.remove(weapon);
                 }
 
-                if (attacked_map.getNumSunkShips() > 0) {
-                    Weapon remove_bomb = player_weapons.get(0);
-                    player_weapons.remove(0);
-                    weapon_uses.remove(remove_bomb);
-                    SpaceLaser sl = new SpaceLaser();
-                    player_weapons.add(sl);
-                    weapon_uses.put(sl, 0);
-                    SonarPulse sp = new SonarPulse();
-                    player_weapons.add(sp);
-                    weapon_uses.put(sp, 0);
-                }
-
                 if (attacked_map.surrender()) {
                     System.out.println("You've sunk all of " + opponent.getName() + "'s boats! You are the winner.");
                     System.out.println(opponent.getName() + " surrenders.");
+                    opponent.surrender = true;
                 }
-                return result;
             }
+            return result;
         }
         System.out.println("You cannot use that weapon yet!");
         return false;
+    }
+
+    public void hasSunkFirstShip() {
+        if (this.getShipsSunk() == 1) {
+            Weapon remove_bomb = player_weapons.get(0);
+            player_weapons.remove(0);
+            weapon_uses.remove(remove_bomb);
+            SpaceLaser sl = new SpaceLaser();
+            player_weapons.add(sl);
+            weapon_uses.put(sl, 0);
+            SonarPulse sp = new SonarPulse();
+            player_weapons.add(sp);
+            weapon_uses.put(sp, 0);
+        }
     }
 
     public boolean deployShip(newShip ship, int x, int y, String direction, int map_choice) {

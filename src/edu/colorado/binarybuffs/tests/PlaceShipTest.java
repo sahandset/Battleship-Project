@@ -21,6 +21,16 @@ public class PlaceShipTest {
         assertEquals(true, player1.deployShip(bat, 3, 3, "east", 0));
     }
     @Test
+    public void placeSurfaceShipUnderwater() {
+        newPlayer player1 = new newPlayer("Tanvi");
+        newPlayer player2 = new newPlayer("Sahand");
+
+        Battleship bat = new Battleship();
+
+        assertEquals(false, player1.deployShip(bat, 1, 1, "south", 1));
+    }
+
+    @Test
     public void placeShipOverlappingTest() {
         newPlayer player1 = new newPlayer("Tanvi");
         newPlayer player2 = new newPlayer("Sahand");

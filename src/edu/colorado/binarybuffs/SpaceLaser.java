@@ -50,10 +50,12 @@ public class SpaceLaser extends Weapon {
 
         // If you attack a cell and hit a surface ship, check underwater
         if (curr_surface.offensiveGrid.checkCellStatus(x,y) == 2) {
+            System.out.print("You are attacking underwater! ");
             b.deployWeapon(x,y,opponent, opp_underwater, curr_underwater, currentPlayer);
             // If you have attacked a cell and there is no surface ship, check underwater
         } else if (curr_surface.offensiveGrid.checkCellStatus(x,y) == 1) {
             if (opp_surface.defensiveGrid.checkCellStatus(x,y) == 0) {
+                System.out.print("You are attacking underwater! ");
                 b.deployWeapon(x,y,opponent, opp_underwater, curr_underwater, currentPlayer);
             }
         }
