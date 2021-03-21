@@ -1,7 +1,7 @@
 package edu.colorado.binarybuffs;
 import java.util.ArrayList;
 
-public class Destroyer extends newShip{
+public class Destroyer extends newShip implements ArmoredShip {
     private String ship_name = "Destroyer";
     private static int ship_size = 3;
 

@@ -1,6 +1,6 @@
 package edu.colorado.binarybuffs;
 
-import java.lang.Double;
+import java.util.*;
 import java.util.ArrayList;
 
 public class Bomb extends Weapon {
@@ -10,6 +10,11 @@ public class Bomb extends Weapon {
     }
 
     public boolean deployWeapon(int x, int y, newPlayer opponent, Map attacked_map, Map current_player_map) {
+        if (attacked_map.getName() != "OceanMap") {
+            System.out.println("You cannot use the bomb on " + attacked_map.getName());
+            return false;
+        }
+
         int has_been_attacked = current_player_map.offensiveGrid.checkCellStatus(x,y);
         int is_occupied = attacked_map.defensiveGrid.checkCellStatus(x,y);
 
@@ -18,10 +23,61 @@ public class Bomb extends Weapon {
                 System.out.println("You've attempted an attack, but you've missed!");
                 current_player_map.offensiveGrid.setCellStatus(1, x, y);
             } else if (is_occupied == 1) {
-                System.out.println("You've attempted an attack - it's a hit!");
-                current_player_map.offensiveGrid.setCellStatus(2, x, y);
+                newShip attacked_ship = new Minesweeper();
+
+                for (int i = 0; i < attacked_map.existing_ships.size(); i++){
+                    newShip shipy = attacked_map.existing_ships.get(i);
+                    ArrayList<Coordinate> coordsList = attacked_map.ship_coordinates.get(shipy);
+                    for (int j = 0; j < coordsList.size(); j++){
+                        if (coordsList.get(j).x == x && coordsList.get(j).y == y){
+                            attacked_ship = shipy;
+                        }
+                    }
+                }
+
+                Coordinate capt_quart = attacked_map.captains_quarters.get(attacked_ship);
+                if (capt_quart.x == x && capt_quart.y == y) {
+                    if (attacked_ship instanceof ArmoredShip) {
+                        System.out.println("You've attempted an attack, but you've missed!");
+                        current_player_map.offensiveGrid.setCellStatus(1, x, y);
+                    }
+                    else {
+                        System.out.println("You've hit a captain's quarters! You've sunk a " + attacked_ship.getName() + "!");
+                        int current_health = attacked_map.ship_health.get(attacked_ship);
+                        attacked_map.ship_health.replace(attacked_ship, current_health, 0);
+                        ArrayList<Coordinate> coordsList = attacked_map.ship_coordinates.get(attacked_ship);
+                        for (int i = 0; i < coordsList.size(); i++){
+                            current_player_map.offensiveGrid.setCellStatus(2, coordsList.get(i).x, coordsList.get(i).y);
+                        }
+                    }
+                }
+                else {
+                    int current_health = attacked_map.ship_health.get(attacked_ship);
+                    attacked_map.ship_health.replace(attacked_ship, current_health, current_health--);
+                    System.out.println("You've attempted an attack - it's a hit!");
+                    current_player_map.offensiveGrid.setCellStatus(2, x, y);
+                }
             }
         }
+        else {
+            System.out.println("You've already attacked there!");
+            for (int i = 0; i < attacked_map.captains_quarters.size(); i++) {
+                newShip attacked_ship = attacked_map.existing_ships.get(i);
+                if (attacked_map.captains_quarters.get(attacked_ship).x == x && attacked_map.captains_quarters.get(attacked_ship).y == y) {
+                    System.out.println("-- But you've hit a captain's quarters! You've sunk a " + attacked_ship.getName() + "!");
+                    int current_health = attacked_map.ship_health.get(attacked_ship);
+                    attacked_map.ship_health.replace(attacked_ship, current_health, 0);
+                    ArrayList<Coordinate> coordsList = attacked_map.ship_coordinates.get(attacked_ship);
+                    for (int j = 0; j < coordsList.size(); j++){
+                        current_player_map.offensiveGrid.setCellStatus(2, coordsList.get(j).x, coordsList.get(j).y);
+                    }
+                }
+            }
+        }
+
+        //now check some status' of your opponents attacked_map and update opponent player's shipsAlive --> calls a method
+            //if this finds that shipsAlive == 0, then current player wins
+
         return true;
     }
 

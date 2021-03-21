@@ -18,6 +18,8 @@ public abstract class Map {
     Hashtable<newShip, String> ship_directions = new Hashtable<>();
 
     Hashtable<newShip, Integer> ship_health = new Hashtable<>();
+
+    ArrayList<newShip> existing_ships = new ArrayList<>();
     
     public Map(){
         offensiveGrid = new newGrid();
@@ -48,6 +50,7 @@ public abstract class Map {
             captains_quarters.put(ship, captsQuart);
             ship_directions.put(ship, direction);
             ship_health.put(ship, ship.getShipSize());
+            existing_ships.add(ship);
 
             System.out.println("Successfully placed the " + ship.getName()  + "!");
             return true;
