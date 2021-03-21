@@ -21,4 +21,23 @@ public class newGrid {
     public void setCellStatus(int condition, int x, int y) {
         grid[x][y] = condition;
     }
+
+    public void setAllCellStatus(int condition) {
+        for (int i = 0; i < length_x; i++) {
+            for (int j = 0; j < length_y; j++) {
+                grid[i][j] = condition;
+            }
+        }
+    }
+
+    public String toString() {
+        String result = "";
+        for (int row = 0; row < grid.length; row++) {
+            for (int col = 0; col < grid[row].length; col++) {
+                result += " | " + grid[col][row];
+            }
+            result += "\n" + "----------------------------------------" + "\n";
+        }
+        return result;
+    }
 }

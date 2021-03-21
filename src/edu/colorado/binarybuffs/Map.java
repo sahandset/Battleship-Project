@@ -8,8 +8,8 @@ public abstract class Map {
 
     private String name;
 
-    newGrid offensiveGrid;
-    newGrid defensiveGrid;
+    public newGrid offensiveGrid;
+    public newGrid defensiveGrid;
 
     Hashtable<newShip, Coordinate> captains_quarters = new Hashtable<>();
 
