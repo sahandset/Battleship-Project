@@ -10,8 +10,7 @@ public class createPlayerTest {
     public void createPlayerTest() {
         newPlayer player1 = new newPlayer("Tanvi");
         newPlayer player2 = new newPlayer("Sahand");
-        assertEquals(player2, player1);
-        assertEquals(player1, player2);
-
+        assertEquals(player1, player1);
+        assertEquals(player2, player2);
     }
 }
