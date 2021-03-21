@@ -27,6 +27,10 @@ public class newPlayer {
         return this.player_name;
     }
 
+    public ArrayList<Map> getPlayerMaps() {
+        return this.player_maps;
+    }
+
     public boolean useWeapon(int weapon_choice, int x, int y, newPlayer opponent, int map_choice) {
         if (weapon_choice >= 0 && weapon_choice < this.player_weapons.size()) {
             Weapon weapon = this.player_weapons.get(weapon_choice);
