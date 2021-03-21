@@ -203,7 +203,7 @@ public class newPlayer {
             for (int i = 0; i < curr_map.existing_ships.size(); i++) {
                 newShip shipy = curr_map.existing_ships.get(i); //get the ship
                 ArrayList<Coordinate> coordsList = curr_map.ship_coordinates.get(shipy);
-                ArrayList<Coordinate> movedCoordsList = new ArrayList<Coordinate>;
+                ArrayList<Coordinate> movedCoordsList = new ArrayList<Coordinate>();
                 for (int j = 0; j < coordsList.size(); j++) {
                     moved_x = coordsList.get(j).x + offset_coord.x;
                     moved_y = coordsList.get(j).y + offset_coord.y;
@@ -213,7 +213,7 @@ public class newPlayer {
                 }
                 curr_map.ship_coordinates.replace(shipy, movedCoordsList);
                 Coordinate old_Capts_Coords = curr_map.captains_quarters.get(shipy);
-                Coordinate new_Capts_Coords = new Coordinate(old_Capts_Coords.x + offset_coord.x, old_Capts_Coords.y + offset_coord.y)
+                Coordinate new_Capts_Coords = new Coordinate(old_Capts_Coords.x + offset_coord.x, old_Capts_Coords.y + offset_coord.y);
                 curr_map.captains_quarters.replace(shipy, new_Capts_Coords);
             }
         }
