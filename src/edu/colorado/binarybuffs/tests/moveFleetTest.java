@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import edu.colorado.binarybuffs.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-public class newFleetTest {
+public class moveFleetTest {
 
     @Test
     //place ships and move them

@@ -34,9 +34,9 @@ public class newGrid {
         String result = "";
         for (int row = 0; row < grid.length; row++) {
             for (int col = 0; col < grid[row].length; col++) {
-                result += " " + grid[col][row];
+                result += " | " + grid[col][row];
             }
-            result += "\n" + "--------------------" + "\n";
+            result += "\n" + "----------------------------------------" + "\n";
         }
         return result;
     }
