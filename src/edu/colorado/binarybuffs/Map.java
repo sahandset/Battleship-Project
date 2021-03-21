@@ -20,6 +20,10 @@ public abstract class Map {
     Hashtable<newShip, Integer> ship_health = new Hashtable<>();
 
     ArrayList<newShip> existing_ships = new ArrayList<>();
+
+    ArrayList<newShip> sunk_ships = new ArrayList<>();
+
+    private int ships_alive = 0;
     
     public Map(){
         offensiveGrid = new newGrid();
@@ -27,6 +31,10 @@ public abstract class Map {
     }
 
     public abstract String getName();
+
+    public int getNumSunkShips() {
+        return this.sunk_ships.size();
+    }
 
     public boolean placeShip(newShip ship, int start_x, int start_y, String direction) {
         //get the cords
@@ -51,6 +59,7 @@ public abstract class Map {
             ship_directions.put(ship, direction);
             ship_health.put(ship, ship.getShipSize());
             existing_ships.add(ship);
+            ships_alive++;
 
             System.out.println("Successfully placed the " + ship.getName()  + "!");
             return true;
@@ -68,7 +77,7 @@ public abstract class Map {
 
     public abstract boolean validateDeployment(newShip ship);
 
-    public boolean validateShip(ArrayList<Coordinate> coords){
+    public boolean validateShip(ArrayList<Coordinate> coords) {
 
         for (int i = 0; i < coords.size(); i++) {
             if (coords.get(i).x < 0 || coords.get(i).y < 0 || coords.get(i).x > 10 || coords.get(i).y > 10)
@@ -81,5 +90,18 @@ public abstract class Map {
         }
         return true;
     }
+
+    public void sinkShip(newShip ship) {
+        sunk_ships.add(ship);
+        this.ships_alive--;
+    }
+
+    public boolean surrender() {
+        if (ships_alive == 0) {
+            return true;
+        }
+        return false;
+    }
+
 
 }
