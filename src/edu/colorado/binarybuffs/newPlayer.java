@@ -2,12 +2,16 @@ package edu.colorado.binarybuffs;
 
 import java.util.Hashtable;
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class newPlayer {
     private String player_name;
     ArrayList<Map> player_maps = new ArrayList<Map>();
     ArrayList<Weapon> player_weapons = new ArrayList<>();
     Hashtable<Weapon, Integer> weapon_uses = new Hashtable<Weapon, Integer>();
+    Stack<Coordinate> fleet_moves = new Stack<Coordinate>();
+    Stack<Coordinate> undo_moves = new Stack<Coordinate>();
+
 
     public newPlayer(String name) {
         this.player_name = name;
@@ -69,4 +73,43 @@ public class newPlayer {
                 return false;
             }
         }
+
+        public boolean moveFleet(String direction, int map_choice) {
+            Coordinate offset_coord = new Coordinate(0, 0);
+            int moved_x = 0;
+            int moved_y = 0;
+            if ((direction.toLowerCase() == "north") || (direction.toLowerCase() == "n")) {
+                offset_coord = new Coordinate(0, -1);
+            }
+            else if ((direction.toLowerCase() == "south") || (direction.toLowerCase() == "s")) {
+                offset_coord = new Coordinate(0, 1);
+
+            } else if ((direction.toLowerCase() == "east") || (direction.toLowerCase() == "e")) {
+                offset_coord = new Coordinate(1, 0);
+
+            } else if ((direction.toLowerCase() == "west") || (direction.toLowerCase() == "w")) {
+                offset_coord = new Coordinate(-1, 0);
+            }
+            Map curr_players_map = this.player_maps.get(map_choice);
+            for (int i = 0; i < curr_players_map.existing_ships.size(); i++){
+                newShip shipy = curr_players_map.existing_ships.get(i);
+                ArrayList<Coordinate> coordsList = curr_players_map.ship_coordinates.get(shipy);
+                for (int j = 0; j < coordsList.size(); j++){
+                    moved_x = coordsList.get(j).x + offset_coord.x;
+                    moved_y = coordsList.get(j).y + offset_coord.y;
+                    if (moved_x < 0 || moved_x > 9 || moved_y < 0 || moved_y > 9) {
+                        return false;
+                    }
+                }
+            }
+
+        }
 }
+
+
+
+
+
+
+
+
