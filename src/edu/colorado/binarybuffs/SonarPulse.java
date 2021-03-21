@@ -23,10 +23,13 @@ public class SonarPulse extends Weapon{
             // Reveal vertical layer - (x, y-1) and (x, y-2)         (x, y+1) and (x, y + 2)
             // Reveal diagonals - (x-1, y-1) and (x-1, y+1)      (x+1, y-1) and (x+1, y+1)
 
+            if (x > 10 || x < 0 || y > 10 || y < 0) {
+                System.out.println("You cannot reveal outside of the grid! (Attempted reveal at (" + x + "," + y + ")");
+                return false;
+            }
+
             ArrayList<Coordinate> revealed_cells = new ArrayList<Coordinate>();
             String [][] vision = new String[10][10];
-
-//            opponent.player_maps.get(0).defensiveGrid;
 
             for (int i = 0; i < 10; i++) {
                 for (int j = 0; j < 10; j++) {

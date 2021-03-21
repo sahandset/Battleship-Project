@@ -36,9 +36,9 @@ public class Player {
         return fleet;
     }
 
-    public void useWeapon(int x, int y, Grid playerGrid, Grid opponentGrid, Player opponent){
-        my_bomb.attack(x, y, playerGrid, opponentGrid, opponent);
-    }
+//    public void useWeapon(int x, int y, Grid playerGrid, Grid opponentGrid, Player opponent){
+//        my_bomb.attack(x, y, playerGrid, opponentGrid, opponent);
+//    }
 
 //    public void attack(int x, int y, Grid playerGrid, Grid opponentGrid, Player opponent){
         //first check if cell has already been attacked

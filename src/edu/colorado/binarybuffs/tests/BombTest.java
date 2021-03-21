@@ -25,8 +25,9 @@ public class BombTest {
         assertEquals(true, player1.deployShip(dest, 5, 5, "north", 0));
         assertEquals(true, player1.deployShip(bat, 3, 3, "east", 0));
 
-        Bomb b = new Bomb();
-        player2.useWeapon(b, 5,6, player1, 0);
-        player2.useWeapon(b, 5, 6, player1, 0);
+        player2.useWeapon(0, 5,6, player1, 0);
+        player2.useWeapon(0, 5, 6, player1, 0);
+
+        player2.useWeapon(1, 1, 2, player1, 0);
     }
 }

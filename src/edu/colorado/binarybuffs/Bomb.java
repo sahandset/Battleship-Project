@@ -22,6 +22,11 @@ public class Bomb extends Weapon {
             return false;
         }
 
+        if (x > 10 || x < 0 || y > 10 || y < 0) {
+            System.out.println("You cannot attack outside of the grid! (Attempted an attack at (" + x + "," + y + ")");
+            return false;
+        }
+
         int has_been_attacked = current_player_map.offensiveGrid.checkCellStatus(x,y);
         int is_occupied = attacked_map.defensiveGrid.checkCellStatus(x,y);
 

@@ -94,6 +94,6 @@ public class SonarPulseTest {
         assertEquals(true, player1.deployShip(bat, 3, 3, "east", 0));
 
         SonarPulse sp = new SonarPulse();
-        player2.useWeapon(sp, 1,2, player1, 1);
+        player2.useWeapon(1, 1,2, player1, 1);
     }
 }
