@@ -9,7 +9,9 @@ public class newPlayer {
     private String player_name;
     public ArrayList<Map> player_maps = new ArrayList<Map>();
     ArrayList<Weapon> player_weapons = new ArrayList<>();
+    ArrayList<Boost> player_boosts = new ArrayList<>();
     Hashtable<Weapon, Integer> weapon_uses = new Hashtable<Weapon, Integer>();
+    Hashtable<Boost, Integer> boost_uses = new Hashtable<Boost, Integer>();
     Stack<Coordinate> fleet_moves = new Stack<Coordinate>();
     Stack<Coordinate> undo_moves = new Stack<Coordinate>();
     private int ships_sunk = 0;
@@ -20,6 +22,7 @@ public class newPlayer {
         this.player_name = name;
         player_maps.add(new OceanMap());
         player_maps.add(new UnderwaterMap());
+        player_boosts.add(new Lifesaver());
         Bomb b = new Bomb();
         player_weapons.add(b);
         weapon_uses.put(b, 0);
@@ -67,6 +70,26 @@ public class newPlayer {
             return result;
         }
         System.out.println("You cannot use that weapon!");
+        return false;
+    }
+
+    public boolean useBoost(int boost_choice, int ship_choice, int map_choice) {
+        if (boost_choice >= 0 && boost_choice < this.player_boosts.size()) {
+            Boost boost = this.player_boosts.get(boost_choice);
+            Map curr_players_map = this.player_maps.get(map_choice);
+            newShip ship = curr_players_map.existing_ships.get(ship_choice);
+            boolean result = boost.equipBoost(ship, curr_players_map, this);
+            if (result && boost_uses.containsKey(boost)) {
+                int current_uses = boost_uses.get(boost);
+                boost_uses.replace(boost, current_uses + 1);
+                if (boost.checkAvailability(boost_uses.get(boost)) == false) {
+                    player_boosts.remove(boost);
+                    boost_uses.remove(boost);
+                }
+            }
+            return result;
+        }
+        System.out.println("You cannot use this boost!");
         return false;
     }
 

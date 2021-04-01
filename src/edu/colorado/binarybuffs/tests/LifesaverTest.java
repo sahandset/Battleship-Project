@@ -21,9 +21,20 @@ public class LifesaverTest {
         Battleship bat = new Battleship();
 
         player1.deployShip(sweeper, 1,2,"south", 0);
+        player1.deployShip(dest, 3,5,"south", 0);
 
         boolean mineHit = player2.useWeapon(0, 1,2, player1, 0);
+//        boolean firstUse = player2.useWeapon(1, 1, 1, player1, 0);
         boolean mineSaved = player1.useBoost(0, 0, 0);
+        boolean mineHit2 = player2.useWeapon(0, 1,2, player1, 0);
+//        boolean secondUse = player2.useWeapon(1, 1, 1, player1, 0);
+
+        assertEquals(true, mineHit);
+//        assertEquals(true, firstUse);
+        assertEquals(true, mineSaved);
+        assertEquals(true, mineHit2);
+
+//        assertEquals(true, secondUse);
 
     }
 

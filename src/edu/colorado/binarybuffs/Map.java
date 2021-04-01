@@ -96,6 +96,11 @@ public abstract class Map {
         this.ships_alive--;
     }
 
+    public void reviveShip(newShip ship) {
+        ship_health.replace(ship, ship.getShipSize());
+        sunk_ships.remove(ship);
+        this.ships_alive++;
+    }
     public boolean surrender() {
         if (ships_alive == 0) {
             return true;
@@ -103,5 +108,13 @@ public abstract class Map {
         return false;
     }
 
+    public boolean checkIfSunk(newShip ship){
+        if (existing_ships.contains(ship)){
+            return true;
+        }
+	    else {
+            return false;
+        }
+    }
 
 }

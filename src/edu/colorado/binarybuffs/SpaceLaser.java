@@ -8,7 +8,7 @@ public class SpaceLaser extends Weapon {
     private String name = "Space Laser";
 
     public SpaceLaser() {
-        this.num_uses = 100; //Constant set num times we can use this
+        this.num_uses = 2147483647; //Constant set num times we can use this
     }
 
     public String getName() {

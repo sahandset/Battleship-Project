@@ -9,7 +9,7 @@ public class Bomb extends Weapon {
     private String name = "Bomb";
 
     public Bomb(){
-        this.num_uses = 100; // Constant set num times we can use this
+        this.num_uses = 2147483647; // Constant set num times we can use this
     }
 
     public String getName() {
