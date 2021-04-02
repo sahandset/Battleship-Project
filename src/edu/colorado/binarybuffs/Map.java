@@ -80,7 +80,7 @@ public abstract class Map {
     public boolean validateShip(ArrayList<Coordinate> coords) {
 
         for (int i = 0; i < coords.size(); i++) {
-            if (coords.get(i).x < 0 || coords.get(i).y < 0 || coords.get(i).x > 10 || coords.get(i).y > 10)
+            if (coords.get(i).x < 0 || coords.get(i).y < 0 || coords.get(i).x >= 10 || coords.get(i).y >= 10)
             {
                 return false;
             }
