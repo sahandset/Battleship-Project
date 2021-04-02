@@ -24,35 +24,47 @@ public class Spaceshuttle extends newShip{
         ArrayList<Coordinate> ship_cells = new ArrayList<Coordinate>();
 
         if ((direction.toLowerCase() == "north") || (direction.toLowerCase() == "n")) {
-            Coordinate coordinate1 = new Coordinate(start_x, start_y);
-            Coordinate coordinate2 = new Coordinate(start_x, start_y + 1);
-            ship_cells.add(coordinate1);
-            ship_cells.add(coordinate2);
+            for (int i = 0; i < 10; i++) {
+                Coordinate new_coordinate = new Coordinate(start_x, start_y + i);
+                ship_cells.add(new_coordinate);
+            }
             return ship_cells;
         } else if ((direction.toLowerCase() == "south") || (direction.toLowerCase() == "s")) {
-            Coordinate coordinate1 = new Coordinate(start_x, start_y);
-            Coordinate coordinate2 = new Coordinate(start_x, start_y - 1);
-            ship_cells.add(coordinate1);
-            ship_cells.add(coordinate2);
+            for (int i = 0; i < 10; i++) {
+                Coordinate new_coordinate = new Coordinate(start_x, start_y - i);
+                ship_cells.add(new_coordinate);
+            }
             return ship_cells;
         } else if ((direction.toLowerCase() == "east") || (direction.toLowerCase() == "e")) {
-            Coordinate coordinate1 = new Coordinate(start_x, start_y);
-            Coordinate coordinate2 = new Coordinate(start_x - 1, start_y);
-            ship_cells.add(coordinate1);
-            ship_cells.add(coordinate2);
+            for (int i = 0; i < 10; i++) {
+                Coordinate new_coordinate = new Coordinate(start_x - i, start_y);
+                ship_cells.add(new_coordinate);
+            }
             return ship_cells;
         } else if ((direction.toLowerCase() == "west") || (direction.toLowerCase() == "w")) {
-            Coordinate coordinate1 = new Coordinate(start_x, start_y);
-            Coordinate coordinate2 = new Coordinate(start_x + 1, start_y);
-            ship_cells.add(coordinate1);
-            ship_cells.add(coordinate2);
+            for (int i = 0; i < 10; i++) {
+                Coordinate new_coordinate = new Coordinate(start_x + i, start_y);
+                ship_cells.add(new_coordinate);
+            }
             return ship_cells;
         }
         return null;
     }
 
     public Coordinate getCaptsCoords(int start_x, int start_y, String direction){
-        Coordinate coordinate1 = new Coordinate(start_x,start_y);
-        return coordinate1;
+        if ((direction.toLowerCase() == "north") || (direction.toLowerCase() == "n")) {
+            Coordinate coordinate1 = new Coordinate(start_x, start_y+5);
+            return coordinate1;
+        } else if ((direction.toLowerCase() == "south") || (direction.toLowerCase() == "s")) {
+            Coordinate coordinate1 = new Coordinate(start_x, start_y-5);
+            return coordinate1;
+        } else if ((direction.toLowerCase() == "east") || (direction.toLowerCase() == "e")) {
+            Coordinate coordinate1 = new Coordinate(start_x-5, start_y);
+            return coordinate1;
+        } else if ((direction.toLowerCase() == "west") || (direction.toLowerCase() == "w")) {
+            Coordinate coordinate1 = new Coordinate(start_x+5, start_y);
+            return coordinate1;
+        }
+        return null;
     }
 }
