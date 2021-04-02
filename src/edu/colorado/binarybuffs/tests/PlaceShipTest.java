@@ -20,6 +20,7 @@ public class PlaceShipTest {
         assertEquals(true, player1.deployShip(dest, 5, 5, "north", 0));
         assertEquals(true, player1.deployShip(bat, 3, 3, "east", 0));
     }
+
     @Test
     public void placeSurfaceShipUnderwater() {
         newPlayer player1 = new newPlayer("Tanvi");
@@ -85,6 +86,7 @@ public class PlaceShipTest {
         assertEquals(true, player1.deployShip(sweeper, 1, 1, "south", 0));
         assertEquals(true, player1.deployShip(sub, 1, 4, "south", 1));
     }
+
     @Test
     public void submarineUnderwaterOverlapTest() {
         newPlayer player1 = new newPlayer("Tanvi");
@@ -96,5 +98,15 @@ public class PlaceShipTest {
 
         assertEquals(true, player1.deployShip(sub1, 1, 4, "south", 1));
         assertEquals(false, player1.deployShip(sub2, 1, 4, "south", 1));
+    }
+
+    @Test
+    public void placeSpaceshuttleTest() {
+        newPlayer player1 = new newPlayer("Tanvi");
+        newPlayer player2 = new newPlayer("Sahand");
+
+        Spaceshuttle shut = new Spaceshuttle();
+
+        assertEquals(true, player1.deployShip(shut, 0, 0, "north", 2));
     }
 }

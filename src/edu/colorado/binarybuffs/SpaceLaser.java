@@ -38,6 +38,7 @@ public class SpaceLaser extends Weapon {
 
         Map opp_surface = opponent.player_maps.get(0);
         Map opp_underwater = opponent.player_maps.get(1);
+        //Map opp_space = opponent.player_maps.
 
         Map curr_surface = currentPlayer.player_maps.get(0);
         Map curr_underwater = currentPlayer.player_maps.get(1);

@@ -12,6 +12,10 @@ public class SpaceMap extends Map{
     }
 
     public boolean validateDeployment(newShip ship) {
-        return true;
+        if (ship instanceof OrbitableShip) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

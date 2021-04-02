@@ -22,6 +22,7 @@ public class newPlayer {
         this.player_name = name;
         player_maps.add(new OceanMap());
         player_maps.add(new UnderwaterMap());
+        player_maps.add(new SpaceMap());
         player_boosts.add(new Lifesaver());
         Bomb b = new Bomb();
         player_weapons.add(b);
@@ -35,6 +36,7 @@ public class newPlayer {
     public ArrayList<Map> getPlayerMaps() {
         return this.player_maps;
     }
+
     public int getShipsSunk() {
         return this.ships_sunk;
     }
