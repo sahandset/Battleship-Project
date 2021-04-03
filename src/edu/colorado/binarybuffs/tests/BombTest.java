@@ -104,8 +104,21 @@ public class BombTest {
 
         assertEquals(true, player1.getSurrenderStatus());
 
+    }
 
+    @Test
+    public void BombHittingWrongMap() {
+        newPlayer player1 = new newPlayer("Tanvi");
+        newPlayer player2 = new newPlayer("Sahand");
 
+        Minesweeper sweeper = new Minesweeper();
+        Submarine sub = new Submarine();
+        Destroyer dest = new Destroyer();
+        Battleship bat = new Battleship();
 
+        //player1.deployShip(sweeper, 1,2,"south", 0);
+
+        assertEquals(false, player2.useWeapon(0, 1,1, player1, 1));
+        assertEquals(false, player2.useWeapon(0, 1,1, player1, 2));
     }
 }

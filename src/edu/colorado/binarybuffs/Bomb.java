@@ -18,7 +18,7 @@ public class Bomb extends Weapon {
 
     public boolean deployWeapon(int x, int y, newPlayer opponent, Map attacked_map, Map current_player_map, newPlayer current_player) {
 
-        if (current_player.player_weapons.contains(this) && attacked_map.getName() == "UnderwaterMap") {
+        if (current_player.player_weapons.contains(this) && (attacked_map.getName() == "UnderwaterMap" || attacked_map.getName() == "SpaceMap")) {
             System.out.println("You cannot use the bomb on " + attacked_map.getName());
             return false;
         }
