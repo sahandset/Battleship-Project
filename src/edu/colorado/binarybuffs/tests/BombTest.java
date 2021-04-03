@@ -121,4 +121,5 @@ public class BombTest {
         assertEquals(false, player2.useWeapon(0, 1,1, player1, 1));
         assertEquals(false, player2.useWeapon(0, 1,1, player1, 2));
     }
+
 }
