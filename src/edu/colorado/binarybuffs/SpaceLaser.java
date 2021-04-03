@@ -38,15 +38,17 @@ public class SpaceLaser extends Weapon {
 
         Map opp_surface = opponent.player_maps.get(0);
         Map opp_underwater = opponent.player_maps.get(1);
-        //Map opp_space = opponent.player_maps.
+        Map opp_space = opponent.player_maps.get(2);
 
         Map curr_surface = currentPlayer.player_maps.get(0);
         Map curr_underwater = currentPlayer.player_maps.get(1);
+        Map curr_space = currentPlayer.player_maps.get(2);
 
         /* Check curr_player offensive grid cell status at xy to see if it is a miss - either from an actual miss or a result of hitting a armored CQ
         * If it it a miss, check to see if a ship exists on the surface using opp_surface defensive grid */
         Bomb b = new Bomb();
 
+        b.deployWeapon(x,y,opponent, opp_surface, curr_space, currentPlayer);
         b.deployWeapon(x,y,opponent, opp_surface, curr_surface, currentPlayer);
 
         // If you attack a cell and hit a surface ship, check underwater
