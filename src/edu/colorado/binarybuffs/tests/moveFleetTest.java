@@ -195,4 +195,30 @@ public class moveFleetTest {
 
     }
 
+    //TEST FOR MOVING SPACE SHUTTLE
+    @Test
+    public void moveFleetWithSpaceShuttleTest() {
+        newPlayer player1 = new newPlayer("Tanvi");
+        newPlayer player2 = new newPlayer("Sahand");
+
+        Minesweeper sweeper = new Minesweeper();
+        Submarine sub = new Submarine();
+        Destroyer dest = new Destroyer();
+        Battleship bat = new Battleship();
+        Spaceshuttle shut = new Spaceshuttle();
+
+        assertEquals(true, player1.deployShip(sweeper, 1, 1, "south", 0));
+        assertEquals(true, player1.deployShip(sub, 1, 4, "south", 1));
+        assertEquals(true, player1.deployShip(dest, 5, 5, "north", 0));
+        assertEquals(true, player1.deployShip(bat, 3, 3, "east", 0));
+        assertEquals(true, player1.deployShip(shut, 0, 0, "north", 2));
+
+
+        boolean moved = player1.playerMoveFleet("e");
+        assertEquals(true, moved);
+//        System.out.println(player1.player_maps.get(0).defensiveGrid);
+//        System.out.println(player1.player_maps.get(1).defensiveGrid);
+
+    }
+
 }

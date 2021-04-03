@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Battleship extends newShip implements ArmoredShip{
     private String ship_name = "Battleship";
     private static int ship_size = 4;
+    private int hitCount = 0;
 
     public Battleship() {
 
@@ -18,6 +19,11 @@ public class Battleship extends newShip implements ArmoredShip{
     @Override
     public int getShipSize() {
         return this.ship_size;
+    }
+
+    @Override
+    public int getHitCount() {
+        return this.hitCount;
     }
 
     public ArrayList<Coordinate> getCoords(int start_x, int start_y, String direction) {
