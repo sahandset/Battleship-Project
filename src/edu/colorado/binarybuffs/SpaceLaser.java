@@ -49,6 +49,34 @@ public class SpaceLaser extends Weapon {
         Bomb b = new Bomb();
 
         b.deployWeapon(x,y,opponent, opp_space, curr_space, currentPlayer);
+
+        //check if you hit a space shuttle, and if it sank
+        //we could check the attacked_map's defensive grid and see if there is a ship there
+            //get that ship
+            //see if its in their sunk ships
+            //destroy everything underneath that ship's coords
+
+        int value = opp_space.defensiveGrid.checkCellStatus(x,y);
+        if (value == 1){
+            newShip attacked_ship = new Spaceshuttle();
+
+            for (int i = 0; i < opp_space.existing_ships.size(); i++){
+                newShip shipy = opp_space.existing_ships.get(i);
+                ArrayList<Coordinate> coordsList = opp_space.ship_coordinates.get(shipy);
+                for (int j = 0; j < coordsList.size(); j++){
+                    if (coordsList.get(j).x == x && coordsList.get(j).y == y){
+                        attacked_ship = shipy;
+                    }
+                }
+            }
+        }
+        //opp_space.sunk_ships.
+            //if yes: get the coords of the row
+            //call a function:
+                //iterates through every coordinate, and:
+                //basically calls the bomb function, but w/o the print statements
+
+
         b.deployWeapon(x,y,opponent, opp_surface, curr_surface, currentPlayer);
 
         // If you attack a cell and hit a surface ship, check underwater
