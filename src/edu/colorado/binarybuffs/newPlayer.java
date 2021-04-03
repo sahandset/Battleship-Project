@@ -240,7 +240,6 @@ public class newPlayer {
             }
             curr_map.defensiveGrid = new_defense_grid;
         }
-        //fleet_moves.push(offset_coord);
         return true;
     }
 
