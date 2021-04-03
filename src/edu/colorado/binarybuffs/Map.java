@@ -114,7 +114,7 @@ public abstract class Map {
 //    }
 
     public boolean checkIfSunk(newShip ship){
-        if (existing_ships.contains(ship)){
+        if (sunk_ships.contains(ship)){
             return true;
         }
 	    else {

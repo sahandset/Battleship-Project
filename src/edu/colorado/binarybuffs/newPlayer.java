@@ -23,10 +23,12 @@ public class newPlayer {
         player_maps.add(new OceanMap());
         player_maps.add(new UnderwaterMap());
         player_maps.add(new SpaceMap());
-        player_boosts.add(new Lifesaver());
         Bomb b = new Bomb();
+        Lifesaver boo = new Lifesaver();
+        player_boosts.add(boo);
         player_weapons.add(b);
         weapon_uses.put(b, 0);
+        boost_uses.put(boo, 0);
     }
 
     public String getName() {
@@ -80,6 +82,7 @@ public class newPlayer {
             Boost boost = this.player_boosts.get(boost_choice);
             Map curr_players_map = this.player_maps.get(map_choice);
             newShip ship = curr_players_map.existing_ships.get(ship_choice);
+            System.out.println(ship.getName());
             boolean result = boost.equipBoost(ship, curr_players_map, this);
             if (result && boost_uses.containsKey(boost)) {
                 int current_uses = boost_uses.get(boost);

@@ -41,6 +41,7 @@ public class Lifesaver extends Boost{
             System.out.println("You have successfully revived your ship!");
             return true;
         }
+        System.out.println("You can't revive this ship!");
         return false;
     }
 
