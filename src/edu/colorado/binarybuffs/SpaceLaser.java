@@ -48,7 +48,7 @@ public class SpaceLaser extends Weapon {
         * If it it a miss, check to see if a ship exists on the surface using opp_surface defensive grid */
         Bomb b = new Bomb();
 
-        b.deployWeapon(x,y,opponent, opp_surface, curr_space, currentPlayer);
+        b.deployWeapon(x,y,opponent, opp_space, curr_space, currentPlayer);
         b.deployWeapon(x,y,opponent, opp_surface, curr_surface, currentPlayer);
 
         // If you attack a cell and hit a surface ship, check underwater
