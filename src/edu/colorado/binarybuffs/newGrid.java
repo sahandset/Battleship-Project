@@ -14,6 +14,10 @@ public class newGrid {
         }
     }
 
+    // 0: not hit
+    // 1: hit, empty
+    // 2: hit, occupied
+
     public int checkCellStatus(int x, int y) {
         return grid[x][y];
     }

@@ -59,7 +59,7 @@ public class SpaceLaser extends Weapon {
 
         //check if ship there (meaning you hit ship)
         int value = opp_space.defensiveGrid.checkCellStatus(x, y);
-        if (value == 1) {
+        if (value == 2) {
             //get ship at the coordinate
             newShip attacked_ship = new Spaceshuttle();
 
@@ -94,15 +94,15 @@ public class SpaceLaser extends Weapon {
         b.deployWeapon(x, y, opponent, opp_surface, curr_surface, currentPlayer);
 
         // If you attack a cell and hit a surface ship, check underwater
-        if (curr_surface.offensiveGrid.checkCellStatus(x, y) == 2) {
+        if (opp_surface.defensiveGrid.checkCellStatus(x, y) == 2) {
             System.out.print("Currently attacking underwater! ");
             b.deployWeapon(x, y, opponent, opp_underwater, curr_underwater, currentPlayer);
             // If you have attacked a cell and there is no surface ship, check underwater
-        } else if (curr_surface.offensiveGrid.checkCellStatus(x, y) == 1) {
-            if (opp_surface.defensiveGrid.checkCellStatus(x, y) == 0) {
-                System.out.print("Currently attacking underwater! ");
-                b.deployWeapon(x, y, opponent, opp_underwater, curr_underwater, currentPlayer);
-            }
+        } else if (opp_surface.defensiveGrid.checkCellStatus(x, y) == 0) {
+//            if (opp_surface.defensiveGrid.checkCellStatus(x, y) == 0) {
+            System.out.print("Currently attacking underwater! ");
+            b.deployWeapon(x, y, opponent, opp_underwater, curr_underwater, currentPlayer);
+//            }
         }
         return true;
     }
@@ -112,67 +112,64 @@ public class SpaceLaser extends Weapon {
         int has_been_attacked = current_player_map.offensiveGrid.checkCellStatus(x,y);
         int is_occupied = attacked_map.defensiveGrid.checkCellStatus(x,y);
 
-        if (has_been_attacked == 0) {
-            if (is_occupied == 0) {
-                //System.out.println("You've attempted an attack on " + attacked_map.getName() + ", but you've missed!");
-                current_player_map.offensiveGrid.setCellStatus(1, x, y);
-            } else if (is_occupied == 1) {
-                newShip attacked_ship = new Minesweeper();
 
-                for (int i = 0; i < attacked_map.existing_ships.size(); i++){
-                    newShip shipy = attacked_map.existing_ships.get(i);
-                    ArrayList<Coordinate> coordsList = attacked_map.ship_coordinates.get(shipy);
-                    for (int j = 0; j < coordsList.size(); j++){
-                        if (coordsList.get(j).x == x && coordsList.get(j).y == y){
-                            attacked_ship = shipy;
-                        }
-                    }
-                }
+        if (is_occupied == 0) {
+            //System.out.println("You've attempted an attack on " + attacked_map.getName() + ", but you've missed!");
+            current_player_map.offensiveGrid.setCellStatus(1, x, y);
+        } else if (is_occupied == 1) {
+            newShip attacked_ship = new Minesweeper();
 
-                Coordinate capt_quart = attacked_map.captains_quarters.get(attacked_ship);
-                if (capt_quart.x == x && capt_quart.y == y) {
-                    if (attacked_ship instanceof ArmoredShip) {
-                        //System.out.println("You've attempted an attack on " + attacked_map.getName() + ", but you've missed!");
-                        current_player_map.offensiveGrid.setCellStatus(1, x, y);
+            for (int i = 0; i < attacked_map.existing_ships.size(); i++) {
+                newShip shipy = attacked_map.existing_ships.get(i);
+                ArrayList<Coordinate> coordsList = attacked_map.ship_coordinates.get(shipy);
+                for (int j = 0; j < coordsList.size(); j++) {
+                    if (coordsList.get(j).x == x && coordsList.get(j).y == y) {
+                        attacked_ship = shipy;
                     }
-                    else {
-                        System.out.println("The debris hit a captain's quarters on " + attacked_map.getName() + "! You've sunk a " + attacked_ship.getName() + "!");
-                        attacked_map.sinkShip(attacked_ship);
-                        current_player.incrementShipSunkCount();
-                        current_player.hasSunkFirstShip();
-                        int current_health = attacked_map.ship_health.get(attacked_ship);
-                        attacked_map.ship_health.replace(attacked_ship, current_health, 0);
-                        ArrayList<Coordinate> coordsList = attacked_map.ship_coordinates.get(attacked_ship);
-                        for (int i = 0; i < coordsList.size(); i++){
-                            current_player_map.offensiveGrid.setCellStatus(2, coordsList.get(i).x, coordsList.get(i).y);
-                        }
-                    }
-                }
-                else {
-                    int current_health = attacked_map.ship_health.get(attacked_ship);
-                    attacked_map.ship_health.replace(attacked_ship, current_health, current_health--);
-                    //System.out.println("You've attempted an attack on " + attacked_map.getName() + "- it's a hit!");
-                    System.out.println("The debris hit a part of a ship!");
-                    current_player_map.offensiveGrid.setCellStatus(2, x, y);
                 }
             }
-        }
-        else {
-            //System.out.println("You've already attacked there on the" + attacked_map.getName());
-            for (int i = 0; i < attacked_map.captains_quarters.size(); i++) {
-                newShip attacked_ship = attacked_map.existing_ships.get(i);
-                if (attacked_map.captains_quarters.get(attacked_ship).x == x && attacked_map.captains_quarters.get(attacked_ship).y == y) {
-                    System.out.println("The debris hit a captain's quarters! You've sunk a " + attacked_ship.getName() + "!");
+
+            Coordinate capt_quart = attacked_map.captains_quarters.get(attacked_ship);
+            if (capt_quart.x == x && capt_quart.y == y) {
+                if (attacked_ship instanceof ArmoredShip) {
+                    if (((ArmoredShip) attacked_ship).getHitCount() == 0) {
+                        //System.out.println("You've attempted an attack on " + attacked_map.getName() + ", but you've missed!");
+                        current_player_map.offensiveGrid.setCellStatus(1, x, y);
+                        ((ArmoredShip) attacked_ship).updateHitCount();
+                    } else if (((ArmoredShip) attacked_ship).getHitCount() == 1) {
+                        for (int i = 0; i < attacked_map.captains_quarters.size(); i++) {
+                            if (attacked_map.captains_quarters.get(attacked_ship).x == x && attacked_map.captains_quarters.get(attacked_ship).y == y) {
+                                System.out.println("The debris hit a captain's quarters! You've sunk a " + attacked_ship.getName() + "!");
+                                attacked_map.sinkShip(attacked_ship);
+                                current_player.incrementShipSunkCount();
+                                current_player.hasSunkFirstShip();
+                                int current_health = attacked_map.ship_health.get(attacked_ship);
+                                attacked_map.ship_health.replace(attacked_ship, current_health, 0);
+                                ArrayList<Coordinate> coordsList = attacked_map.ship_coordinates.get(attacked_ship);
+                                for (int j = 0; j < coordsList.size(); j++) {
+                                    current_player_map.offensiveGrid.setCellStatus(2, coordsList.get(j).x, coordsList.get(j).y);
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    System.out.println("The debris hit a captain's quarters on " + attacked_map.getName() + "! You've sunk a " + attacked_ship.getName() + "!");
                     attacked_map.sinkShip(attacked_ship);
                     current_player.incrementShipSunkCount();
                     current_player.hasSunkFirstShip();
                     int current_health = attacked_map.ship_health.get(attacked_ship);
                     attacked_map.ship_health.replace(attacked_ship, current_health, 0);
                     ArrayList<Coordinate> coordsList = attacked_map.ship_coordinates.get(attacked_ship);
-                    for (int j = 0; j < coordsList.size(); j++){
-                        current_player_map.offensiveGrid.setCellStatus(2, coordsList.get(j).x, coordsList.get(j).y);
+                    for (int i = 0; i < coordsList.size(); i++) {
+                        current_player_map.offensiveGrid.setCellStatus(2, coordsList.get(i).x, coordsList.get(i).y);
                     }
                 }
+            } else {
+                int current_health = attacked_map.ship_health.get(attacked_ship);
+                attacked_map.ship_health.replace(attacked_ship, current_health, current_health--);
+                //System.out.println("You've attempted an attack on " + attacked_map.getName() + "- it's a hit!");
+                System.out.println("The debris hit a part of a ship!");
+                current_player_map.offensiveGrid.setCellStatus(2, x, y);
             }
         }
         return true;

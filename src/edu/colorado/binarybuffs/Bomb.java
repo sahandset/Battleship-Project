@@ -28,7 +28,7 @@ public class Bomb extends Weapon {
             return false;
         }
 
-        int has_been_attacked = current_player_map.offensiveGrid.checkCellStatus(x,y);
+        //int has_been_attacked = current_player_map.offensiveGrid.checkCellStatus(x,y);
         int is_occupied = attacked_map.defensiveGrid.checkCellStatus(x,y);
 
         if (is_occupied == 0) {
@@ -68,6 +68,7 @@ public class Bomb extends Weapon {
                                 ArrayList<Coordinate> coordsList = attacked_map.ship_coordinates.get(attacked_ship);
                                 for (int j = 0; j < coordsList.size(); j++){
                                     current_player_map.offensiveGrid.setCellStatus(2, coordsList.get(j).x, coordsList.get(j).y);
+                                    attacked_map.defensiveGrid.setCellStatus(2, x, y);
                                 }
                             }
                         }
@@ -84,6 +85,7 @@ public class Bomb extends Weapon {
                     ArrayList<Coordinate> coordsList = attacked_map.ship_coordinates.get(attacked_ship);
                     for (int i = 0; i < coordsList.size(); i++){
                         current_player_map.offensiveGrid.setCellStatus(2, coordsList.get(i).x, coordsList.get(i).y);
+                        attacked_map.defensiveGrid.setCellStatus(2, x, y);
                     }
                 }
             }
@@ -92,7 +94,10 @@ public class Bomb extends Weapon {
                 attacked_map.ship_health.replace(attacked_ship, current_health, current_health--);
                 System.out.println("You've attempted an attack on " + attacked_map.getName() + "- it's a hit!");
                 current_player_map.offensiveGrid.setCellStatus(2, x, y);
+                attacked_map.defensiveGrid.setCellStatus(2, x, y);
             }
+        } else if (is_occupied == 2) {
+            System.out.println("You've already attacked and hit a ship here.");
         }
 
 //        else {
