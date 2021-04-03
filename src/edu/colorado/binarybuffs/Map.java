@@ -37,7 +37,7 @@ public abstract class Map {
     }
 
     public int getShipsAlive(){
-        return ships_alive;
+        return this.ships_alive;
     }
 
     public boolean placeShip(newShip ship, int start_x, int start_y, String direction) {
