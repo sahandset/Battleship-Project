@@ -56,8 +56,10 @@ public class SpaceLaser extends Weapon {
             //see if its in their sunk ships
             //destroy everything underneath that ship's coords
 
+        //check if ship there (meaning you hit ship)
         int value = opp_space.defensiveGrid.checkCellStatus(x,y);
         if (value == 1){
+            //get ship at the coordinate
             newShip attacked_ship = new Spaceshuttle();
 
             for (int i = 0; i < opp_space.existing_ships.size(); i++){
@@ -69,8 +71,14 @@ public class SpaceLaser extends Weapon {
                     }
                 }
             }
+
+            //with the ship, check if its sunk
+            if (opp_space.sunk_ships.contains(attacked_ship)){
+                //get the coords of that row
+                ArrayList<Coordinate> coords = opp_space.ship_coordinates.get(attacked_ship);
+            }
         }
-        //opp_space.sunk_ships.
+
             //if yes: get the coords of the row
             //call a function:
                 //iterates through every coordinate, and:
