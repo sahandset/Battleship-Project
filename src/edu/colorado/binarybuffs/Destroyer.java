@@ -25,6 +25,11 @@ public class Destroyer extends newShip implements ArmoredShip {
         return this.hitCount;
     }
 
+    @Override
+    public void updateHitCount() {
+        hitCount++;
+    }
+
     public ArrayList<Coordinate> getCoords(int start_x, int start_y, String direction) {
         ArrayList<Coordinate> ship_cells = new ArrayList<Coordinate>();
 
