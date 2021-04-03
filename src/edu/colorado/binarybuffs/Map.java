@@ -88,7 +88,7 @@ public abstract class Map {
             {
                 return false;
             }
-            if (defensiveGrid.checkCellStatus(coords.get(i).x, coords.get(i).y) == 1) {
+            if ((defensiveGrid.checkCellStatus(coords.get(i).x, coords.get(i).y) == 1) || (defensiveGrid.checkCellStatus(coords.get(i).x, coords.get(i).y) == 2)) {
                 return false;
             }
         }

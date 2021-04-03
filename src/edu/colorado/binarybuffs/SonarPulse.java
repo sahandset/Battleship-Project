@@ -55,7 +55,7 @@ public class SonarPulse extends Weapon{
 
             for (Coordinate c: revealed_cells) {
                 if (c.x >= 0 && c.x <= 9 && c.y >= 0 && c.y <= 9) {
-                    if(attacked_map.defensiveGrid.checkCellStatus(c.x, c.y) == 1) {
+                    if((attacked_map.defensiveGrid.checkCellStatus(c.x, c.y) == 1) || (attacked_map.defensiveGrid.checkCellStatus(c.x, c.y) == 2)) {
                         vision[c.y][c.x] = "Black  | ";
                     } else {
                         vision[c.y][c.x] = " Grey  | ";
