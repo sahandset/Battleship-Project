@@ -63,7 +63,7 @@ public class newPlayer {
                     weapon_uses.remove(weapon);
                 }
 
-                if (attacked_map.surrender()) {
+                if (this.surrender()) {
                     System.out.println("You've sunk all of " + opponent.getName() + "'s boats! You are the winner.");
                     System.out.println(opponent.getName() + " surrenders.");
                     opponent.surrender = true;
@@ -235,5 +235,19 @@ public class newPlayer {
         }
         //fleet_moves.push(offset_coord);
         return true;
+    }
+
+    public boolean surrender() {
+        int total = 0;
+        //go through all the player maps and check their ships alive
+        for (int i = 0; i < player_maps.size(); i++) {
+            total = total + this.player_maps.get(i).getShipsAlive();
+        }
+        //if all ships alive == 0
+        //then return true
+        if (total == 0) {
+            return true;
+        }
+        return false;
     }
 }

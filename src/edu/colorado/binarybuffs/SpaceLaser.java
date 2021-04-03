@@ -48,6 +48,7 @@ public class SpaceLaser extends Weapon {
          * If it it a miss, check to see if a ship exists on the surface using opp_surface defensive grid */
         Bomb b = new Bomb();
 
+        System.out.print("Currently attacking in space! ");
         b.deployWeapon(x, y, opponent, opp_space, curr_space, currentPlayer);
 
         //check if you hit a space shuttle, and if it sank
@@ -74,10 +75,10 @@ public class SpaceLaser extends Weapon {
 
             //with the ship, check if its sunk
             if (opp_space.sunk_ships.contains(attacked_ship)) {
+                System.out.println("WOW! By sinking the " + attacked_ship.getName() + ", some of the debris fell to the surface!");
                 //get the coords of that row
                 ArrayList<Coordinate> coords = opp_space.ship_coordinates.get(attacked_ship);
                 for (Coordinate coord : coords){
-                    System.out.print("You sunk the " + attacked_ship + "! Some of the debris fell to the surface!");
                     this.attackUnderSpaceShuttle(coord.x, coord.y, opp_surface, curr_surface, currentPlayer);
                 }
             }
@@ -89,16 +90,17 @@ public class SpaceLaser extends Weapon {
         //basically calls the bomb function, but w/o the print statements
 
 
+        System.out.print("Currently attacking on the surface! ");
         b.deployWeapon(x, y, opponent, opp_surface, curr_surface, currentPlayer);
 
         // If you attack a cell and hit a surface ship, check underwater
         if (curr_surface.offensiveGrid.checkCellStatus(x, y) == 2) {
-            System.out.print("You are attacking underwater! ");
+            System.out.print("Currently attacking underwater! ");
             b.deployWeapon(x, y, opponent, opp_underwater, curr_underwater, currentPlayer);
             // If you have attacked a cell and there is no surface ship, check underwater
         } else if (curr_surface.offensiveGrid.checkCellStatus(x, y) == 1) {
             if (opp_surface.defensiveGrid.checkCellStatus(x, y) == 0) {
-                System.out.print("You are attacking underwater! ");
+                System.out.print("Currently attacking underwater! ");
                 b.deployWeapon(x, y, opponent, opp_underwater, curr_underwater, currentPlayer);
             }
         }

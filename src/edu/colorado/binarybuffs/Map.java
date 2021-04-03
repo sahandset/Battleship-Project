@@ -36,6 +36,10 @@ public abstract class Map {
         return this.sunk_ships.size();
     }
 
+    public int getShipsAlive(){
+        return ships_alive;
+    }
+
     public boolean placeShip(newShip ship, int start_x, int start_y, String direction) {
         //get the cords
         ArrayList<Coordinate> coords = ship.getCoords(start_x, start_y, direction);
@@ -101,12 +105,13 @@ public abstract class Map {
         sunk_ships.remove(ship);
         this.ships_alive++;
     }
-    public boolean surrender() {
-        if (ships_alive == 0) {
-            return true;
-        }
-        return false;
-    }
+
+//    public boolean surrender() {
+//        if (ships_alive == 0) {
+//            return true;
+//        }
+//        return false;
+//    }
 
     public boolean checkIfSunk(newShip ship){
         if (existing_ships.contains(ship)){

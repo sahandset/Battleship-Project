@@ -24,7 +24,7 @@ public class Bomb extends Weapon {
         }
 
         if (x > 10 || x < 0 || y > 10 || y < 0) {
-            System.out.println("You cannot attack outside of the grid! (Attempted an attack at (" + x + "," + y + ")) on" + attacked_map.getName());
+            System.out.println("You cannot attack outside of the grid! (Attempted an attack at (" + x + "," + y + ")) on " + attacked_map.getName() + ".");
             return false;
         }
 
@@ -76,7 +76,7 @@ public class Bomb extends Weapon {
             }
         }
         else {
-            System.out.println("You've already attacked there on the" + attacked_map.getName());
+            System.out.println("You've already attacked there on the " + attacked_map.getName() + ".");
             for (int i = 0; i < attacked_map.captains_quarters.size(); i++) {
                 newShip attacked_ship = attacked_map.existing_ships.get(i);
                 if (attacked_map.captains_quarters.get(attacked_ship).x == x && attacked_map.captains_quarters.get(attacked_ship).y == y) {
