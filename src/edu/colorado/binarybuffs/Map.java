@@ -122,4 +122,14 @@ public abstract class Map {
         }
     }
 
+    public void printDefensiveGrid() {
+        System.out.println("0: Cell is empty, 1: Cell is occupied");
+        System.out.println(defensiveGrid);
+    }
+
+    public void printOffensiveGrid() {
+        System.out.println("0: Cell is not hit, 1: Cell has been hit but found empty, 2: Cell has been hit and found occupied");
+        System.out.println(offensiveGrid);
+    }
+
 }
