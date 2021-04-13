@@ -72,7 +72,7 @@ public class moveFleetTest {
 
         boolean moved = player1.playerMoveFleet("e");
 //        System.out.println(player1.player_maps.get(0).defensiveGrid);
-        boolean undo_action = player1.undoMove();
+        boolean undo_action = player1.undo();
         assertEquals(true, moved);
         assertEquals(true, undo_action);
 //        System.out.println(player1.player_maps.get(0).defensiveGrid);
@@ -98,9 +98,9 @@ public class moveFleetTest {
 
         boolean moved = player1.playerMoveFleet("e");
 //        System.out.println(player1.player_maps.get(0).defensiveGrid);
-        boolean undo_action = player1.undoMove();
+        boolean undo_action = player1.undo();
 //        System.out.println(player1.player_maps.get(0).defensiveGrid);
-        boolean redo_action = player1.redoMove();
+        boolean redo_action = player1.redo();
         assertEquals(true, moved);
         assertEquals(true, undo_action);
         assertEquals(true, redo_action);
@@ -126,7 +126,7 @@ public class moveFleetTest {
         assertEquals(true, player1.deployShip(bat, 3, 3, "east", 0));
 
 //        System.out.println(player1.player_maps.get(0).defensiveGrid);
-        boolean undo_action = player1.undoMove();
+        boolean undo_action = player1.undo();
         assertEquals(false, undo_action);
 //        System.out.println(player1.player_maps.get(0).defensiveGrid);
 //        System.out.println(player1.player_maps.get(1).defensiveGrid);
@@ -152,8 +152,8 @@ public class moveFleetTest {
         boolean moved = player1.playerMoveFleet("e");
         boolean moved2 = player1.playerMoveFleet("s");
 //        System.out.println(player1.player_maps.get(0).defensiveGrid);
-        boolean undo_action1 = player1.undoMove();
-        boolean undo_action2 = player1.undoMove();
+        boolean undo_action1 = player1.undo();
+        boolean undo_action2 = player1.undo();
 
         assertEquals(true, moved);
         assertEquals(true, moved2);
@@ -182,10 +182,10 @@ public class moveFleetTest {
 
         boolean moved = player1.playerMoveFleet("e");
 //        System.out.println(player1.player_maps.get(0).defensiveGrid);
-        boolean undo_action = player1.undoMove();
+        boolean undo_action = player1.undo();
 //        System.out.println(player1.player_maps.get(0).defensiveGrid);
         boolean moved2 = player1.playerMoveFleet("s");
-        boolean redo_action = player1.redoMove();
+        boolean redo_action = player1.redo();
         assertEquals(true, moved);
         assertEquals(true, undo_action);
         assertEquals(true, moved2);
