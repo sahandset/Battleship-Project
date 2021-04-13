@@ -46,12 +46,7 @@ public class Game {
                 turn(current_player, opponent_player);
                 break;
             case 3: //use weapon
-                for (int i = 0; i < current_player.player_weapons.size(); i++) {
-                    System.out.println( i+1 + ". " + current_player.player_weapons.get(i));
-                }
-                System.out.println(current_player.player_weapons.size() + 1 + ". Go back");
-
-                int user_weapon_choice = input.nextInt();
+                int user_weapon_choice = displayWeaponMenu(current_player);
 
                 if (user_weapon_choice == 1) { //Using bomb
                     map_choice = displayMapMenu(current_player);
@@ -84,12 +79,7 @@ public class Game {
                 }
                 break;
             case 4: //use boost
-                for (int i = 0; i < current_player.player_boosts.size(); i++) {
-                    System.out.println( i+1 + ". " + current_player.player_boosts.get(i));
-                }
-                System.out.println(current_player.player_boosts.size() + 1 + ". Go back");
-
-                int user_boost_choice = input.nextInt();
+                int user_boost_choice = displayBoostMenu(current_player);
 
                 if (user_boost_choice == 1) { //Using lifesaver
                     map_choice = displayMapMenu(current_player);
@@ -124,9 +114,11 @@ public class Game {
 
                 if (move_choice == 1) {
                     //undo move function
+                    current_player.undo();
                 }
                 else if (move_choice == 2) {
                     //redo move function
+                    current_player.redo();
                 }
                 else if (move_choice == 3) {
                     turn(current_player, opponent_player);
@@ -136,8 +128,8 @@ public class Game {
                 System.out.println("Are you sure you want to surrender? (Y/N)");
                 String surrender_choice = input.next();
                 if (surrender_choice == "Y") {
-                    boolean surrender = true;
                     //end game
+                    current_player.setSurrenderStatus();
                 }
                 else {
                     turn(current_player, opponent_player);
@@ -157,7 +149,6 @@ public class Game {
         System.out.println("5. Move Fleet");
         System.out.println("6. Undo/Redo Fleet Move");
         System.out.println("7. Surrender");
-
     }
 
     public int displayMapMenu(newPlayer curr_player) {
@@ -168,6 +159,27 @@ public class Game {
         System.out.println(curr_player.player_maps.size() + 1 + ". Go back");
         int map_choice = input.nextInt();
         return map_choice;
+    }
+
+    public int displayWeaponMenu(newPlayer curr_player) {
+        Scanner input = new Scanner(System.in);
+        for (int i = 0; i < curr_player.player_weapons.size(); i++) {
+            System.out.println( i+1 + ". " + curr_player.player_weapons.get(i));
+        }
+        System.out.println(curr_player.player_weapons.size() + 1 + ". Go back");
+        int user_weapon_choice = input.nextInt();
+        return user_weapon_choice;
+    }
+
+    public int displayBoostMenu(newPlayer curr_player) {
+        Scanner input = new Scanner(System.in);
+        for (int i = 0; i < curr_player.player_boosts.size(); i++) {
+            System.out.println( i+1 + ". " + curr_player.player_boosts.get(i));
+        }
+        System.out.println(curr_player.player_boosts.size() + 1 + ". Go back");
+
+        int user_boost_choice = input.nextInt();
+        return user_boost_choice;
     }
 
     public void getStatus() {
