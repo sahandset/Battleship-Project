@@ -12,8 +12,13 @@ public class newPlayer {
     ArrayList<Boost> player_boosts = new ArrayList<>();
     Hashtable<Weapon, Integer> weapon_uses = new Hashtable<Weapon, Integer>();
     Hashtable<Boost, Integer> boost_uses = new Hashtable<Boost, Integer>();
-    Stack<Coordinate> fleet_moves = new Stack<Coordinate>();
-    Stack<Coordinate> undo_moves = new Stack<Coordinate>();
+
+//    Stack<Coordinate> fleet_moves = new Stack<Coordinate>();
+//    Stack<Coordinate> undo_moves = new Stack<Coordinate>();
+
+    Stack<Action> fleet_move_actions = new Stack<>();
+    Stack<Action> undo_move_actions = new Stack<>();
+
     private int ships_sunk = 0;
     private boolean surrender = false;
 
@@ -141,16 +146,17 @@ public class newPlayer {
         return offset_coord;
     }
 
-    public Coordinate reverseMove(Coordinate c) {
-        return new Coordinate(c.x * -1, c.y * -1);
-    }
+//    public Coordinate reverseMove(Coordinate c) {
+//        return new Coordinate(c.x * -1, c.y * -1);
+//    }
 
     public boolean playerMoveFleet(String direction) {
         Coordinate offset_coord = getOffsetCoord(direction);
-        undo_moves.clear();
+        undo_move_actions.clear();
         boolean success = moveFleet(offset_coord);
-        fleet_moves.push(offset_coord);
         if (success) {
+            Action newAction = new Action(offset_coord.x, offset_coord.y);
+            fleet_move_actions.push(newAction);
             System.out.println("You have successfully moved your fleet!");
         }
         else {
@@ -159,12 +165,13 @@ public class newPlayer {
         return success;
     }
 
-    public boolean undoMove() {
-        if (!fleet_moves.empty()) {
-            Coordinate temp_move = fleet_moves.pop();
-            undo_moves.push(temp_move);
-            Coordinate reversed_move = reverseMove(temp_move);
-            boolean success = moveFleet(reversed_move);
+    public boolean undo(){
+        if (!fleet_move_actions.empty()) {
+            Action temp_action = fleet_move_actions.pop();
+            undo_move_actions.push(temp_action);
+            boolean success = temp_action.undoAction(this);
+            //Coordinate reversed_move = reverseMove(temp_move);
+            //boolean success = moveFleet(reversed_move);
             if (success) {
                 System.out.println("You have successfully undoed your move!");
             }
@@ -177,15 +184,13 @@ public class newPlayer {
             System.out.println("You have no moves to undo!");
             return false;
         }
-
     }
 
-    public boolean redoMove() {
-        //check if stack is empty
-        if (!undo_moves.empty()) {
-            Coordinate temp_move = undo_moves.pop();
-            fleet_moves.push(temp_move);
-            boolean success = moveFleet(temp_move);
+    public boolean redo(){
+        if (!undo_move_actions.empty()) {
+            Action temp_action = undo_move_actions.pop();
+            fleet_move_actions.push(temp_action);
+            boolean success = temp_action.redoAction(this);
             if (success) {
                 System.out.println("You have successfully redone your move!");
             }
@@ -199,6 +204,47 @@ public class newPlayer {
             return false;
         }
     }
+
+//    public boolean undoMove() {
+//        if (!fleet_moves.empty()) {
+//            Coordinate temp_move = fleet_moves.pop();
+//            undo_moves.push(temp_move);
+//            Coordinate reversed_move = reverseMove(temp_move);
+//            boolean success = moveFleet(reversed_move);
+//            if (success) {
+//                System.out.println("You have successfully undoed your move!");
+//            }
+//            else {
+//                System.out.println("You cannot undo this move!");
+//            }
+//            return success;
+//        }
+//        else {
+//            System.out.println("You have no moves to undo!");
+//            return false;
+//        }
+//
+//    }
+
+//    public boolean redoMove() {
+//        //check if stack is empty
+//        if (!undo_moves.empty()) {
+//            Coordinate temp_move = undo_moves.pop();
+//            fleet_moves.push(temp_move);
+//            boolean success = moveFleet(temp_move);
+//            if (success) {
+//                System.out.println("You have successfully redone your move!");
+//            }
+//            else {
+//                System.out.println("You cannot redo this move!");
+//            }
+//            return success;
+//        }
+//        else{
+//            System.out.println("You have no moves to redo!");
+//            return false;
+//        }
+//    }
 
     public boolean moveFleet(Coordinate offset_coord) {
         int moved_x = 0;
