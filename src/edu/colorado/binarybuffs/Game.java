@@ -8,9 +8,16 @@ public class Game {
 
     public Game(String player1_name, String player2_name) {
 
-        newPlayer player1 = new newPlayer(player1_name);
-        newPlayer player2 = new newPlayer(player2_name);
+        player1 = new newPlayer(player1_name);
+        player2 = new newPlayer(player2_name);
 
+    }
+
+    public newPlayer getPlayer1() {
+        return this.player1;
+    }
+    public newPlayer getPlayer2() {
+        return this.player2;
     }
 
     public void startGame() {
@@ -27,9 +34,9 @@ public class Game {
     public void turn(newPlayer current_player, newPlayer opponent_player) { //return bool?
         //call function to display menu
         showTurnMenu();
+        System.out.print("Enter your option: ");
         //take in user choice
         Scanner input = new Scanner(System.in);
-        System.out.print("Enter your option: ");
         int user_choice = input.nextInt();
 
         //switch statements for user choice
@@ -154,7 +161,7 @@ public class Game {
     public int displayMapMenu(newPlayer curr_player) {
         Scanner input = new Scanner(System.in);
         for (int i = 0; i < curr_player.player_maps.size(); i++) {
-            System.out.println( i+1 + ". " + curr_player.player_maps.get(i));
+            System.out.println( i+1 + ". " + curr_player.player_maps.get(i).getName());
         }
         System.out.println(curr_player.player_maps.size() + 1 + ". Go back");
         int map_choice = input.nextInt();
@@ -164,7 +171,7 @@ public class Game {
     public int displayWeaponMenu(newPlayer curr_player) {
         Scanner input = new Scanner(System.in);
         for (int i = 0; i < curr_player.player_weapons.size(); i++) {
-            System.out.println( i+1 + ". " + curr_player.player_weapons.get(i));
+            System.out.println( i+1 + ". " + curr_player.player_weapons.get(i).getName());
         }
         System.out.println(curr_player.player_weapons.size() + 1 + ". Go back");
         int user_weapon_choice = input.nextInt();
@@ -174,7 +181,7 @@ public class Game {
     public int displayBoostMenu(newPlayer curr_player) {
         Scanner input = new Scanner(System.in);
         for (int i = 0; i < curr_player.player_boosts.size(); i++) {
-            System.out.println( i+1 + ". " + curr_player.player_boosts.get(i));
+            System.out.println( i+1 + ". " + curr_player.player_boosts.get(i).getName());
         }
         System.out.println(curr_player.player_boosts.size() + 1 + ". Go back");
 
