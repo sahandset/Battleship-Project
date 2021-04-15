@@ -125,6 +125,7 @@ public class newPlayer {
         Map deploy_map = this.player_maps.get(map_choice);
         if (deploy_map.validateDeployment(ship)) {
             boolean deployed_successfully = deploy_map.placeShip(ship, x, y, direction);
+            deploy_map.checkForAnimal(this);
             return deployed_successfully;
         } else {
             System.out.println("You cannot place a " + ship.getName() + " on " + deploy_map.getName());

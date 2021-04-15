@@ -13,15 +13,16 @@ public class AnimalTest {
     public void NarwhalTest() {
         newPlayer player1 = new newPlayer("Tanvi");
         newPlayer player2 = new newPlayer("Sahand");
-        Animal narwhal = new Narwhal();
 
         Minesweeper sweeper = new Minesweeper();
         Submarine sub = new Submarine();
         Destroyer dest = new Destroyer();
         Battleship bat = new Battleship();
 
+        player1.player_maps.get(0).placeNarwhal();
         player1.deployShip(sweeper, 1,2,"south", 0);
-        narwhal.grantUses(player1, map_choice);
+
+
     }
 
     public void JawsTest() {
@@ -35,7 +36,7 @@ public class AnimalTest {
         Battleship bat = new Battleship();
 
         player1.deployShip(sweeper, 1,2,"south", 0);
-        jaws.biteShip(player1, map_choice);
+//        jaws.biteShip(player1, map_choice);
     }
 
 }
