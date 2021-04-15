@@ -28,16 +28,20 @@ public class FleetTest {
     public void CreateRandSpaceFleet() {
         Fleet myFleet = new Fleet("SpaceMap");
         ArrayList<newShip> ships = myFleet.getShips();
-        assertEquals(3, ships.size());
+        assertEquals(1, ships.size());
         assertEquals("Spaceshuttle", ships.get(0).getName());
     }
 
-//    @Test
-//    public void PlaceRandOceanFleet() {
-//        Fleet myFleet = new Fleet("OceanMap");
-//        myFleet.placeFleet();
-//
-//    }
+    @Test
+    public void PlaceRandOceanFleet() {
+        Fleet myFleet = new Fleet("OceanMap");
+        newPlayer player1 = new newPlayer("Tanvi");
+        myFleet.placeFleet(player1);
+        //ArrayList<newShip> ships = player1.getPlayerMaps().get(0);
+        //System.out.print(ships);
+        //assertEquals();
+
+    }
 
 
 }
