@@ -15,6 +15,8 @@ public abstract class Map {
 
     Hashtable<newShip, ArrayList<Coordinate>> ship_coordinates = new Hashtable<>();
 
+    Hashtable<Animal, Coordinate> animal_coordinates = new Hashtable<>();
+
     Hashtable<newShip, String> ship_directions = new Hashtable<>();
 
     Hashtable<newShip, Integer> ship_health = new Hashtable<>();
