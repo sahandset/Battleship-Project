@@ -20,4 +20,8 @@ public abstract class newShip {
     public abstract ArrayList<Coordinate> getCoords(int start_x, int start_y, String direction);
 
     public abstract Coordinate getCaptsCoords(int start_x, int start_y, String direction);
+
+    public String toString(){
+        return getName();
+    }
 }
