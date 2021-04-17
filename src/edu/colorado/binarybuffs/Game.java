@@ -65,7 +65,7 @@ public class Game {
                     int coord_choice_y = input.nextInt();
                     System.out.println("You are attacking on (" + coord_choice_x + ", " + coord_choice_y + ")");
                     //Attack with bomb
-                    current_player.useWeapon(0, coord_choice_x, coord_choice_y, current_player, map_choice);
+                    current_player.useWeapon(0, coord_choice_x, coord_choice_y, current_player, map_choice, 2);
 
 
                 }
@@ -79,7 +79,7 @@ public class Game {
                     int coord_choice_y = input.nextInt();
                     System.out.println("You are using sonar pulse on (" + coord_choice_x + ", " + coord_choice_y + ")");
                     //use sonar pulse
-                    current_player.useWeapon(1, coord_choice_x, coord_choice_y, current_player, map_choice);
+                    current_player.useWeapon(1, coord_choice_x, coord_choice_y, current_player, map_choice, 2);
                 }
                 else if (user_weapon_choice == 3){
                     turn(current_player, opponent_player);

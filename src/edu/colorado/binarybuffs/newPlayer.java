@@ -65,7 +65,7 @@ public class newPlayer {
             Weapon weapon = this.player_weapons.get(weapon_choice);
             Map attacked_map = opponent.player_maps.get(map_choice);
             Map curr_players_map = this.player_maps.get(map_choice);
-            boolean result = weapon.deployWeapon(x, y, opponent, attacked_map, curr_players_map, this);
+            boolean result = weapon.deployWeapon(x, y, opponent, attacked_map, curr_players_map, this, method_choice);
             if (result && weapon_uses.containsKey(weapon)) {
                 int current_uses = weapon_uses.get(weapon);
                 weapon_uses.replace(weapon, current_uses + 1);
