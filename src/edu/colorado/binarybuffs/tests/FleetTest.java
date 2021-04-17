@@ -1,16 +1,3 @@
-<<<<<<< HEAD
-//package edu.colorado.binarybuffs.tests;
-//
-//import org.junit.jupiter.api.Test;
-//
-//public class FleetTest {
-//    @Test
-//    public void CreateRandomFleet() {
-//        Fleet myFleet = new Fleet();
-//        print(myFleet.getShips());
-//    }
-//}
-=======
 package edu.colorado.binarybuffs.tests;
 
 import edu.colorado.binarybuffs.*;
@@ -50,12 +37,10 @@ public class FleetTest {
         Fleet myFleet = new Fleet("OceanMap");
         newPlayer player1 = new newPlayer("Tanvi");
         myFleet.placeFleet(player1);
-        //ArrayList<newShip> ships = player1.getPlayerMaps().get(0);
+        //ArrayList<newShip> ships = player1.getPlayerMaps().get(0).getShipsAlive();
         //System.out.print(ships);
         //assertEquals();
 
     }
 
-
 }
->>>>>>> 4f8a1e37a69a94ec370068c2202288138e1fe4b2
