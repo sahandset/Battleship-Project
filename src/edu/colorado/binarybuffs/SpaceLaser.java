@@ -16,7 +16,7 @@ public class SpaceLaser extends Weapon {
         return this.name;
     }
 
-    public boolean deployWeapon(int x, int y, newPlayer opponent, Map attacked_map, Map current_player_map, newPlayer currentPlayer) {
+    public boolean deployWeapon(int x, int y, newPlayer opponent, Map attacked_map, Map current_player_map, newPlayer currentPlayer, int method_choice) {
         if (x > 10 || x < 0 || y > 10 || y < 0) {
             System.out.println("You cannot attack outside of the grid! (Attempted an attack at (" + x + "," + y + "))");
             return false;
@@ -49,7 +49,7 @@ public class SpaceLaser extends Weapon {
         Bomb b = new Bomb();
 
         System.out.print("Currently attacking in space! ");
-        b.deployWeapon(x, y, opponent, opp_space, curr_space, currentPlayer);
+        b.deployWeapon(x, y, opponent, opp_space, curr_space, currentPlayer, 2);
 
         //check if you hit a space shuttle, and if it sank
         //we could check the attacked_map's defensive grid and see if there is a ship there
@@ -91,17 +91,17 @@ public class SpaceLaser extends Weapon {
 
 
         System.out.print("Currently attacking on the surface! ");
-        b.deployWeapon(x, y, opponent, opp_surface, curr_surface, currentPlayer);
+        b.deployWeapon(x, y, opponent, opp_surface, curr_surface, currentPlayer, 2);
 
         // If you attack a cell and hit a surface ship, check underwater
         if (opp_surface.defensiveGrid.checkCellStatus(x, y) == 2) {
             System.out.print("Currently attacking underwater! ");
-            b.deployWeapon(x, y, opponent, opp_underwater, curr_underwater, currentPlayer);
+            b.deployWeapon(x, y, opponent, opp_underwater, curr_underwater, currentPlayer, 2);
             // If you have attacked a cell and there is no surface ship, check underwater
         } else if (opp_surface.defensiveGrid.checkCellStatus(x, y) == 0) {
 //            if (opp_surface.defensiveGrid.checkCellStatus(x, y) == 0) {
             System.out.print("Currently attacking underwater! ");
-            b.deployWeapon(x, y, opponent, opp_underwater, curr_underwater, currentPlayer);
+            b.deployWeapon(x, y, opponent, opp_underwater, curr_underwater, currentPlayer, 2);
 //            }
         }
         return true;

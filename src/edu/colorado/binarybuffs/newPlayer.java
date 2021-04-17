@@ -60,12 +60,12 @@ public class newPlayer {
         surrender = true;
     }
 
-    public boolean useWeapon(int weapon_choice, int x, int y, newPlayer opponent, int map_choice) {
+    public boolean useWeapon(int weapon_choice, int x, int y, newPlayer opponent, int map_choice, int method_choice) {
         if (weapon_choice >= 0 && weapon_choice < this.player_weapons.size()) {
             Weapon weapon = this.player_weapons.get(weapon_choice);
             Map attacked_map = opponent.player_maps.get(map_choice);
             Map curr_players_map = this.player_maps.get(map_choice);
-            boolean result = weapon.deployWeapon(x, y, opponent, attacked_map, curr_players_map, this);
+            boolean result = weapon.deployWeapon(x, y, opponent, attacked_map, curr_players_map, this, method_choice);
             if (result && weapon_uses.containsKey(weapon)) {
                 int current_uses = weapon_uses.get(weapon);
                 weapon_uses.replace(weapon, current_uses + 1);

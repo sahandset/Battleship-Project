@@ -18,7 +18,7 @@ public class SonarPulse extends Weapon{
         return this.name;
     }
 
-    public boolean deployWeapon(int x, int y, newPlayer opponent, Map attacked_map, Map current_player_map, newPlayer currentPlayer){
+    public boolean deployWeapon(int x, int y, newPlayer opponent, Map attacked_map, Map current_player_map, newPlayer currentPlayer, int method_choice){
             // Reveal horizontal layer - (x-1, y) and (x-2, y)         (x+1, y) and (x + 2, y)
             // Reveal vertical layer - (x, y-1) and (x, y-2)         (x, y+1) and (x, y + 2)
             // Reveal diagonals - (x-1, y-1) and (x-1, y+1)      (x+1, y-1) and (x+1, y+1)
