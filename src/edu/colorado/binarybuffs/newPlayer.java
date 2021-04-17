@@ -60,7 +60,7 @@ public class newPlayer {
         surrender = true;
     }
 
-    public boolean useWeapon(int weapon_choice, int x, int y, newPlayer opponent, int map_choice) {
+    public boolean useWeapon(int weapon_choice, int x, int y, newPlayer opponent, int map_choice, int method_choice) {
         if (weapon_choice >= 0 && weapon_choice < this.player_weapons.size()) {
             Weapon weapon = this.player_weapons.get(weapon_choice);
             Map attacked_map = opponent.player_maps.get(map_choice);
