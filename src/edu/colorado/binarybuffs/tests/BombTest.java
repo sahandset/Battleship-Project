@@ -22,9 +22,9 @@ public class BombTest {
 
         player1.deployShip(sweeper, 1,2,"south", 0);
 
-        assertEquals(false, player2.useWeapon(0, -1,-1, player1, 0));
-        assertEquals(false, player2.useWeapon(0, 11,11, player1, 0));
-        assertEquals(false, player2.useWeapon(0, -1,11, player1, 0));
+        assertEquals(false, player2.useWeapon(0, -1,-1, player1, 0, 2));
+        assertEquals(false, player2.useWeapon(0, 11,11, player1, 0, 2));
+        assertEquals(false, player2.useWeapon(0, -1,11, player1, 0, 2));
 
 
     }
@@ -41,7 +41,7 @@ public class BombTest {
 
         player1.deployShip(sweeper, 1,2,"south", 0);
 
-        assertEquals(true, player2.useWeapon(0, 1,1, player1, 0));
+        assertEquals(true, player2.useWeapon(0, 1,1, player1, 0, 2));
     }
 
     @Test
@@ -59,7 +59,7 @@ public class BombTest {
         player1.deployShip(dest, 5, 5, "north", 0);
         player1.deployShip(bat, 3, 3, "east", 0);
 
-        assertEquals(true, player2.useWeapon(0, 8,8, player1, 0));
+        assertEquals(true, player2.useWeapon(0, 8,8, player1, 0, 2));
     }
 
     @Test
@@ -77,7 +77,7 @@ public class BombTest {
         player1.deployShip(dest, 5, 5, "north", 0);
         player1.deployShip(bat, 3, 3, "east", 0);
 
-        assertEquals(true, player2.useWeapon(0, 1,1, player1, 0));
+        assertEquals(true, player2.useWeapon(0, 1,1, player1, 0, 2));
     }
 
     @Test
@@ -94,13 +94,13 @@ public class BombTest {
         player1.deployShip(dest, 5, 5, "north", 0);
         player1.deployShip(bat, 3, 3, "east", 0);
 
-        player2.useWeapon(0, 1,1, player1, 0);
+        player2.useWeapon(0, 1,1, player1, 0, 2);
 
-        player2.useWeapon(0, 5,6, player1, 0);
-        player2.useWeapon(0, 5,6, player1, 0);
+        player2.useWeapon(0, 5,6, player1, 0, 2);
+        player2.useWeapon(0, 5,6, player1, 0, 2);
 
-        player2.useWeapon(0, 1,3, player1, 0);
-        player2.useWeapon(0, 1,3, player1, 0);
+        player2.useWeapon(0, 1,3, player1, 0, 2);
+        player2.useWeapon(0, 1,3, player1, 0, 2);
 
         assertEquals(true, player1.getSurrenderStatus());
 
@@ -118,8 +118,8 @@ public class BombTest {
 
         //player1.deployShip(sweeper, 1,2,"south", 0);
 
-        assertEquals(false, player2.useWeapon(0, 1,1, player1, 1));
-        assertEquals(false, player2.useWeapon(0, 1,1, player1, 2));
+        assertEquals(false, player2.useWeapon(0, 1,1, player1, 1, 2));
+        assertEquals(false, player2.useWeapon(0, 1,1, player1, 2, 2));
     }
 
 }

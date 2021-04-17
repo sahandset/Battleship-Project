@@ -35,8 +35,8 @@ public abstract class Map {
     public Map(){
         offensiveGrid = new newGrid();
         defensiveGrid = new newGrid();
-        narwhal = new Narwhal();
-        jaws = new Jaws();
+//        narwhal = new Narwhal();
+//        jaws = new Jaws();
     }
 
     public abstract String getName();
@@ -149,44 +149,11 @@ public abstract class Map {
         System.out.println(offensiveGrid);
     }
 
-    public void placeNarwhal() {
-        Random rand = new Random(); //instance of random class
-        int max_x = 10;
-        int max_y = 10;
-        int random_x = rand.nextInt(max_x);
-        int random_y = rand.nextInt(max_y);
+    public abstract void placeNarwhal();
 
-        Animal narwhal = new Narwhal();
-        Coordinate narwhal_coord = new Coordinate(random_x, random_y);
-        animal_coordinates.put(narwhal, narwhal_coord);
-        animals.add(narwhal);
-    }
+    public abstract void placeJaws();
 
-    public void placeJaws() {
-        Random rand = new Random(); //instance of random class
-        int max_x = 10;
-        int max_y = 10;
-        int random_x = rand.nextInt(max_x);
-        int random_y = rand.nextInt(max_y);
-
-        Animal jaws = new Jaws();
-        Coordinate jaws_coord = new Coordinate(random_x, random_y);
-        animal_coordinates.put(jaws, jaws_coord);
-        animals.add(jaws);
-    }
-
-    public void checkForAnimal(newPlayer curr_player) {
-        for (int i = 0; i < animal_coordinates.size(); i++) {
-            for (int j = 0; j < ship_coordinates.size(); j++) {
-                for (int k = 0; k < ship_coordinates.get(j).size(); k++) {
-                    if ((animal_coordinates.get(i).x == ship_coordinates.get(j).get(k).x) && (animal_coordinates.get(i).y == ship_coordinates.get(j).get(k).y)) {
-                        animals.get(i).useAnimal(curr_player, this);
-                    }
-                }
-
-            }
-        }
-    }
+    public abstract boolean checkForAnimal(newPlayer curr_player);
 
 
 }

@@ -21,6 +21,7 @@ public class AnimalTest {
 
         player1.player_maps.get(0).placeNarwhal();
         player1.deployShip(sweeper, 1,2,"south", 0);
+        player1.player_maps.get(0).checkForAnimal(player1);
 
 
     }

@@ -22,9 +22,9 @@ public class SpaceLaserTest {
 
         //This uses a bomb, sinks a minesweeper, and then gets a space laser
         //use space laser twice to annihilate the rest of the ships
-        player2.useWeapon(0, 1,1, player1, 0);
-        player2.useWeapon(0, 5, 6, player1, 0);
-        player2.useWeapon(0, 5, 6, player1, 0);
+        player2.useWeapon(0, 1,1, player1, 0, 2);
+        player2.useWeapon(0, 5, 6, player1, 0, 2);
+        player2.useWeapon(0, 5, 6, player1, 0, 2);
 
     }
 
@@ -45,8 +45,8 @@ public class SpaceLaserTest {
         assertEquals(true, player1.deployShip(bat, 3, 3, "east", 0));
         assertEquals(true, player1.deployShip(shuttle, 0, 5, "west", 2));
 
-        player2.useWeapon(0, 1,1, player1, 0);
-        player2.useWeapon(0, 5, 5, player1, 2);
+        player2.useWeapon(0, 1,1, player1, 0, 3);
+        player2.useWeapon(0, 5, 5, player1, 2, 3);
 
     }
 }
