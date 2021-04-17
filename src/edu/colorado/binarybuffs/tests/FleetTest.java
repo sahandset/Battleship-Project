@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 //package edu.colorado.binarybuffs.tests;
 //
 //import org.junit.jupiter.api.Test;
@@ -10,7 +9,7 @@
 //        print(myFleet.getShips());
 //    }
 //}
-=======
+
 package edu.colorado.binarybuffs.tests;
 
 import edu.colorado.binarybuffs.*;
@@ -58,4 +57,3 @@ public class FleetTest {
 
 
 }
->>>>>>> 4f8a1e37a69a94ec370068c2202288138e1fe4b2
