@@ -154,6 +154,19 @@ public abstract class Map {
         animals.add(narwhal);
     }
 
+    public void placeJaws() {
+        Random rand = new Random(); //instance of random class
+        int max_x = 10;
+        int max_y = 10;
+        int random_x = rand.nextInt(max_x);
+        int random_y = rand.nextInt(max_y);
+
+        Animal jaws = new Jaws();
+        Coordinate jaws_coord = new Coordinate(random_x, random_y);
+        animal_coordinates.put(jaws, jaws_coord);
+        animals.add(jaws);
+    }
+
     public void checkForAnimal(newPlayer curr_player) {
         for (int i = 0; i < animal_coordinates.size(); i++) {
             for (int j = 0; j < ship_coordinates.size(); j++) {
