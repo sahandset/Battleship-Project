@@ -65,17 +65,7 @@ public class DisasterTest {
 
         player1.deployShip(shut, 0, 0, "south", 2);
 
-        // AsteroidField(ArrayList <Coordinates>)
-        ArrayList<Coordinate> asteroid_locations = new ArrayList<>();
-        Coordinate coord1 = new Coordinate(0,0);
-        Coordinate coord2 = new Coordinate(0, 3);
-        Coordinate coord3 = new Coordinate(5,5);
-
-        asteroid_locations.add(coord1);
-        asteroid_locations.add(coord2);
-        asteroid_locations.add(coord3);
-
-        AsteroidField testAsteroidField = new AsteroidField(asteroid_locations);
+        AsteroidField testAsteroidField = new AsteroidField();
 
         assertEquals(1, player2.getPlayerMaps().get(2).offensiveGrid.checkCellStatus(0,0));
         assertEquals(1, player2.getPlayerMaps().get(2).offensiveGrid.checkCellStatus(0,3));
