@@ -134,7 +134,7 @@ public class Bomb extends Weapon {
                     System.out.println("The shark can't bite your ship on " + attacked_map.getName());
                 }
                 else if (print_choice == 2){
-                    System.out.println("The shark cannot bite you outside of the grid! (Attempted a shark attack at (" + x + "," + y + ")) on " + attacked_map.getName() + ".")
+                    System.out.println("The shark cannot bite you outside of the grid! (Attempted a shark attack at (" + x + "," + y + ")) on " + attacked_map.getName() + ".");
                 }
                 else if (print_choice == 3){
                 System.out.println("You barely escaped a shark attack on " + attacked_map.getName() + "!");

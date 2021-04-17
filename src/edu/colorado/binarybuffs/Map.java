@@ -49,6 +49,14 @@ public abstract class Map {
         return this.ships_alive;
     }
 
+    public ArrayList<newShip> getExistingShips(){
+        return existing_ships;
+    }
+
+    public Hashtable<newShip, ArrayList<Coordinate>> getShipCoordinatesHash(){
+        return ship_coordinates;
+    }
+
     public boolean placeShip(newShip ship, int start_x, int start_y, String direction) {
         //get the cords
         ArrayList<Coordinate> coords = ship.getCoords(start_x, start_y, direction);

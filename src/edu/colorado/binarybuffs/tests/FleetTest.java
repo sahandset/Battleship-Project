@@ -37,9 +37,9 @@ public class FleetTest {
         Fleet myFleet = new Fleet("OceanMap");
         newPlayer player1 = new newPlayer("Tanvi");
         myFleet.placeFleet(player1);
-        //ArrayList<newShip> ships = player1.getPlayerMaps().get(0).getShipsAlive();
-        //System.out.print(ships);
-        //assertEquals();
+        ArrayList<newShip> ships = player1.getPlayerMaps().get(0).getExistingShips();
+        System.out.print(ships);
+        assertEquals(3, ships.size());
 
     }
 }
