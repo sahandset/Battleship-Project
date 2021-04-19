@@ -62,7 +62,7 @@ public class DisasterTest {
 
         Spaceshuttle shut = new Spaceshuttle();
 
-        player1.deployShip(shut, 0, 0, "south", 2);
+        player1.deployShip(shut, 0, 0, "north", 2);
 
         AsteroidField testAsteroidField = new AsteroidField();
         testAsteroidField.applyDisaster(player1);
