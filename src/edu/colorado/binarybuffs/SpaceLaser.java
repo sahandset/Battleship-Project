@@ -107,11 +107,11 @@ public class SpaceLaser extends Weapon {
         return true;
     }
 
+    // REFACTOR THIS METHOD
     public boolean attackUnderSpaceShuttle(int x, int y, Map attacked_map, Map current_player_map, newPlayer current_player){
         //copy the functionality of a bomb here
         int has_been_attacked = current_player_map.offensiveGrid.checkCellStatus(x,y);
         int is_occupied = attacked_map.defensiveGrid.checkCellStatus(x,y);
-
 
         if (is_occupied == 0) {
             //System.out.println("You've attempted an attack on " + attacked_map.getName() + ", but you've missed!");

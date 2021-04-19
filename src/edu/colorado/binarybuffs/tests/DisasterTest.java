@@ -30,7 +30,7 @@ public class DisasterTest {
 //        player2.useWeapon(0, 5,6, player1, 0);
 
         // GhostZone(int x, int y)
-        GhostZone testGhostZone = new GhostZone(5, 6);
+//        GhostZone testGhostZone = new GhostZone(5, 6);
 //        assertEquals(true, checkScramble(player2.getPlayerMaps().get(0).offensiveGrid));
     }
 

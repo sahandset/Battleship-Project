@@ -24,16 +24,17 @@ public class AsteroidField extends Disaster {
         return this.asteroids;
     }
 
-    public void applyDisaster(newPlayer Player1, newPlayer Player2) {
-         ArrayList<Coordinate> shuttle_coordinates1 = Player1.getPlayerMaps().get(2).ship_coordinates.get(0);
-         ArrayList<Coordinate> shuttle_coordinates2 = Player2.getPlayerMaps().get(2).ship_coordinates.get(0);
+    public void applyDisaster(newPlayer current_player) {
+         ArrayList<Coordinate> shuttle_coordinates1 = current_player.getPlayerMaps().get(2).ship_coordinates.get(0);
+         SpaceLaser asteroid_hit = new SpaceLaser();
 
          for (int i = 0; i < this.asteroids.size(); i++) {
              if (shuttle_coordinates1.contains(this.asteroids.get(i))){
                  // Call SpaceLaser on Player1 Space Map at this coordinate
-             }
-             if (shuttle_coordinates2.contains(this.asteroids.get(i))) {
-                 // Call SpaceLaser on Player2 Space Map at this coordinate
+                 System.out.println(current_player.getName() + "'s Space shuttle has encountered an asteroid field! They have been " +
+                         " bombarded at " + this.asteroids.get(i).toString());
+                 asteroid_hit.attackUnderSpaceShuttle(this.asteroids.get(i).x, this.asteroids.get(i).y,
+                         current_player.getPlayerMaps().get(2), current_player.getPlayerMaps().get(2), current_player);
              }
          }
     }
@@ -42,4 +43,4 @@ public class AsteroidField extends Disaster {
 //Game
     //probability of a disaster
     //suppose a AsteroidField is generated
-    //AsteroidField.apply(player1, player2)
+    //AsteroidField.applyDisaster(player1, player2)
