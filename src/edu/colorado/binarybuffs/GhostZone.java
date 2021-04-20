@@ -51,20 +51,21 @@ public class GhostZone extends Disaster {
         int scramble_num = 0;
         for (int i = 0; i < ghost_zone_coords.size(); i++) {
             Random rand = new Random();
-            scramble_num = rand.nextInt(2);
+            scramble_num = rand.nextInt(3);
             new_ocean_offensive_grid.setCellStatus(scramble_num, ghost_zone_coords.get(i).x, ghost_zone_coords.get(i).y);
             new_underwater_offensive_grid.setCellStatus(scramble_num, ghost_zone_coords.get(i).x, ghost_zone_coords.get(i).y);
         }
-        if ((checkScramble(new_ocean_offensive_grid, current_player.getPlayerMaps().get(0).offensiveGrid)) &&
-            (checkScramble(new_underwater_offensive_grid, current_player.getPlayerMaps().get(1).offensiveGrid))) {
-            for (int i = 0; i < ghost_zone_coords.size(); i++) {
-                current_player.getPlayerMaps().get(0).offensiveGrid.setCellStatus(scramble_num, ghost_zone_coords.get(i).x, ghost_zone_coords.get(i).y);
-                current_player.getPlayerMaps().get(1).offensiveGrid.setCellStatus(scramble_num, ghost_zone_coords.get(i).x, ghost_zone_coords.get(i).y);
-            }
-       }
-        else {
-            applyDisaster(current_player);
-        }
+        //System.out.println("")
+//        if ((checkScramble(new_ocean_offensive_grid, current_player.getPlayerMaps().get(0).offensiveGrid)) &&
+//            (checkScramble(new_underwater_offensive_grid, current_player.getPlayerMaps().get(1).offensiveGrid))) {
+//            for (int i = 0; i < ghost_zone_coords.size(); i++) {
+//                current_player.getPlayerMaps().get(0).offensiveGrid.setCellStatus(scramble_num, ghost_zone_coords.get(i).x, ghost_zone_coords.get(i).y);
+//                current_player.getPlayerMaps().get(1).offensiveGrid.setCellStatus(scramble_num, ghost_zone_coords.get(i).x, ghost_zone_coords.get(i).y);
+//            }
+//       }
+//       else {
+//            applyDisaster(current_player);
+//       }
     }
 
     public boolean validateGhostZone() {
@@ -77,17 +78,17 @@ public class GhostZone extends Disaster {
         return true;
     }
 
-    public boolean checkScramble(newGrid new_grid, newGrid old_grid) {
-        // iterate through new grid cells and check if the new one has ONE different status:
-        // return true;
-        // else:
-        for (int i = 0; i < new_grid.grid.length; i++) {
-            for (int j =0; j < new_grid.grid.length; j++) {
-                if (new_grid.checkCellStatus(i,j) != old_grid.checkCellStatus(i,j)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
+//    public boolean checkScramble(newGrid new_grid, newGrid old_grid) {
+//        // iterate through new grid cells and check if the new one has ONE different status:
+//        // return true;
+//        // else:
+//        for (int i = 0; i < new_grid.grid.length; i++) {
+//            for (int j =0; j < old_grid.grid.length; j++) {
+//                if (new_grid.checkCellStatus(i,j) != old_grid.checkCellStatus(i,j)) {
+//                    return true;
+//                }
+//            }
+//        }
+//        return false;
+//    }
 }

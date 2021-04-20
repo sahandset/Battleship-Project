@@ -30,7 +30,7 @@ public class DisasterTest {
         player2.useWeapon(0, 5,6, player1, 0, 1);
 
         GhostZone testGhostZone = new GhostZone();
-        testGhostZone.applyDisaster(player1);
+        testGhostZone.applyDisaster(player2);
     }
 
     @Test
