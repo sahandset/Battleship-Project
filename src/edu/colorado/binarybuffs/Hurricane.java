@@ -39,12 +39,20 @@ public class Hurricane extends Disaster{
             Coordinate starting_coordinate = new Coordinate(rand.nextInt(9), rand.nextInt(9));
 
             for (int i = starting_coordinate.y; i < starting_coordinate.y + this.category; i++) {
-                this.hurricane_border_coordinates.put(new Coordinate(starting_coordinate.x, i), "north");
-                this.hurricane_border_coordinates.put(new Coordinate(starting_coordinate.x + (this.category - 1), i), "south");
+                Coordinate coord1 = new Coordinate(starting_coordinate.x, i);
+                this.hurricane_border_coordinates.put(coord1, "north");
+                this.hurricane_coordinate_keys.add(coord1);
+                Coordinate coord2 = new Coordinate(starting_coordinate.x + (this.category - 1), i);
+                this.hurricane_border_coordinates.put(coord2, "south");
+                this.hurricane_coordinate_keys.add(coord2);
             }
             for (int i = starting_coordinate.x + 1; i < starting_coordinate.x -1 + this.category; i++) {
-                this.hurricane_border_coordinates.put(new Coordinate(i, starting_coordinate.y), "east");
-                this.hurricane_border_coordinates.put(new Coordinate(i, starting_coordinate.y + (this.category - 1)), "west");
+                Coordinate coord1 = new Coordinate(i, starting_coordinate.y);
+                this.hurricane_border_coordinates.put(coord1, "east");
+                this.hurricane_coordinate_keys.add(coord1);
+                Coordinate coord2 = new Coordinate(i, starting_coordinate.y + (this.category - 1));
+                this.hurricane_border_coordinates.put(coord2, "west");
+                this.hurricane_coordinate_keys.add(coord2);
             }
 
         } while (this.validateHurricane() == false);
@@ -54,10 +62,14 @@ public class Hurricane extends Disaster{
         // Print Hurricane location with ꩜ noting where it is
     }
 
+    public ArrayList<Coordinate> getHurricaneCoordinates(){
+        return hurricane_coordinate_keys;
+    }
+
     public boolean validateHurricane() {
-        for (int i = 0; i < this.hurricane_border_coordinates.size(); i++) {
-            this.hurricane_coordinate_keys.add(this.hurricane_border_coordinates.keys().nextElement());
-        }
+//        for (int i = 0; i < this.hurricane_border_coordinates.size(); i++) {
+//            this.hurricane_coordinate_keys.add(this.hurricane_border_coordinates.keys().nextElement());
+//        }
         for (int i = 0; i < this.hurricane_border_coordinates.size(); i++) {
             if (this.hurricane_coordinate_keys.get(i).x < 0 || this.hurricane_coordinate_keys.get(i).y < 0 ||
                     this.hurricane_coordinate_keys.get(i).x >= 10 || this.hurricane_coordinate_keys.get(i).y >= 10) {
@@ -137,17 +149,35 @@ public class Hurricane extends Disaster{
             }
             if (movable){
                 //MOVE THAT SHIP
+                Hashtable<Coordinate, Integer> moved_coords_stati = new Hashtable<Coordinate, Integer>();
+                ArrayList<Coordinate> old_coords_keys = new ArrayList<Coordinate>();
                 for (int j = 0; j < coordsList.size(); j++) {
-                    ocean_map.defensiveGrid.setCellStatus(coordsList.get(j).x, coordsList.get(j).y, 0);
-                }
-                for (int j = 0; j < coordsList.size(); j++) {
+                    int status = ocean_map.defensiveGrid.checkCellStatus(coordsList.get(j).x, coordsList.get(j).y);
+                    old_coords_keys.add(coordsList.get(j));
+
                     moved_x = coordsList.get(j).x + offset_coord.x;
                     moved_y = coordsList.get(j).y + offset_coord.y;
-                    movedCoordsList.add(new Coordinate(moved_x, moved_y));
-                    //curr_map.defensiveGrid.setCellStatus(1, moved_x, moved_y);
-//                    int updated_status = ocean_map.defensiveGrid.checkCellStatus(coordsList.get(j).x, coordsList.get(j).y);
-//                    new_defense_grid.setCellStatus(updated_status, moved_x, moved_y);
+                    Coordinate moved_coord = new Coordinate(moved_x, moved_y);
+                    movedCoordsList.add(moved_coord);
+                    moved_coords_stati.put(moved_coord, status);
                 }
+                for (int j = 0; j < movedCoordsList.size(); j++){
+                    int status = moved_coords_stati.get(movedCoordsList.get(j));
+                    ocean_map.defensiveGrid.setCellStatus(status, movedCoordsList.get(j).x, movedCoordsList.get(j).y);
+                }
+                for (int j = 0; j < movedCoordsList.size(); j++){
+                    if (!(movedCoordsList.contains(old_coords_keys.get(j)))){
+                        ocean_map.defensiveGrid.setCellStatus(0, old_coords_keys.get(j).x, old_coords_keys.get(j).y);
+                    }
+                }
+//                for (int j = 0; j < coordsList.size(); j++) {
+//                    moved_x = coordsList.get(j).x + offset_coord.x;
+//                    moved_y = coordsList.get(j).y + offset_coord.y;
+//                    movedCoordsList.add(new Coordinate(moved_x, moved_y));
+//                    //curr_map.defensiveGrid.setCellStatus(1, moved_x, moved_y);
+////                    int updated_status = ocean_map.defensiveGrid.checkCellStatus(coordsList.get(j).x, coordsList.get(j).y);
+////                    new_defense_grid.setCellStatus(updated_status, moved_x, moved_y);
+//                }
             }
             //Coordinate current_coord = new Coordinate(hurricane_coordinate_keys.get(j).x + offset_coord.x, hurricane_coordinate_keys.get(j).y + offset_coord.y);
         }

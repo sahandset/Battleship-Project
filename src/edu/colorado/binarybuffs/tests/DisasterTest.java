@@ -48,11 +48,16 @@ public class DisasterTest {
         player1.deployShip(dest, 5, 5, "north", 0);
         player1.deployShip(bat, 3, 3, "east", 0);
 
-        // Hurricane(int starting coordinate)
-//        Hurricane testHurricane = new Hurricane(0, 0);
+        System.out.println(player1.getPlayerMaps().get(0).defensiveGrid);
 
-        assertEquals(1, player2.getPlayerMaps().get(0).offensiveGrid.checkCellStatus(1,2));
-        assertEquals(1, player2.getPlayerMaps().get(0).offensiveGrid.checkCellStatus(1,1));
+        Hurricane testHurricane = new Hurricane();
+        testHurricane.applyDisaster(player1);
+
+        System.out.println(testHurricane.getHurricaneCoordinates());
+        System.out.println(player1.getPlayerMaps().get(0).defensiveGrid);
+
+        //assertEquals(1, player2.getPlayerMaps().get(0).offensiveGrid.checkCellStatus(1,2));
+        //assertEquals(1, player2.getPlayerMaps().get(0).offensiveGrid.checkCellStatus(1,1));
     }
 
     @Test
