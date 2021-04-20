@@ -8,6 +8,7 @@ public class Narwhal extends Animal{
 
     }
 
+    public String getName() {return this.name;}
     public void grantUses(newPlayer curr_player, Map curr_player_map) {
         if (curr_player.player_weapons.size() == 2) {
             Weapon sonar_pulse = curr_player.player_weapons.get(1);

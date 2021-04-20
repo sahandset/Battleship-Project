@@ -139,8 +139,8 @@ public class Bomb extends Weapon {
                 else if (print_choice == 3){
                 System.out.println("You barely escaped a shark attack on " + attacked_map.getName() + "!");
                 }
-                else if (print_choice == 4){
-                    System.out.println("The shark already attacked there on the " + attacked_map.getName() + ".");
+                else if (print_choice == 4) {
+                    System.out.println("The shark bit one of your captain's quarters...luckily it was armored!");
                 }
                 else if (print_choice == 5){
                     System.out.println("-- But it attacked a captain's quarters! It sunk a " + attacked_ship.getName() + "!");

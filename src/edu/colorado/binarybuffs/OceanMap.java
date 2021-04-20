@@ -1,18 +1,37 @@
 package edu.colorado.binarybuffs;
 
+import java.util.Hashtable;
 import java.util.Random;
 
 public class OceanMap extends Map {
     private String name = "OceanMap";
 
     public OceanMap() {
-        narwhal = new Narwhal();
-        jaws = new Jaws();
+
     }
 
     public String getName() {
         return this.name;
     }
+
+    public Coordinate getNarwhalCoord() {
+        for (int i = 0; i < animals.size(); i++) {
+            if (animals.get(i).getName() == "Narwhal") {
+                return animal_coordinates.get(animals.get(i));
+            }
+        }
+        return null;
+    }
+
+    public Coordinate getJawsCoord() {
+        for (int i = 0; i < animals.size(); i++) {
+            if (animals.get(i).getName() == "Jaws") {
+                return animal_coordinates.get(animals.get(i));
+            }
+        }
+        return null;
+    }
+
 
     public boolean validateDeployment(newShip ship) {
         return true;
@@ -52,7 +71,6 @@ public class OceanMap extends Map {
                 for (int k = 0; k < ship_coordinates.get(shipy).size(); k++) {
                     if ((animal_coordinates.get(a).x == ship_coordinates.get(shipy).get(k).x) && (animal_coordinates.get(a).y == ship_coordinates.get(shipy).get(k).y)) {
                         a.useAnimal(curr_player, this);
-                        System.out.println("There's a magic narwhal under one of your ships!");
                         return true;
                     }
                 }

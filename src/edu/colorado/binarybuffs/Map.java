@@ -49,6 +49,24 @@ public abstract class Map {
         return this.ships_alive;
     }
 
+    public Coordinate getNarwhalCoord() {
+        for (int i = 0; i < animals.size(); i++) {
+            if (animals.get(i).getName() == "Narwhal") {
+                return animal_coordinates.get(animals.get(i));
+            }
+        }
+        return null;
+    }
+
+    public Coordinate getJawsCoord() {
+        for (int i = 0; i < animals.size(); i++) {
+            if (animals.get(i).getName() == "Jaws") {
+                return animal_coordinates.get(animals.get(i));
+            }
+        }
+        return null;
+    }
+
     public ArrayList<newShip> getExistingShips(){
         return existing_ships;
     }
