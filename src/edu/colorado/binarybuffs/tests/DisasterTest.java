@@ -43,17 +43,20 @@ public class DisasterTest {
         Destroyer dest = new Destroyer();
         Battleship bat = new Battleship();
 
-        player1.deployShip(sweeper, 1, 1, "south", 0);
-        player1.deployShip(sub, 8, 8, "south", 1);
-        player1.deployShip(dest, 5, 5, "north", 0);
-        player1.deployShip(bat, 3, 3, "east", 0);
+//        player1.deployShip(sweeper, 1, 1, "south", 0);
+//        player1.deployShip(sub, 8, 8, "south", 1);
+//        player1.deployShip(dest, 5, 5, "north", 0);
+//        player1.deployShip(bat, 3, 3, "east", 0);
+
+        Hurricane testHurricane = new Hurricane();
+
+        System.out.println(testHurricane.getHurricaneCoordinates());
+        ArrayList<Coordinate> hurricane_coords = testHurricane.getHurricaneCoordinates();
+        player1.deployShip(sweeper, hurricane_coords.get(0).x, hurricane_coords.get(0).y, "west", 0);
 
         System.out.println(player1.getPlayerMaps().get(0).defensiveGrid);
 
-        Hurricane testHurricane = new Hurricane();
         testHurricane.applyDisaster(player1);
-
-        System.out.println(testHurricane.getHurricaneCoordinates());
         System.out.println(player1.getPlayerMaps().get(0).defensiveGrid);
 
         //assertEquals(1, player2.getPlayerMaps().get(0).offensiveGrid.checkCellStatus(1,2));

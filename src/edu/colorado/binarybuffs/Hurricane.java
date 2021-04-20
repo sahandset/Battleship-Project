@@ -36,8 +36,19 @@ public class Hurricane extends Disaster{
         do {
             Random rand = new Random();
             this.category = rand.nextInt(4) + 2;
-            Coordinate starting_coordinate = new Coordinate(rand.nextInt(9), rand.nextInt(9));
-
+            Coordinate starting_coordinate = new Coordinate(0, 0);
+            if (this.category == 2) {
+                starting_coordinate = new Coordinate(rand.nextInt(9), rand.nextInt(9));
+            }
+            else if(this.category == 3){
+                starting_coordinate = new Coordinate(rand.nextInt(8), rand.nextInt(8));
+            }
+            else if(this.category == 4){
+                starting_coordinate = new Coordinate(rand.nextInt(7), rand.nextInt(7));
+            }
+            else if(this.category == 5){
+                starting_coordinate = new Coordinate(rand.nextInt(6), rand.nextInt(6));
+            }
             for (int i = starting_coordinate.y; i < starting_coordinate.y + this.category; i++) {
                 Coordinate coord1 = new Coordinate(starting_coordinate.x, i);
                 this.hurricane_border_coordinates.put(coord1, "north");
@@ -46,7 +57,7 @@ public class Hurricane extends Disaster{
                 this.hurricane_border_coordinates.put(coord2, "south");
                 this.hurricane_coordinate_keys.add(coord2);
             }
-            for (int i = starting_coordinate.x + 1; i < starting_coordinate.x -1 + this.category; i++) {
+            for (int i = starting_coordinate.x + 1; i < starting_coordinate.x - 1 + this.category; i++) {
                 Coordinate coord1 = new Coordinate(i, starting_coordinate.y);
                 this.hurricane_border_coordinates.put(coord1, "east");
                 this.hurricane_coordinate_keys.add(coord1);
@@ -103,8 +114,8 @@ public class Hurricane extends Disaster{
                             this.hurricane_ships.add(shipy);
                             String direction = hurricane_border_coordinates.get(hurricane_coordinate_keys.get(i));
                             this.hurricane_ship_directions.put(shipy, direction);
+                            System.out.println("The " + shipy.getName() + " is caught in a category " + this.category + " Hurricane!");
                         }
-                        System.out.println("The " + shipy.getName() + " is caught in a category " + this.category + " Hurricane!");
                     }
                 }
             }
