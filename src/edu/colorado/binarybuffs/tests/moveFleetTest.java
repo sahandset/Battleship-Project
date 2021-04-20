@@ -24,9 +24,10 @@ public class moveFleetTest {
         assertEquals(true, player1.deployShip(dest, 5, 5, "north", 0));
         assertEquals(true, player1.deployShip(bat, 3, 3, "east", 0));
 
+        System.out.println(player1.player_maps.get(1).defensiveGrid);
         boolean moved = player1.playerMoveFleet("e");
         assertEquals(true, moved);
-//        System.out.println(player1.player_maps.get(0).defensiveGrid);
+        System.out.println(player1.player_maps.get(1).defensiveGrid);
 //        System.out.println(player1.player_maps.get(1).defensiveGrid);
 
     }
