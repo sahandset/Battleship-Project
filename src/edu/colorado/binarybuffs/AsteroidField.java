@@ -16,9 +16,8 @@ public class AsteroidField extends Disaster {
         for (int i = 0; i < 10; i++) {
             Random rand = new Random();
             int column = rand.nextInt(10);
-            Coordinate coordinate = new Coordinate(i, column);
-            asteroids.add(coordinate);
-            System.out.println(coordinate.toString());
+            Coordinate coordinate = new Coordinate(column, i);
+            this.asteroids.add(coordinate);
         }
     }
 
@@ -27,22 +26,21 @@ public class AsteroidField extends Disaster {
     }
 
     public void applyDisaster(newPlayer curr_player) {
-        for (int k = 0; k < curr_player.getPlayerMaps().get(2).ship_coordinates.size(); k++) {
-            for (int s = 0; s < curr_player.getPlayerMaps().get(2).ship_coordinates.get(curr_player.getPlayerMaps().get(2).existing_ships.get(0)).size(); s++) {
-                shuttle_coordinates.add(curr_player.getPlayerMaps().get(2).ship_coordinates.get(k).get(s));
-            }
-        }
-//        shuttle_coordinates = curr_player.getPlayerMaps().get(2).ship_coordinates.get(0);
-         System.out.println(shuttle_coordinates);
+        newShip space_ship = curr_player.getPlayerMaps().get(2).existing_ships.get(0);
+        shuttle_coordinates = curr_player.getPlayerMaps().get(2).ship_coordinates.get(space_ship);
+
          SpaceLaser asteroid_hit = new SpaceLaser();
 
-         for (int i = 0; i < this.asteroids.size(); i++) {
-             if (shuttle_coordinates.contains(this.asteroids.get(i))){
-                 // Call SpaceLaser on Player1 Space Map at this coordinate
-                 System.out.println(curr_player.getName() + "'s Space shuttle has encountered an asteroid field! They have been " +
-                         " bombarded at " + this.asteroids.get(i).toString());
-                 asteroid_hit.attackUnderSpaceShuttle(this.asteroids.get(i).x, this.asteroids.get(i).y,
-                         curr_player.getPlayerMaps().get(2), curr_player.getPlayerMaps().get(2), curr_player);
+         for (int i = 0; i < this.shuttle_coordinates.size(); i++) {
+             for (int j = 0; j < this.asteroids.size(); j++) {
+                 if (this.shuttle_coordinates.get(i).x == this.asteroids.get(j).x
+                         && this.shuttle_coordinates.get(i).y == this.asteroids.get(j).y){
+                     // Call SpaceLaser on Player1 Space Map at this coordinate
+                     System.out.println(curr_player.getName() + "'s Space shuttle has encountered an asteroid field! They have been " +
+                             " bombarded at " + this.asteroids.get(j).toString());
+                     asteroid_hit.deployWeapon(this.asteroids.get(j).x, this.asteroids.get(j).y, curr_player,
+                             curr_player.getPlayerMaps().get(2), curr_player.getPlayerMaps().get(2), curr_player, 1);
+                 }
              }
          }
     }
