@@ -39,12 +39,15 @@ public class Game {
     }
 
     public boolean turn(newPlayer current_player, newPlayer opponent_player) {
+
         boolean game_has_ended = false;
-        newShip sweeper = new Minesweeper();
-        newShip dest = new Destroyer();
-        newShip bat = new Minesweeper();
-        newShip sub = new Submarine();
-        newShip shut = new Spaceshuttle();
+
+        Minesweeper sweeper = new Minesweeper();
+        Destroyer dest = new Destroyer();
+        Battleship bat = new Battleship();
+        Submarine sub = new Submarine();
+        Spaceshuttle shut = new Spaceshuttle();
+
         ArrayList<newShip> ship_objects = new ArrayList<>();
         ship_objects.add(sweeper);
         ship_objects.add(bat);
@@ -53,7 +56,7 @@ public class Game {
         ship_objects.add(shut);
 
         displayStartingMenu(current_player, ship_objects);
-        System.out.println(current_player.getName() + "'s turn");
+        System.out.println(current_player.getName().toUpperCase() + "'S TURN");
         createDisaster(current_player);
         showTurnMenu();
         System.out.print("Enter your option: ");
@@ -171,13 +174,14 @@ public class Game {
 
     public void showTurnMenu() {
         //Print out menu for each player's turn
+        System.out.println(" -- MAIN MENU -- ");
         System.out.println("1. Show my grid status");
         System.out.println("2. Show current score");
         System.out.println("3. Use Weapon");
         System.out.println("4. Use Boost");
         System.out.println("5. Move Fleet");
         System.out.println("6. Undo/Redo Fleet Move");
-        System.out.println("7. Surrender");
+        System.out.println("7. Surrender \n");
     }
 
     public void displayStartingMenu(newPlayer curr_player, ArrayList<newShip> ship_objects) {
@@ -204,17 +208,17 @@ public class Game {
                         if (ship_objects.get(j) instanceof OrbitableShip) {
                             map_choice = 2;
                         }
-                        if (ship_objects.get(j) instanceof SubmersibleShip) {
+                        else if (ship_objects.get(j) instanceof SubmersibleShip) {
                             System.out.println("Which map do you want to deploy the submarine? Note: if there is a ship existing there on the ocean, your sub will automatically be placed underwater");
                             System.out.println("1. Ocean");
                             System.out.println("2. Underwater");
-                            map_choice = input.nextInt();
-                        }
-                        else {
+                            map_choice = input.nextInt() - 1;
+                        } else {
                             map_choice = 0;
                         }
-                        boolean success;
-                        do {
+                        boolean success = false;
+
+                        while (success == false) {
                             System.out.println("Place your " + ship_objects.get(j).getName());
                             System.out.print("X: ");
                             int coord_choice_x = input.nextInt();
@@ -223,15 +227,20 @@ public class Game {
                             System.out.print("Ship direction: ");
                             String direction_choice = input.next();
                             success = curr_player.deployShip(ship_objects.get(j), coord_choice_x, coord_choice_y, direction_choice, map_choice);
-                        } while (!success);
-                        System.out.println(ship_objects.get(j));
+                            if (!success) {
+                                System.out.println("You can't place the " + ship_objects.get(j).getName()+  " there! Try again.");
+                            }
+                        }
                     }
-                break;
+            break;
         }
-        System.out.println("You have successfully placed all your ships! View your ships on all 3 maps below:");
-        curr_player.player_maps.get(0).printOffensiveGrid();
-        curr_player.player_maps.get(1).printOffensiveGrid();
-        curr_player.player_maps.get(2).printOffensiveGrid();
+        System.out.println("You have successfully placed all your ships! View your ships on all 3 maps below: \n");
+        System.out.println("Ocean Defensive Grid: \n");
+        curr_player.player_maps.get(0).printDefensiveGrid();
+        System.out.println("Underwater Defensive Grid: \n");
+        curr_player.player_maps.get(1).printDefensiveGrid();
+        System.out.println("Space Defensive Grid: \n");
+        curr_player.player_maps.get(2).printDefensiveGrid();
     }
 
     public int displayMapMenu(newPlayer curr_player) {
@@ -240,7 +249,7 @@ public class Game {
             System.out.println( i+1 + ". " + curr_player.player_maps.get(i).getName());
         }
         System.out.println(curr_player.player_maps.size() + 1 + ". Go back");
-        int map_choice = input.nextInt();
+        int map_choice = input.nextInt() - 1;
         return map_choice;
     }
 
@@ -302,9 +311,5 @@ public class Game {
                 System.out.println(ship_objects.get(j).getName() + ": " + player1.getPlayerMaps().get(i).ship_health.get(ship_objects.get(j)));
             }
         }
-
-
     }
-
-
 }

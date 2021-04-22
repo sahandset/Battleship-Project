@@ -103,7 +103,6 @@ public abstract class Map {
             System.out.println("Successfully placed the " + ship.getName()  + "!");
             return true;
         } else {
-            System.out.println("You can't place the " + ship.getName()+  " there! Try again.");
             return false;
         }
 
@@ -158,11 +157,13 @@ public abstract class Map {
     }
 
     public void printDefensiveGrid() {
+        System.out.println(this.getName() + " -- DEFENSIVE GRID -- ");
         System.out.println("0: Cell is empty, 1: Cell is occupied");
         System.out.println(defensiveGrid);
     }
 
     public void printOffensiveGrid() {
+        System.out.println(this.getName() + " -- OFFENSIVE GRID -- ");
         System.out.println("0: Cell is not hit, 1: Cell has been hit but found empty, 2: Cell has been hit and found occupied");
         System.out.println(offensiveGrid);
     }

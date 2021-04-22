@@ -128,7 +128,7 @@ public class newPlayer {
             deploy_map.checkForAnimal(this);
             return deployed_successfully;
         } else {
-            System.out.println("You cannot place a " + ship.getName() + " on " + deploy_map.getName());
+//            System.out.println("You cannot place a " + ship.getName() + " on " + deploy_map.getName());
             return false;
         }
     }

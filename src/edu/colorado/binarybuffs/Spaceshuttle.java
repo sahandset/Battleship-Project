@@ -2,7 +2,7 @@ package edu.colorado.binarybuffs;
 
 import java.util.ArrayList;
 
-public class Spaceshuttle extends newShip implements OrbitableShip{
+public class Spaceshuttle extends newShip implements OrbitableShip {
     private String ship_name = "Spaceshuttle";
     private static int ship_size = 10;
 
