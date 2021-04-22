@@ -17,50 +17,38 @@ public class DisasterTest {
         newPlayer player2 = new newPlayer("Sahand");
 
         Minesweeper sweeper = new Minesweeper();
-        Submarine sub = new Submarine();
-        Destroyer dest = new Destroyer();
-        Battleship bat = new Battleship();
-
-        player1.deployShip(sweeper, 1, 1, "south", 0);
-        player1.deployShip(sub, 8, 8, "south", 1);
-        player1.deployShip(dest, 5, 5, "north", 0);
-        player1.deployShip(bat, 3, 3, "east", 0);
-
-        player2.useWeapon(0, 5,6, player1, 0, 1);
-        player2.useWeapon(0, 5,6, player1, 0, 1);
 
         GhostZone testGhostZone = new GhostZone();
+        ArrayList<Coordinate> ghost_coords = testGhostZone.getGhostZoneCoords();
+
+        player1.deployShip(sweeper, ghost_coords.get(0).x, ghost_coords.get(0).y, "north", 0);
+
+        player2.useWeapon(0, ghost_coords.get(0).x,ghost_coords.get(0).y, player1, 0, 2);
+
         testGhostZone.applyDisaster(player2);
+
+        assertEquals(true, testGhostZone.getGhosted());
     }
 
     @Test
     public void hurricaneTest() {
         newPlayer player1 = new newPlayer("Tanvi");
-        newPlayer player2 = new newPlayer("Sahand");
 
         Minesweeper sweeper = new Minesweeper();
-        Submarine sub = new Submarine();
-        Destroyer dest = new Destroyer();
-        Battleship bat = new Battleship();
-
-//        player1.deployShip(sweeper, 1, 1, "south", 0);
-//        player1.deployShip(sub, 8, 8, "south", 1);
-//        player1.deployShip(dest, 5, 5, "north", 0);
-//        player1.deployShip(bat, 3, 3, "east", 0);
 
         Hurricane testHurricane = new Hurricane();
 
-        System.out.println(testHurricane.getHurricaneCoordinates());
         ArrayList<Coordinate> hurricane_coords = testHurricane.getHurricaneCoordinates();
-        player1.deployShip(sweeper, hurricane_coords.get(0).x, hurricane_coords.get(0).y, "west", 0);
+        player1.deployShip(sweeper, hurricane_coords.get(2).x, hurricane_coords.get(2).y, "west", 0);
 
         System.out.println(player1.getPlayerMaps().get(0).defensiveGrid);
-
+//
         testHurricane.applyDisaster(player1);
-        System.out.println(player1.getPlayerMaps().get(0).defensiveGrid);
+        //System.out.println(player1.getPlayerMaps().get(0).defensiveGrid);
+        ArrayList<Coordinate> new_sweeper_coords = player1.getPlayerMaps().get(0).getShipCoordinatesHash().get(sweeper);
+        assertEquals(hurricane_coords.get(0).x, new_sweeper_coords.get(0).x);
+        assertEquals(hurricane_coords.get(0).y, new_sweeper_coords.get(0).y);
 
-        //assertEquals(1, player2.getPlayerMaps().get(0).offensiveGrid.checkCellStatus(1,2));
-        //assertEquals(1, player2.getPlayerMaps().get(0).offensiveGrid.checkCellStatus(1,1));
     }
 
     @Test
@@ -70,14 +58,14 @@ public class DisasterTest {
 
         Spaceshuttle shut = new Spaceshuttle();
 
-        player1.deployShip(shut, 0, 0, "north", 2);
-
         AsteroidField testAsteroidField = new AsteroidField();
-        testAsteroidField.applyDisaster(player1);
 
-//        assertEquals(1, player2.getPlayerMaps().get(2).offensiveGrid.checkCellStatus(0,0));
-//        assertEquals(1, player2.getPlayerMaps().get(2).offensiveGrid.checkCellStatus(0,3));
-//        assertEquals(0, player2.getPlayerMaps().get(2).offensiveGrid.checkCellStatus(5,5));
+        ArrayList<Coordinate> asteroid_coords = testAsteroidField.getCoords();
+
+        player1.deployShip(shut, asteroid_coords.get(0).x, asteroid_coords.get(0).y, "north", 2);
+        Coordinate hit = new Coordinate(asteroid_coords.get(0).x, asteroid_coords.get(0).y);
+        testAsteroidField.applyDisaster(player1);
+        assertEquals(2, player1.getPlayerMaps().get(2).defensiveGrid.checkCellStatus(hit.x, hit.y));
     }
 
 }
