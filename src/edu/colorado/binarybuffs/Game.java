@@ -23,7 +23,7 @@ public class Game {
     }
 
     public void startGame() {
-
+        Scanner input = new Scanner(System.in);
         int turn_number = 0;
 
         boolean game_has_ended = false;
@@ -31,46 +31,57 @@ public class Game {
         ArrayList<newShip> player1_ship_objects = new ArrayList<>();
         ArrayList<newShip> player2_ship_objects = new ArrayList<>();
 
+        Minesweeper sweeper = new Minesweeper();
+        Destroyer dest = new Destroyer();
+        Battleship bat = new Battleship();
+        Submarine sub = new Submarine();
+        Spaceshuttle shut = new Spaceshuttle();
+
+        player1_ship_objects.add(sweeper);
+        player1_ship_objects.add(bat);
+        player1_ship_objects.add(dest);
+        player1_ship_objects.add(sub);
+        player1_ship_objects.add(shut);
+        player2_ship_objects.add(sweeper);
+        player2_ship_objects.add(bat);
+        player2_ship_objects.add(dest);
+        player2_ship_objects.add(sub);
+        player2_ship_objects.add(shut);
+
+        displayStartingMenu(player1, player1_ship_objects);
+        displayStartingMenu(player2, player2_ship_objects);
+
         while(!game_has_ended) {
             if (turn_number % 2 == 0) {
-                if (turn_number == 0) {
-                    Minesweeper sweeper = new Minesweeper();
-                    Destroyer dest = new Destroyer();
-                    Battleship bat = new Battleship();
-                    Submarine sub = new Submarine();
-                    Spaceshuttle shut = new Spaceshuttle();
+//                System.out.println(game_has_ended);
+                game_has_ended = checkEndGame(player1, player2, player1_ship_objects);
+//                System.out.println(turn_number);
+//                System.out.println(game_has_ended);
 
-                    player1_ship_objects.add(sweeper);
-                    player1_ship_objects.add(bat);
-                    player1_ship_objects.add(dest);
-                    player1_ship_objects.add(sub);
-                    player1_ship_objects.add(shut);
-
-                    displayStartingMenu(player1, player1_ship_objects);
+                if (game_has_ended == false) {
+                    turn_number++;
                 }
-                preTurn(player1, player2, player1_ship_objects);
+//                System.out.println(turn_number);
             }
             else {
-                if (turn_number == 1) {
-                    Minesweeper sweeper = new Minesweeper();
-                    Destroyer dest = new Destroyer();
-                    Battleship bat = new Battleship();
-                    Submarine sub = new Submarine();
-                    Spaceshuttle shut = new Spaceshuttle();
+                game_has_ended = checkEndGame(player2, player1, player2_ship_objects);
 
-                    player2_ship_objects.add(sweeper);
-                    player2_ship_objects.add(bat);
-                    player2_ship_objects.add(dest);
-                    player2_ship_objects.add(sub);
-                    player2_ship_objects.add(shut);
-
-                    displayStartingMenu(player2, player2_ship_objects);
+                if (game_has_ended == false) {
+                    turn_number++;
                 }
-                preTurn(player2, player1, player2_ship_objects);
             }
-            turn_number++;
 
         }
+        System.out.print("The game has ended. Want to play again? (Y/N): ");
+        String play_again = input.next();
+        play_again = play_again.toLowerCase();
+        if (play_again.equals("y")) {
+            startGame();
+        }
+        else {
+            System.out.println("Thanks for playing Battleship!");
+        }
+
     }
 
     public void preTurn(newPlayer current_player, newPlayer opponent_player, ArrayList<newShip> ship_objects) {
@@ -82,6 +93,7 @@ public class Game {
 
     public boolean turn(newPlayer current_player, newPlayer opponent_player, ArrayList<newShip> ship_objects) {
         boolean turn_has_ended = false;
+        boolean game_has_ended = false;
         showTurnMenu();
         System.out.print("Enter your option: ");
         //take in user choice
@@ -135,11 +147,21 @@ public class Game {
                 turn_has_ended = true;
                 break;
             case 5: //Move fleet
-                System.out.println("Which direction will you move fleet?");
+                System.out.print("Which direction will you move fleet? (N, S, E, or W): ");
                 String fleet_direction_choice = input.next();
-                System.out.println("You are moving your fleet in the direction: " + fleet_direction_choice);
                 //move fleet function
                 current_player.playerMoveFleet(fleet_direction_choice);
+                System.out.print("Would you like to view your updated maps? (Y/N): ");
+                String view_choice = input.next();
+                view_choice = view_choice.toLowerCase();
+                if (view_choice.equals("y")) {
+                    current_player.player_maps.get(0).printDefensiveGrid();
+                    current_player.player_maps.get(1).printDefensiveGrid();
+                    current_player.player_maps.get(2).printDefensiveGrid();
+                }
+                else {
+                    System.out.println("You may view your maps at a later point in the game.\n");
+                }
                 //go back
                 break;
             case 6: //Undo and redo move fleet
@@ -163,27 +185,39 @@ public class Game {
                 turn_has_ended = true;
                 break;
             case 7: // surrender
-                System.out.println("Are you sure you want to surrender? (Y/N)");
+                System.out.print("Are you sure you want to surrender? (Y/N): ");
                 String surrender_choice = input.next();
                 surrender_choice = surrender_choice.toLowerCase();
                 if (surrender_choice.equals("y")) {
                     //end game
-                    turn_has_ended = true;
                     current_player.setSurrenderStatus();
+//                    System.out.println(current_player.getSurrenderStatus());
                 }
                 else {
                     turn(current_player, opponent_player, ship_objects);
                 }
                 break;
         }
-        //check surrender variable for players --> end game
-        if (current_player.getSurrenderStatus()) {
-            turn_has_ended = true;
-        }
         return turn_has_ended;
     }
 
 
+    public boolean checkEndGame(newPlayer curr_player, newPlayer opponent_player, ArrayList<newShip> ship_objects) {
+        boolean game_has_ended;
+        if (curr_player.getSurrenderStatus()) {
+            game_has_ended = true;
+            System.out.println(curr_player.getName() + " has surrendered, " + opponent_player.getName() + " is the winner!");
+        }
+        else if (opponent_player.getSurrenderStatus()) {
+            game_has_ended = true;
+            System.out.println(opponent_player.getName() + " has surrendered, " + curr_player.getName() + " is the winner!");
+        }
+        else {
+            game_has_ended = false;
+            preTurn(curr_player, opponent_player, ship_objects);
+        }
+        return game_has_ended;
+    }
     public void showTurnMenu() {
         //Print out menu for each player's turn
         System.out.println(" -- MAIN MENU -- ");
@@ -246,7 +280,7 @@ public class Game {
                     }
             break;
         }
-        System.out.print("You have successfully placed all your ships! Would you like to view your maps? (Y/N) \n");
+        System.out.print("You have successfully placed all your ships! Would you like to view your maps? (Y/N): ");
         String view_choice = input.next();
         view_choice = view_choice.toLowerCase();
         if (view_choice.equals("y")) {
@@ -320,7 +354,7 @@ public class Game {
 
     public void createDisaster(newPlayer curr_player) {
         Random rand = new Random();
-        int rand_disaster = rand.nextInt(6);
+        int rand_disaster = rand.nextInt(7);
         if (rand_disaster == 1) {
             Disaster hurr = new Hurricane();
             hurr.applyDisaster(curr_player);
@@ -359,13 +393,13 @@ public class Game {
 
         for (int j = 0; j < ship_objects.size(); j++) {
             if (ship_objects.get(j) instanceof OrbitableShip) {
-                System.out.println(ship_objects.get(j).getName() + ": " + player1.getPlayerMaps().get(2).ship_health.get(ship_objects.get(j)));
+                System.out.println(ship_objects.get(j).getName() + ": " + player1.getPlayerMaps().get(2).ship_health.get(ship_objects.get(j)) + "/" + ship_objects.get(j).getShipSize());
             }
             else if (ship_objects.get(j) instanceof SubmersibleShip) {
-                System.out.println(ship_objects.get(j).getName() + ": " + player1.getPlayerMaps().get(1).ship_health.get(ship_objects.get(j)));
+                System.out.println(ship_objects.get(j).getName() + ": " + player1.getPlayerMaps().get(1).ship_health.get(ship_objects.get(j)) + "/" + ship_objects.get(j).getShipSize());
             }
             else {
-                System.out.println(ship_objects.get(j).getName() + ": " + player1.getPlayerMaps().get(0).ship_health.get(ship_objects.get(j)));
+                System.out.println(ship_objects.get(j).getName() + ": " + player1.getPlayerMaps().get(0).ship_health.get(ship_objects.get(j)) + "/" + ship_objects.get(j).getShipSize());
             }
         }
         System.out.println("\n");

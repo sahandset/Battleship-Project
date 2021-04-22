@@ -57,7 +57,7 @@ public class newPlayer {
     }
 
     public void setSurrenderStatus() {
-        surrender = true;
+        this.surrender = true;
     }
 
     public boolean useWeapon(int weapon_choice, int x, int y, newPlayer opponent, int map_choice, int method_choice) {
@@ -75,8 +75,7 @@ public class newPlayer {
                 }
 
                 if (opponent.surrender()) {
-                    System.out.println("You've sunk all of " + opponent.getName() + "'s boats! You are the winner.");
-                    System.out.println(opponent.getName() + " surrenders.");
+                    System.out.println("You've sunk all of " + opponent.getName() + "'s boats!");
                     opponent.surrender = true;
                 }
             }
@@ -209,47 +208,6 @@ public class newPlayer {
             return false;
         }
     }
-
-//    public boolean undoMove() {
-//        if (!fleet_moves.empty()) {
-//            Coordinate temp_move = fleet_moves.pop();
-//            undo_moves.push(temp_move);
-//            Coordinate reversed_move = reverseMove(temp_move);
-//            boolean success = moveFleet(reversed_move);
-//            if (success) {
-//                System.out.println("You have successfully undoed your move!");
-//            }
-//            else {
-//                System.out.println("You cannot undo this move!");
-//            }
-//            return success;
-//        }
-//        else {
-//            System.out.println("You have no moves to undo!");
-//            return false;
-//        }
-//
-//    }
-
-//    public boolean redoMove() {
-//        //check if stack is empty
-//        if (!undo_moves.empty()) {
-//            Coordinate temp_move = undo_moves.pop();
-//            fleet_moves.push(temp_move);
-//            boolean success = moveFleet(temp_move);
-//            if (success) {
-//                System.out.println("You have successfully redone your move!");
-//            }
-//            else {
-//                System.out.println("You cannot redo this move!");
-//            }
-//            return success;
-//        }
-//        else{
-//            System.out.println("You have no moves to redo!");
-//            return false;
-//        }
-//    }
 
     public boolean moveFleet(Coordinate offset_coord) {
         int moved_x = 0;

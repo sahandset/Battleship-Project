@@ -141,7 +141,7 @@ public class Hurricane extends Disaster{
                             this.hurricane_ships.add(shipy);
                             String direction = hurricane_border_coordinates.get(hurricane_coordinate_keys.get(i));
                             this.hurricane_ship_directions.put(shipy, direction);
-                            System.out.println("The " + shipy.getName() + " is caught in a category " + this.category + " Hurricane!");
+                            System.out.println("The " + shipy.getName() + " got caught in the hurricane!");
                         }
                     }
                 }

@@ -36,11 +36,23 @@ public class newGrid {
 
     public String toString() {
         String result = "";
+        String axis_label = "";
+        for (int axis = 0; axis < 10; axis++) {
+            System.out.print("   " + axis);
+        }
+        System.out.println("\n  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
         for (int row = 0; row < grid.length; row++) {
+//            System.out.print(row + "║");
             for (int col = 0; col < grid[row].length; col++) {
-                result += " | " + grid[col][row];
+                if (col == 0) {
+                    axis_label = row + "┃ ";
+                }
+                else {
+                    axis_label = "";
+                }
+                result += axis_label + grid[col][row] + " │ ";
             }
-            result += "\n" + "----------------------------------------" + "\n";
+            result += "\n ┃---------------------------------------│\n";
         }
         return result;
     }
