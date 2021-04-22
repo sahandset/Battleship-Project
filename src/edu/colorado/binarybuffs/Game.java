@@ -91,9 +91,7 @@ public class Game {
         System.out.println(current_player.getName() + "'s turn has ended. \n\n");
     }
 
-    public boolean turn(newPlayer current_player, newPlayer opponent_player, ArrayList<newShip> ship_objects) {
-        boolean turn_has_ended = false;
-        boolean game_has_ended = false;
+    public void turn(newPlayer current_player, newPlayer opponent_player, ArrayList<newShip> ship_objects) {
         showTurnMenu();
         System.out.print("Enter your option: ");
         //take in user choice
@@ -105,9 +103,14 @@ public class Game {
         switch (user_choice) {
             case 1: //show current grid status
                 int map_choice = displayMapMenu(current_player, opponent_player, ship_objects);
-                current_player.player_maps.get(map_choice).printDefensiveGrid();
-                current_player.player_maps.get(map_choice).printOffensiveGrid();
-                turn(current_player, opponent_player, ship_objects);
+                if (map_choice == current_player.player_maps.size()) {
+                    turn(current_player, opponent_player, ship_objects);
+                }
+                else {
+                    current_player.player_maps.get(map_choice).printDefensiveGrid();
+                    current_player.player_maps.get(map_choice).printOffensiveGrid();
+                    turn(current_player, opponent_player, ship_objects);
+                }
                 break;
             case 2: //show score
                 showStatus(current_player, opponent_player, ship_objects);
@@ -115,36 +118,60 @@ public class Game {
                 break;
             case 3: //use weapon
                 int user_weapon_choice = displayWeaponMenu(current_player, opponent_player, ship_objects);
-                map_choice = displayMapMenu(current_player, opponent_player, ship_objects);
-                current_player.player_maps.get(map_choice).printOffensiveGrid();
-                System.out.println("Which coordinate would you like to attack?");
-                System.out.print("X: ");
-                int coord_choice_x = input.nextInt();
-                System.out.print("Y: ");
-                int coord_choice_y = input.nextInt();
-                System.out.println("You are attacking on (" + coord_choice_x + ", " + coord_choice_y + ")");
-                current_player.useWeapon(user_weapon_choice, coord_choice_x, coord_choice_y, current_player, map_choice, 2);
-                System.out.println("\n");
-
-                turn_has_ended = true;
+                if (user_weapon_choice == current_player.player_weapons.size()) {
+                    turn(current_player, opponent_player, ship_objects);
+                }
+                else {
+                    map_choice = displayMapMenu(current_player, opponent_player, ship_objects);
+                    if (map_choice == current_player.player_maps.size()) {
+                        turn(current_player, opponent_player, ship_objects);
+                    }
+                    else {
+                        current_player.player_maps.get(map_choice).printOffensiveGrid();
+                        System.out.println("Which coordinate would you like to attack?");
+                        System.out.print("X: ");
+                        int coord_choice_x = input.nextInt();
+                        System.out.print("Y: ");
+                        int coord_choice_y = input.nextInt();
+                        System.out.println("You are attacking on (" + coord_choice_x + ", " + coord_choice_y + ")");
+                        current_player.useWeapon(user_weapon_choice, coord_choice_x, coord_choice_y, current_player, map_choice, 2);
+                        System.out.println("\n");
+                    }
+                }
                 break;
             case 4: //use boost
                 int user_boost_choice = displayBoostMenu(current_player, opponent_player, ship_objects);
-                map_choice = displayMapMenu(current_player, opponent_player, ship_objects);
-                while (current_player.getPlayerMaps().get(map_choice).sunk_ships.size() == 0) {
-                    System.out.println("There are no sunken ships on this map yet. You may only use Lifesaver boost on a sunken ship. Try another map!");
+                if (user_boost_choice == current_player.player_boosts.size()) {
+                    turn(current_player, opponent_player, ship_objects);
+                }
+                else {
                     map_choice = displayMapMenu(current_player, opponent_player, ship_objects);
+                    if (map_choice == current_player.player_maps.size()) {
+                        turn(current_player, opponent_player, ship_objects);
+                    }
+                    else {
+                        while (current_player.getPlayerMaps().get(map_choice).sunk_ships.size() == 0) {
+                            System.out.println("There are no sunken ships on this map yet. You may only use Lifesaver boost on a sunken ship. Try another map!\n");
+                            map_choice = displayMapMenu(current_player, opponent_player, ship_objects);
+                            if (map_choice == current_player.player_maps.size()) {
+                                break;
+                            }
+                        }
+                        if (map_choice == current_player.player_maps.size()) {
+                            turn(current_player, opponent_player, ship_objects);
+                        }
+                        else {
+                            current_player.player_maps.get(map_choice).printDefensiveGrid();
+                            System.out.println("Which ship would you like to use your Lifesaver on?");
+                            for (int i = 0; i < current_player.getPlayerMaps().get(map_choice).sunk_ships.size(); i++) {
+                                System.out.println( i+1 + ". " + current_player.getPlayerMaps().get(map_choice).sunk_ships.get(i));
+                            }
+                            int lifesaver_choice = input.nextInt();
+                            current_player.useBoost(user_boost_choice, lifesaver_choice, map_choice);
+                        }
+                    }
                 }
-                current_player.player_maps.get(map_choice).printDefensiveGrid();
-                System.out.println("Which ship would you like to use your Lifesaver on?");
-                for (int i = 0; i < current_player.getPlayerMaps().get(map_choice).sunk_ships.size(); i++) {
-                    System.out.println( i+1 + ". " + current_player.getPlayerMaps().get(map_choice).sunk_ships.get(i));
-                }
-                int lifesaver_choice = input.nextInt();
-                current_player.useBoost(user_boost_choice, lifesaver_choice, map_choice);
 
-
-                turn_has_ended = true;
                 break;
             case 5: //Move fleet
                 System.out.print("Which direction will you move fleet? (N, S, E, or W): ");
@@ -182,7 +209,6 @@ public class Game {
                 else if (move_choice == 3) {
                     turn(current_player, opponent_player, ship_objects);
                 }
-                turn_has_ended = true;
                 break;
             case 7: // surrender
                 System.out.print("Are you sure you want to surrender? (Y/N): ");
@@ -198,7 +224,7 @@ public class Game {
                 }
                 break;
         }
-        return turn_has_ended;
+
     }
 
 
@@ -307,9 +333,9 @@ public class Game {
         System.out.print("Enter your option: ");
         int map_choice = input.nextInt() - 1;
         System.out.println("\n");
-        if (map_choice == curr_player.player_maps.size()) {
-            turn(curr_player, opponent_player, ship_objects);
-        }
+//        if (map_choice == curr_player.player_maps.size()) {
+//            turn(curr_player, opponent_player, ship_objects);
+//        }
         return map_choice;
     }
 
@@ -322,10 +348,10 @@ public class Game {
         System.out.println(curr_player.player_weapons.size() + 1 + ". Go back");
         int user_weapon_choice = input.nextInt() - 1;
         System.out.println("\n");
-        if (user_weapon_choice == curr_player.player_weapons.size()) {
-            turn(curr_player, opponent_player, ship_objects);
-        }
-        else if (user_weapon_choice < 0 || user_weapon_choice > curr_player.player_weapons.size()) {
+//        if (user_weapon_choice == curr_player.player_weapons.size()) {
+//            turn(curr_player, opponent_player, ship_objects);
+//        }
+        if (user_weapon_choice < 0 || user_weapon_choice > curr_player.player_weapons.size()) {
             System.out.println("That is not an option! Please enter an option again.");
             displayWeaponMenu(curr_player, opponent_player, ship_objects);
         }
@@ -342,10 +368,10 @@ public class Game {
 
         int user_boost_choice = input.nextInt() - 1;
         System.out.println("\n");
-        if (user_boost_choice == curr_player.player_boosts.size()) {
-            turn(curr_player, opponent_player, ship_objects);
-        }
-        else if (user_boost_choice < 0 || user_boost_choice > curr_player.player_boosts.size()) {
+//        if (user_boost_choice == curr_player.player_boosts.size()) {
+//            turn(curr_player, opponent_player, ship_objects);
+//        }
+        if (user_boost_choice < 0 || user_boost_choice > curr_player.player_boosts.size()) {
             System.out.println("That is not an option! Please enter an option again.");
             displayBoostMenu(curr_player, opponent_player, ship_objects);
         }

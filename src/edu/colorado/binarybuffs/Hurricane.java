@@ -170,7 +170,7 @@ public class Hurricane extends Disaster{
                     for (int k = 0; i < ocean_map.existing_ships.size(); k++){
                         newShip shipy = ocean_map.existing_ships.get(k);
                         ArrayList<Coordinate> coordsList2 = ocean_map.ship_coordinates.get(shipy);
-                        for (int p = 0; j < coordsList.size(); p++){
+                        for (int p = 0; j < coordsList2.size(); p++){
                             if (coordsList2.get(p).x == moved_x && coordsList2.get(p).y == moved_y){
                                 ship_found = shipy;
                             }
