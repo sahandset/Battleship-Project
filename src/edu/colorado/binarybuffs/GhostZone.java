@@ -5,6 +5,8 @@ import java.util.ArrayList;
 public class GhostZone extends Disaster {
     private int ghost_zone_dimension;
     private ArrayList<Coordinate> ghost_zone_coords = new ArrayList<Coordinate>();
+    boolean ghosted = false;
+
     public GhostZone() {
 
         // generate random number for ghost zone size -> 1-5
@@ -14,11 +16,19 @@ public class GhostZone extends Disaster {
         this.setGhostZoneCoordinates();
     }
 
+    public boolean getGhosted(){
+        return ghosted;
+    }
+
+    public ArrayList<Coordinate> getGhostZoneCoords(){
+        return ghost_zone_coords;
+    }
+
     public void setGhostZoneCoordinates() {
 
         do {
             Random ghost_size = new Random();
-            this.ghost_zone_dimension = ghost_size.nextInt(4) + 1;
+            this.ghost_zone_dimension = ghost_size.nextInt(5) + 2;
             Coordinate starting_coordinate = new Coordinate(ghost_size.nextInt(9), ghost_size.nextInt(9));
 
             for (int i = starting_coordinate.x; i < starting_coordinate.x + this.ghost_zone_dimension; i++) {
@@ -29,11 +39,11 @@ public class GhostZone extends Disaster {
 
         } while (this.validateGhostZone() == false);
 
-        System.out.println("Watch out, there is a Ghost Zone covering part of your offensive grid!");
-        System.out.println("Some of your intel might be scrambled...");
         // Print Ghost Zone location with ꩜ noting where it is
     }
     public void applyDisaster(newPlayer current_player) {
+        System.out.println("Watch out, there is a Ghost Zone covering part of your offensive grid!");
+        System.out.println("Some of your intel might be scrambled...");
         // Take the current_player's offensive grid for ocean and underwater
         // For each coordinate status in the ghost zone:
             // create new_offensive_grid_ocean = current_player.getPlayerMaps().get(0)
@@ -55,6 +65,8 @@ public class GhostZone extends Disaster {
             new_ocean_offensive_grid.setCellStatus(scramble_num, ghost_zone_coords.get(i).x, ghost_zone_coords.get(i).y);
             new_underwater_offensive_grid.setCellStatus(scramble_num, ghost_zone_coords.get(i).x, ghost_zone_coords.get(i).y);
         }
+
+        ghosted = true;
         //System.out.println("")
 //        if ((checkScramble(new_ocean_offensive_grid, current_player.getPlayerMaps().get(0).offensiveGrid)) &&
 //            (checkScramble(new_underwater_offensive_grid, current_player.getPlayerMaps().get(1).offensiveGrid))) {

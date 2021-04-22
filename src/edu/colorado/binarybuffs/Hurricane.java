@@ -208,7 +208,12 @@ public class Hurricane extends Disaster{
                         ocean_map.defensiveGrid.setCellStatus(0, old_coords_keys.get(j).x, old_coords_keys.get(j).y);
                     }
                 }
+                ocean_map.ship_coordinates.replace(ship_to_move, movedCoordsList);
+                Coordinate old_Capts_Coords = ocean_map.captains_quarters.get(ship_to_move);
+                Coordinate new_Capts_Coords = new Coordinate(old_Capts_Coords.x + offset_coord.x, old_Capts_Coords.y + offset_coord.y);
+                ocean_map.captains_quarters.replace(ship_to_move, new_Capts_Coords);
             }
+            System.out.println(movedCoordsList);
         }
     }
 }
