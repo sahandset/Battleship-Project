@@ -23,25 +23,27 @@ public class Spaceshuttle extends newShip implements OrbitableShip{
     public ArrayList<Coordinate> getCoords(int start_x, int start_y, String direction) {
         ArrayList<Coordinate> ship_cells = new ArrayList<Coordinate>();
 
-        if ((direction.toLowerCase() == "north") || (direction.toLowerCase() == "n")) {
+        direction = direction.toLowerCase();
+
+        if ((direction.equals("north")) || (direction.equals("n"))) {
             for (int i = 0; i < 10; i++) {
                 Coordinate new_coordinate = new Coordinate(start_x, start_y + i);
                 ship_cells.add(new_coordinate);
             }
             return ship_cells;
-        } else if ((direction.toLowerCase() == "south") || (direction.toLowerCase() == "s")) {
+        } else if ((direction.equals("south")) || (direction.equals("s"))) {
             for (int i = 0; i < 10; i++) {
                 Coordinate new_coordinate = new Coordinate(start_x, start_y - i);
                 ship_cells.add(new_coordinate);
             }
             return ship_cells;
-        } else if ((direction.toLowerCase() == "east") || (direction.toLowerCase() == "e")) {
+        } else if ((direction.equals("east")) || (direction.equals("e"))) {
             for (int i = 0; i < 10; i++) {
                 Coordinate new_coordinate = new Coordinate(start_x - i, start_y);
                 ship_cells.add(new_coordinate);
             }
             return ship_cells;
-        } else if ((direction.toLowerCase() == "west") || (direction.toLowerCase() == "w")) {
+        } else if ((direction.equals("west")) || (direction.equals("w"))) {
             for (int i = 0; i < 10; i++) {
                 Coordinate new_coordinate = new Coordinate(start_x + i, start_y);
                 ship_cells.add(new_coordinate);
@@ -52,16 +54,18 @@ public class Spaceshuttle extends newShip implements OrbitableShip{
     }
 
     public Coordinate getCaptsCoords(int start_x, int start_y, String direction){
-        if ((direction.toLowerCase() == "north") || (direction.toLowerCase() == "n")) {
+        direction = direction.toLowerCase();
+
+        if ((direction.equals("north")) || (direction.equals("n"))) {
             Coordinate coordinate1 = new Coordinate(start_x, start_y+5);
             return coordinate1;
-        } else if ((direction.toLowerCase() == "south") || (direction.toLowerCase() == "s")) {
+        } else if ((direction.equals("south")) || (direction.equals("s"))) {
             Coordinate coordinate1 = new Coordinate(start_x, start_y-5);
             return coordinate1;
-        } else if ((direction.toLowerCase() == "east") || (direction.toLowerCase() == "e")) {
+        } else if ((direction.equals("east")) || (direction.equals("e"))) {
             Coordinate coordinate1 = new Coordinate(start_x-5, start_y);
             return coordinate1;
-        } else if ((direction.toLowerCase() == "west") || (direction.toLowerCase() == "w")) {
+        } else if ((direction.equals("west")) || (direction.equals("w"))) {
             Coordinate coordinate1 = new Coordinate(start_x+5, start_y);
             return coordinate1;
         }
