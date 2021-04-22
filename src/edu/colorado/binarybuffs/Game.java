@@ -182,8 +182,6 @@ public class Game {
 
     public void displayStartingMenu(newPlayer curr_player, ArrayList<newShip> ship_objects) {
         int map_choice = 0;
-        String ship_names[] = {"Minesweeper", "Destroyer", "Battleship", "Submarine", "Spaceshuttle"};
-
 
         System.out.println("How would you like to create your ship fleet?");
         System.out.println("1. Create a random fleet");
@@ -217,7 +215,7 @@ public class Game {
                         }
                         boolean success;
                         do {
-                            System.out.println("Place your " + ship_names[j]);
+                            System.out.println("Place your " + ship_objects.get(j).getName());
                             System.out.print("X: ");
                             int coord_choice_x = input.nextInt();
                             System.out.print("Y: ");
@@ -226,6 +224,7 @@ public class Game {
                             String direction_choice = input.next();
                             success = curr_player.deployShip(ship_objects.get(j), coord_choice_x, coord_choice_y, direction_choice, map_choice);
                         } while (!success);
+                        System.out.println(ship_objects.get(j));
                     }
                 break;
         }
