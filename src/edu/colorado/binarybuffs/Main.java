@@ -39,7 +39,7 @@ public class Main {
         String player2_name = keyboard.nextLine();
         Game new_game = new Game(player1_name, player2_name);
 
-        new_game.turn(new_game.getPlayer1(), new_game.getPlayer2());
+        new_game.startGame();
 
     }
 }
