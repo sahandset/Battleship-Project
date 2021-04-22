@@ -2,6 +2,7 @@ package edu.colorado.binarybuffs;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Random;
+import java.util.Arrays;
 
 public class Hurricane extends Disaster{
 
@@ -9,6 +10,7 @@ public class Hurricane extends Disaster{
     private ArrayList<Coordinate> hurricane_coordinate_keys = new ArrayList<>();
     private ArrayList<newShip> hurricane_ships = new ArrayList<>();
     private Hashtable<newShip, String> hurricane_ship_directions = new Hashtable<>();
+    private String [][] hurricane_map = new String [10][10];
     private int category;
 
     public Hurricane() {
@@ -69,12 +71,37 @@ public class Hurricane extends Disaster{
         } while (this.validateHurricane() == false);
 
         System.out.println("There is a Hurricane a'blowing! It is classified as a category " + this.category + " Hurricane!");
+        System.out.println(this);
         System.out.println("Any ship caught in the storm could be tossed and turned!");
         // Print Hurricane location with ꩜ noting where it is
     }
 
     public ArrayList<Coordinate> getHurricaneCoordinates(){
         return hurricane_coordinate_keys;
+    }
+
+    public String toString() {
+
+        for (int i = 0; i < this.hurricane_map.length; i++) {
+            for (int j = 0; j < this.hurricane_map.length; j++) {
+                this.hurricane_map[i][j] = "~";
+            }
+        }
+
+        for (int i = 0; i < this.hurricane_coordinate_keys.size(); i++) {
+            this.hurricane_map[this.hurricane_coordinate_keys.get(i).x][this.hurricane_coordinate_keys.get(i).y] = "@";
+        }
+
+
+        String result = "";
+        for (int row = 0; row < hurricane_map.length; row++) {
+            for (int col = 0; col < hurricane_map[row].length; col++) {
+                result += " | " + hurricane_map[col][row];
+            }
+            result += " | ";
+            result += "\n" + " -----------------------------------------" + "\n";
+        }
+        return result;
     }
 
     public boolean validateHurricane() {
@@ -181,69 +208,7 @@ public class Hurricane extends Disaster{
                         ocean_map.defensiveGrid.setCellStatus(0, old_coords_keys.get(j).x, old_coords_keys.get(j).y);
                     }
                 }
-//                for (int j = 0; j < coordsList.size(); j++) {
-//                    moved_x = coordsList.get(j).x + offset_coord.x;
-//                    moved_y = coordsList.get(j).y + offset_coord.y;
-//                    movedCoordsList.add(new Coordinate(moved_x, moved_y));
-//                    //curr_map.defensiveGrid.setCellStatus(1, moved_x, moved_y);
-////                    int updated_status = ocean_map.defensiveGrid.checkCellStatus(coordsList.get(j).x, coordsList.get(j).y);
-////                    new_defense_grid.setCellStatus(updated_status, moved_x, moved_y);
-//                }
             }
-            //Coordinate current_coord = new Coordinate(hurricane_coordinate_keys.get(j).x + offset_coord.x, hurricane_coordinate_keys.get(j).y + offset_coord.y);
         }
-//        for (int i = 0; i < this.hurricane_ships.size(); i++) {
-//            //offset_coord = current_player.getOffsetCoord(hurricane_ships_directions(hurricane_ships.get(i))
-//            for (int j = 0; j < this.hurricane_coordinate_keys.size(); j++) {
-//                Coordinate offset_coord = current_player.getOffsetCoord(this.hurricane_border_coordinates.get(hurricane_coordinate_keys.get(j)));
-//                Coordinate current_coord = new Coordinate(hurricane_coordinate_keys.get(j).x + offset_coord.x, hurricane_coordinate_keys.get(j).y + offset_coord.y);
-////
-//                boolean movable = true;
-//                newShip ship_to_move = this.hurricane_ships.get(i);
-//                if (!(current_coord.x < 0 || current_coord.y < 0 || current_coord.x >= 10 || current_coord.y >= 10){
-//                    if (ocean_map.defensiveGrid.checkCellStatus(current_coord.x, current_coord.y) == 1 || ocean_map.defensiveGrid.checkCellStatus(current_coord.x, current_coord.y) == 2){
-//                        newShip ship_found = new Minesweeper();
-//
-//                        for (int k = 0; i < ocean_map.existing_ships.size(); k++){
-//                            newShip shipy = ocean_map.existing_ships.get(k);
-//                            ArrayList<Coordinate> coordsList = ocean_map.ship_coordinates.get(shipy);
-//                            for (int p = 0; j < coordsList.size(); p++){
-//                                if (coordsList.get(p).x == current_coord.x && coordsList.get(p).y == current_coord.y){
-//                                    ship_found = shipy;
-//                                }
-//                            }
-//                        }
-//
-//                        if (ship_found == ship_to_move){
-//                            movable = true;
-//                        }
-//                        else{
-//                            movable = false;
-//                        }
-//                    }
-//                    if (movable == true){
-//                        //move ship_to_move
-//                    }
-////                    newShip shipy = curr_map.existing_ships.get(i); //get the ship
-////                    ArrayList<Coordinate> coordsList = curr_map.ship_coordinates.get(shipy);
-////                    ArrayList<Coordinate> movedCoordsList = new ArrayList<Coordinate>();
-////                    for (int j = 0; j < coordsList.size(); j++) {
-////                        moved_x = coordsList.get(j).x + offset_coord.x;
-////                        moved_y = coordsList.get(j).y + offset_coord.y;
-////                        movedCoordsList.add(new Coordinate(moved_x, moved_y));
-////                        //curr_map.defensiveGrid.setCellStatus(1, moved_x, moved_y);
-////                        int updated_status = curr_map.defensiveGrid.checkCellStatus(coordsList.get(j).x, coordsList.get(j).y);
-////                        new_defense_grid.setCellStatus(updated_status, moved_x, moved_y);
-////                    }
-////                    curr_map.ship_coordinates.replace(shipy, movedCoordsList);
-////                    Coordinate old_Capts_Coords = curr_map.captains_quarters.get(shipy);
-////                    Coordinate new_Capts_Coords = new Coordinate(old_Capts_Coords.x + offset_coord.x, old_Capts_Coords.y + offset_coord.y);
-////                    curr_map.captains_quarters.replace(shipy, new_Capts_Coords);
-//                }
-//                else {
-//                    continue;
-//                }
-//            }
-//        }
     }
 }

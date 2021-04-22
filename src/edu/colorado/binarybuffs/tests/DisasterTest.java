@@ -54,10 +54,10 @@ public class DisasterTest {
         ArrayList<Coordinate> hurricane_coords = testHurricane.getHurricaneCoordinates();
         player1.deployShip(sweeper, hurricane_coords.get(0).x, hurricane_coords.get(0).y, "west", 0);
 
-        System.out.println(player1.getPlayerMaps().get(0).defensiveGrid);
-
+//        System.out.println(player1.getPlayerMaps().get(0).defensiveGrid);
+//
         testHurricane.applyDisaster(player1);
-        System.out.println(player1.getPlayerMaps().get(0).defensiveGrid);
+//        System.out.println(player1.getPlayerMaps().get(0).defensiveGrid);
 
         //assertEquals(1, player2.getPlayerMaps().get(0).offensiveGrid.checkCellStatus(1,2));
         //assertEquals(1, player2.getPlayerMaps().get(0).offensiveGrid.checkCellStatus(1,1));
@@ -70,14 +70,16 @@ public class DisasterTest {
 
         Spaceshuttle shut = new Spaceshuttle();
 
-        player1.deployShip(shut, 0, 0, "north", 2);
+//        player1.deployShip(shut, 0, 0, "north", 2);
 
         AsteroidField testAsteroidField = new AsteroidField();
-        testAsteroidField.applyDisaster(player1);
 
-//        assertEquals(1, player2.getPlayerMaps().get(2).offensiveGrid.checkCellStatus(0,0));
-//        assertEquals(1, player2.getPlayerMaps().get(2).offensiveGrid.checkCellStatus(0,3));
-//        assertEquals(0, player2.getPlayerMaps().get(2).offensiveGrid.checkCellStatus(5,5));
+        ArrayList<Coordinate> asteroid_coords = testAsteroidField.getCoords();
+
+        player1.deployShip(shut, asteroid_coords.get(0).x, asteroid_coords.get(0).y, "north", 2);
+        Coordinate hit = new Coordinate(asteroid_coords.get(0).x, asteroid_coords.get(0).y);
+        testAsteroidField.applyDisaster(player1);
+        assertEquals(2, player1.getPlayerMaps().get(2).defensiveGrid.checkCellStatus(hit.x, hit.y));
     }
 
 }

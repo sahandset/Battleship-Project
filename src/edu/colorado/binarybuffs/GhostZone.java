@@ -77,18 +77,4 @@ public class GhostZone extends Disaster {
         }
         return true;
     }
-
-//    public boolean checkScramble(newGrid new_grid, newGrid old_grid) {
-//        // iterate through new grid cells and check if the new one has ONE different status:
-//        // return true;
-//        // else:
-//        for (int i = 0; i < new_grid.grid.length; i++) {
-//            for (int j =0; j < old_grid.grid.length; j++) {
-//                if (new_grid.checkCellStatus(i,j) != old_grid.checkCellStatus(i,j)) {
-//                    return true;
-//                }
-//            }
-//        }
-//        return false;
-//    }
 }
