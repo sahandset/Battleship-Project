@@ -1,4 +1,5 @@
 package edu.colorado.binarybuffs;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Game {
@@ -25,6 +26,7 @@ public class Game {
         int turn_number = 1;
         boolean game_has_ended = false;
 
+
         while(!game_has_ended) {
 
             turn_number++;
@@ -32,7 +34,9 @@ public class Game {
     }
 
     public void turn(newPlayer current_player, newPlayer opponent_player) { //return bool?
-        //call function to display menu
+        displayStartingMenu(current_player);
+        System.out.println(current_player.getName() + "'s turn");
+        createDisaster(current_player);
         showTurnMenu();
         System.out.print("Enter your option: ");
         //take in user choice
@@ -144,7 +148,6 @@ public class Game {
                 break;
         }
 
-
     }
 
     public void showTurnMenu() {
@@ -187,6 +190,84 @@ public class Game {
 
         int user_boost_choice = input.nextInt();
         return user_boost_choice;
+    }
+
+    public void displayStartingMenu(newPlayer curr_player) {
+
+        newShip sweeper = new Minesweeper();
+        newShip dest = new Destroyer();
+        newShip bat = new Minesweeper();
+        newShip sub = new Submarine();
+        newShip shut = new Spaceshuttle();
+        int map_choice = 0;
+        String ship_names[] = {"Minesweeper", "Destroyer", "Battleship", "Submarine", "Spaceshuttle"};
+        newShip ship_objects[] = {sweeper, dest, bat, sub, shut};
+
+        System.out.println("Let's get this game started! How would you like to create your ship fleet?");
+        System.out.println("1. Create a random fleet");
+        System.out.println("2. Manually place fleet");
+
+        Scanner input = new Scanner(System.in);
+        int user_choice = input.nextInt();
+
+        switch (user_choice) {
+            case 1: //create random fleet
+                map_choice = displayMapMenu(curr_player);
+//                Fleet player_fleet = new Fleet(ship_names);
+                //call placeFleet
+                break;
+            case 2: //manually place fleet
+
+                System.out.println("The following ships will be deployed based on a starting coordinate that faces either N, S, E, or W. ");
+
+                for (int i = 0; i < ship_names.length; i++) {
+                    for (int j = 0; j < ship_objects.length; j++) {
+                        if (i >= 0 && i <= 2) { //ships that are only placed on ocean
+                            map_choice = 0;
+                        }
+                        else if (i == 4) {
+                            map_choice = 2;
+                        }
+                        else if (i == 3) {
+                            System.out.println("Which map do you want to deploy the submarine? Note: if there is a ship existing there on the ocean, your sub will automatically be placed underwater");
+                            System.out.println("1. Ocean");
+                            System.out.println("2. Underwater");
+                            map_choice = input.nextInt();
+                        }
+                        System.out.println("Place your " + i);
+                        System.out.print("X: ");
+                        int coord_choice_x = input.nextInt();
+                        System.out.print("Y: ");
+                        int coord_choice_y = input.nextInt();
+                        System.out.print("Ship direction: ");
+                        String direction_choice = input.next();
+                        curr_player.deployShip(ship_objects[j], coord_choice_x, coord_choice_y, direction_choice, map_choice);
+                    }
+                }
+                break;
+            }
+            System.out.println("You have successfully placed all your ships! View your ships on all 3 maps below:");
+            curr_player.player_maps.get(0).printOffensiveGrid();
+            curr_player.player_maps.get(1).printOffensiveGrid();
+            curr_player.player_maps.get(2).printOffensiveGrid();
+    }
+
+    public void createDisaster(newPlayer curr_player) {
+        Random rand = new Random();
+        int rand_disaster = rand.nextInt(6);
+        if (rand_disaster == 1) {
+            Disaster hurr = new Hurricane();
+            hurr.applyDisaster(curr_player);
+        }
+        else if (rand_disaster == 2) {
+            Disaster ghost = new GhostZone();
+            ghost.applyDisaster(curr_player);
+        }
+        else if (rand_disaster == 3) {
+            Disaster asteroid = new AsteroidField();
+            asteroid.applyDisaster(curr_player);
+        }
+
     }
 
     public void getStatus() {
