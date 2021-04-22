@@ -5,19 +5,10 @@ import java.util.Random;
 
 public class Fleet{
 
-    private ArrayList<newShip> myShips = new ArrayList<newShip>();
+    private ArrayList<newShip> myShips;
 
-    public Fleet(String mapType){
-        Minesweeper mine = new Minesweeper();
-        Battleship battle = new Battleship();
-        Destroyer dest = new Destroyer();
-        Submarine sub = new Submarine();
-        Spaceshuttle shuttle = new Spaceshuttle();
-        myShips.add(mine);
-        myShips.add(battle);
-        myShips.add(dest);
-        myShips.add(sub);
-        myShips.add(shuttle);
+    public Fleet(ArrayList<newShip> shipsFleet){
+        this.myShips = shipsFleet;
     }
 
     public ArrayList<newShip> getShips(){
@@ -50,6 +41,8 @@ public class Fleet{
         return true;
     }
 
+    //this places the ship on the designated ship: makes the executive decision
+    //to place any submarine on the underwater map
     public boolean placeShipRandomly(newPlayer curr_player, int i){
         String rand_direction = getRandDirection();
 
@@ -86,7 +79,5 @@ public class Fleet{
             int rand_y = rand.nextInt(10);
             return curr_player.deployShip(myShips.get(i), rand_x, rand_y, rand_direction, 0);
         }
-
     }
-
 }

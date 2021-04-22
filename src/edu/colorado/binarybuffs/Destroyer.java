@@ -33,7 +33,9 @@ public class Destroyer extends newShip implements ArmoredShip {
     public ArrayList<Coordinate> getCoords(int start_x, int start_y, String direction) {
         ArrayList<Coordinate> ship_cells = new ArrayList<Coordinate>();
 
-        if ((direction.toLowerCase() == "north") || (direction.toLowerCase() == "n")) {
+        direction = direction.toLowerCase();
+
+        if ((direction.equals("north")) || (direction.equals("n"))) {
             Coordinate coordinate1 = new Coordinate(start_x, start_y);
             Coordinate coordinate2 = new Coordinate(start_x, start_y + 1);
             Coordinate coordinate3 = new Coordinate(start_x, start_y + 2);
@@ -41,7 +43,7 @@ public class Destroyer extends newShip implements ArmoredShip {
             ship_cells.add(coordinate2);
             ship_cells.add(coordinate3);
             return ship_cells;
-        } else if ((direction.toLowerCase() == "south") || (direction.toLowerCase() == "s")) {
+        } else if ((direction.equals("south")) || (direction.equals("s"))) {
             Coordinate coordinate1 = new Coordinate(start_x, start_y);
             Coordinate coordinate2 = new Coordinate(start_x, start_y - 1);
             Coordinate coordinate3 = new Coordinate(start_x, start_y - 2);
@@ -49,7 +51,7 @@ public class Destroyer extends newShip implements ArmoredShip {
             ship_cells.add(coordinate2);
             ship_cells.add(coordinate3);
             return ship_cells;
-        } else if ((direction.toLowerCase() == "east") || (direction.toLowerCase() == "e")) {
+        } else if ((direction.equals("east")) || (direction.equals("e"))) {
             Coordinate coordinate1 = new Coordinate(start_x, start_y);
             Coordinate coordinate2 = new Coordinate(start_x-1, start_y);
             Coordinate coordinate3 = new Coordinate(start_x-2, start_y);
@@ -57,7 +59,7 @@ public class Destroyer extends newShip implements ArmoredShip {
             ship_cells.add(coordinate2);
             ship_cells.add(coordinate3);
             return ship_cells;
-        } else if ((direction.toLowerCase() == "west") || (direction.toLowerCase() == "w")) {
+        } else if ((direction.equals("west")) || (direction.equals("w"))) {
             Coordinate coordinate1 = new Coordinate(start_x, start_y);
             Coordinate coordinate2 = new Coordinate(start_x+1, start_y);
             Coordinate coordinate3 = new Coordinate(start_x+2, start_y);
@@ -70,16 +72,18 @@ public class Destroyer extends newShip implements ArmoredShip {
     }
 
     public Coordinate getCaptsCoords(int start_x, int start_y, String direction){
-        if ((direction.toLowerCase() == "north") || (direction.toLowerCase() == "n")) {
+        direction = direction.toLowerCase();
+
+        if ((direction.equals("north")) || (direction.equals("n"))) {
             Coordinate coordinate1 = new Coordinate(start_x, start_y+1);
             return coordinate1;
-        } else if ((direction.toLowerCase() == "south") || (direction.toLowerCase() == "s")) {
+        } else if ((direction.equals("south")) || (direction.equals("s"))) {
             Coordinate coordinate1 = new Coordinate(start_x, start_y - 1);
             return coordinate1;
-        } else if ((direction.toLowerCase() == "east") || (direction.toLowerCase() == "e")) {
+        } else if ((direction.equals("east")) || (direction.equals("e"))) {
             Coordinate coordinate1 = new Coordinate(start_x-1, start_y);
             return coordinate1;
-        } else if ((direction.toLowerCase() == "west") || (direction.toLowerCase() == "w")) {
+        } else if ((direction.equals("west") || (direction.equals("w")))) {
             Coordinate coordinate1 = new Coordinate(start_x+1, start_y);
             return coordinate1;
         }
