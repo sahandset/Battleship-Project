@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class GhostZone extends Disaster {
     private int ghost_zone_dimension;
     private ArrayList<Coordinate> ghost_zone_coords = new ArrayList<Coordinate>();
+    private String [][] ghost_zone_map = new String[10][10];
     public GhostZone() {
 
         // generate random number for ghost zone size -> 1-5
@@ -30,6 +31,7 @@ public class GhostZone extends Disaster {
         } while (this.validateGhostZone() == false);
 
         System.out.println("Watch out, there is a Ghost Zone covering part of your offensive grid!");
+        System.out.println(this);
         System.out.println("Some of your intel might be scrambled...");
         // Print Ghost Zone location with ꩜ noting where it is
     }
@@ -55,17 +57,6 @@ public class GhostZone extends Disaster {
             new_ocean_offensive_grid.setCellStatus(scramble_num, ghost_zone_coords.get(i).x, ghost_zone_coords.get(i).y);
             new_underwater_offensive_grid.setCellStatus(scramble_num, ghost_zone_coords.get(i).x, ghost_zone_coords.get(i).y);
         }
-        //System.out.println("")
-//        if ((checkScramble(new_ocean_offensive_grid, current_player.getPlayerMaps().get(0).offensiveGrid)) &&
-//            (checkScramble(new_underwater_offensive_grid, current_player.getPlayerMaps().get(1).offensiveGrid))) {
-//            for (int i = 0; i < ghost_zone_coords.size(); i++) {
-//                current_player.getPlayerMaps().get(0).offensiveGrid.setCellStatus(scramble_num, ghost_zone_coords.get(i).x, ghost_zone_coords.get(i).y);
-//                current_player.getPlayerMaps().get(1).offensiveGrid.setCellStatus(scramble_num, ghost_zone_coords.get(i).x, ghost_zone_coords.get(i).y);
-//            }
-//       }
-//       else {
-//            applyDisaster(current_player);
-//       }
     }
 
     public boolean validateGhostZone() {
@@ -76,5 +67,29 @@ public class GhostZone extends Disaster {
             }
         }
         return true;
+    }
+
+    public String toString() {
+
+        for (int i = 0; i < this.ghost_zone_map.length; i++) {
+            for (int j = 0; j < this.ghost_zone_map.length; j++) {
+                this.ghost_zone_map[i][j] = "~";
+            }
+        }
+
+        for (int i = 0; i < this.ghost_zone_coords.size(); i++) {
+            this.ghost_zone_map[this.ghost_zone_coords.get(i).x][this.ghost_zone_coords.get(i).y] = "&";
+        }
+
+
+        String result = "";
+        for (int row = 0; row < ghost_zone_map.length; row++) {
+            for (int col = 0; col < ghost_zone_map[row].length; col++) {
+                result += " | " + ghost_zone_map[col][row];
+            }
+            result += " | ";
+            result += "\n" + " -----------------------------------------" + "\n";
+        }
+        return result;
     }
 }
