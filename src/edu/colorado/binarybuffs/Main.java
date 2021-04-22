@@ -13,7 +13,7 @@ public class Main {
                 "the opponent's board, in which some ships may be attacked, some will go missed, and others can make or break the game. \n" +
                 "Additionally, each player will have a defensive and offensive grid on each map. The defensive grid shows locations of all \n" +
                 "your ships, while the offensive grid shows your attempted hits and misses on the opponent. Every time a ship is attacked, its \n" +
-                "health decreases. However, some ships are armored, and have a cpatain's quarters, which will take two hits to get fully attacked. \n" +
+                "health decreases. However, some ships are armored, and have a captain's quarters, which will take two hits to get fully attacked. \n" +
                 "The first player who has lost all their ships loses the game. Sounds easy enough right? Well, turns out there's more than one twist to the game...");
         System.out.println("WEAPONS & BOOSTS--------------------------");
         System.out.println("Each player will start with 2 weapons - a bomb and a sonar pulse. A sonar pulse may only be used after you have successfully sunk \n" +
@@ -33,10 +33,11 @@ public class Main {
         System.out.println("\n");
 
         Scanner keyboard = new Scanner(System.in);
-        System.out.println("Enter name for player 1:");
+        System.out.print("Enter name for player 1: ");
         String player1_name = keyboard.nextLine();
-        System.out.println("Enter name for player 2: ");
+        System.out.print("Enter name for player 2: ");
         String player2_name = keyboard.nextLine();
+        System.out.println("\n");
         Game new_game = new Game(player1_name, player2_name);
 
         new_game.startGame();

@@ -73,7 +73,7 @@ public class Hurricane extends Disaster{
         System.out.println("There is a Hurricane a'blowing! It is classified as a category " + this.category + " Hurricane!");
         System.out.println(this);
         System.out.println("Any ship caught in the storm could be tossed and turned!");
-        // Print Hurricane location with ꩜ noting where it is
+
     }
 
     public ArrayList<Coordinate> getHurricaneCoordinates(){
@@ -213,7 +213,8 @@ public class Hurricane extends Disaster{
                 Coordinate new_Capts_Coords = new Coordinate(old_Capts_Coords.x + offset_coord.x, old_Capts_Coords.y + offset_coord.y);
                 ocean_map.captains_quarters.replace(ship_to_move, new_Capts_Coords);
             }
-            System.out.println(movedCoordsList);
+//            System.out.println(movedCoordsList);
+            System.out.println("Ships have been moved around! Display your grid to see their updated locations.\n");
         }
     }
 }

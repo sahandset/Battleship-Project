@@ -40,9 +40,9 @@ public class AsteroidField extends Disaster {
                  if (this.shuttle_coordinates.get(i).x == this.asteroids.get(j).x
                          && this.shuttle_coordinates.get(i).y == this.asteroids.get(j).y){
                      // Call SpaceLaser on Player1 Space Map at this coordinate
-                     System.out.println("You have been bombarded at " + this.asteroids.get(j).toString());
+                     System.out.println("Your spaceshuttle has been bombarded by asteroids at " + this.asteroids.get(j).toString());
                      asteroid_hit.deployWeapon(this.asteroids.get(j).x, this.asteroids.get(j).y, curr_player,
-                             curr_player.getPlayerMaps().get(2), curr_player.getPlayerMaps().get(2), curr_player, 1);
+                             curr_player.getPlayerMaps().get(2), curr_player.getPlayerMaps().get(2), curr_player, 3);
                  }
              }
          }

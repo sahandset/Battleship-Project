@@ -105,24 +105,6 @@ public class Bomb extends Weapon {
             bombOutputs(method_choice, 9, attacked_map, temp_ship, x, y);
         }
 
-//        else {
-//            System.out.println("You've already attacked there on the " + attacked_map.getName() + ".");
-//            for (int i = 0; i < attacked_map.captains_quarters.size(); i++) {
-//                newShip attacked_ship = attacked_map.existing_ships.get(i);
-//                if (attacked_map.captains_quarters.get(attacked_ship).x == x && attacked_map.captains_quarters.get(attacked_ship).y == y) {
-//                    System.out.println("-- But you've hit a captain's quarters! You've sunk a " + attacked_ship.getName() + "!");
-//                    attacked_map.sinkShip(attacked_ship);
-//                    current_player.incrementShipSunkCount();
-//                    current_player.hasSunkFirstShip();
-//                    int current_health = attacked_map.ship_health.get(attacked_ship);
-//                    attacked_map.ship_health.replace(attacked_ship, current_health, 0);
-//                    ArrayList<Coordinate> coordsList = attacked_map.ship_coordinates.get(attacked_ship);
-//                    for (int j = 0; j < coordsList.size(); j++){
-//                        current_player_map.offensiveGrid.setCellStatus(2, coordsList.get(j).x, coordsList.get(j).y);
-//                    }
-//                }
-//            }
-//        }
         return true;
     }
 
@@ -193,6 +175,35 @@ public class Bomb extends Weapon {
                 }
                 else if (print_choice == 3){
                     System.out.println("The debris hit a part of a ship!");
+                }
+                break;
+            case 4: //asteroids
+                if (print_choice == 1) {
+                    System.out.println("Asteroids cannot attack on " + attacked_map.getName());
+                }
+                else if (print_choice == 2){
+                    System.out.println("The asteroids can't fire outside of the grid! (They attempted a hit at (" + x + "," + y + ")) on " + attacked_map.getName() + ".");
+                }
+                else if (print_choice == 3){
+                    System.out.println("The asteroids fired on " + attacked_map.getName() + ", but luckily missed your shuttle!");
+                }
+                else if (print_choice == 4){
+                    System.out.println("The asteroids fired on " + attacked_map.getName() + ", but luckily missed your shuttle!");
+                }
+                else if (print_choice == 5){
+                    System.out.println("The asteroids attacked there once on the " + attacked_map.getName() + ".");
+                }
+                else if (print_choice == 6){
+                    System.out.println("-- But they hit a captain's quarters and sunk a " + attacked_ship.getName() + "!");
+                }
+                else if (print_choice == 7){
+                    System.out.println("The asteroids hit a captain's quarters on " + attacked_map.getName() + "! They sunk a " + attacked_ship.getName() + "!");
+                }
+                else if (print_choice == 8){
+                    System.out.println("The asteroids fired on " + attacked_map.getName() + "- your ships have been hit!");
+                }
+                else if (print_choice == 9){
+                    System.out.println("The asteroids already attacked and hit a ship here.");
                 }
                 break;
         }

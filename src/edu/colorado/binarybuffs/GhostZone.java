@@ -45,8 +45,8 @@ public class GhostZone extends Disaster {
     }
     public void applyDisaster(newPlayer current_player) {
         System.out.println("Watch out, there is a Ghost Zone covering part of your offensive grid!");
-        System.out.println(this);
         System.out.println("Some of your intel might be scrambled...");
+        System.out.println(this);
         // Take the current_player's offensive grid for ocean and underwater
         // For each coordinate status in the ghost zone:
         // create new_offensive_grid_ocean = current_player.getPlayerMaps().get(0)

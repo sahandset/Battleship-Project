@@ -112,19 +112,25 @@ public class Game {
                 int coord_choice_y = input.nextInt();
                 System.out.println("You are attacking on (" + coord_choice_x + ", " + coord_choice_y + ")");
                 current_player.useWeapon(user_weapon_choice, coord_choice_x, coord_choice_y, current_player, map_choice, 2);
+                System.out.println("\n");
 
                 turn_has_ended = true;
                 break;
             case 4: //use boost
                 int user_boost_choice = displayBoostMenu(current_player, opponent_player, ship_objects);
                 map_choice = displayMapMenu(current_player, opponent_player, ship_objects);
+                while (current_player.getPlayerMaps().get(map_choice).sunk_ships.size() == 0) {
+                    System.out.println("There are no sunken ships on this map yet. You may only use Lifesaver boost on a sunken ship. Try another map!");
+                    map_choice = displayMapMenu(current_player, opponent_player, ship_objects);
+                }
                 current_player.player_maps.get(map_choice).printDefensiveGrid();
                 System.out.println("Which ship would you like to use your Lifesaver on?");
-                for (int i = 0; i < current_player.player_maps.get(map_choice).sunk_ships.size(); i++) {
-                    System.out.println( i+1 + ". " + current_player.player_maps.get(map_choice).sunk_ships.get(i));
+                for (int i = 0; i < current_player.getPlayerMaps().get(map_choice).sunk_ships.size(); i++) {
+                    System.out.println( i+1 + ". " + current_player.getPlayerMaps().get(map_choice).sunk_ships.get(i));
                 }
                 int lifesaver_choice = input.nextInt();
                 current_player.useBoost(user_boost_choice, lifesaver_choice, map_choice);
+
 
                 turn_has_ended = true;
                 break;
@@ -159,7 +165,8 @@ public class Game {
             case 7: // surrender
                 System.out.println("Are you sure you want to surrender? (Y/N)");
                 String surrender_choice = input.next();
-                if (surrender_choice == "Y") {
+                surrender_choice = surrender_choice.toLowerCase();
+                if (surrender_choice.equals("y")) {
                     //end game
                     turn_has_ended = true;
                     current_player.setSurrenderStatus();
@@ -167,7 +174,6 @@ public class Game {
                 else {
                     turn(current_player, opponent_player, ship_objects);
                 }
-                turn_has_ended = true;
                 break;
         }
         //check surrender variable for players --> end game
@@ -241,7 +247,7 @@ public class Game {
             break;
         }
         System.out.print("You have successfully placed all your ships! Would you like to view your maps? (Y/N) \n");
-        String view_choice = input.nextLine();
+        String view_choice = input.next();
         view_choice = view_choice.toLowerCase();
         if (view_choice.equals("y")) {
             System.out.println("Ocean Defensive Grid: \n");
@@ -251,8 +257,8 @@ public class Game {
             System.out.println("Space Defensive Grid: \n");
             curr_player.player_maps.get(2).printDefensiveGrid();
         }
-        else if (!view_choice.equals("y")) {
-            System.out.println("You may view your maps at a later point in the game.");
+        else {
+            System.out.println("You may view your maps at a later point in the game.\n");
         }
 
     }
@@ -267,7 +273,7 @@ public class Game {
         System.out.print("Enter your option: ");
         int map_choice = input.nextInt() - 1;
         System.out.println("\n");
-        if (map_choice == curr_player.player_maps.size() + 2) {
+        if (map_choice == curr_player.player_maps.size()) {
             turn(curr_player, opponent_player, ship_objects);
         }
         return map_choice;
@@ -318,14 +324,17 @@ public class Game {
         if (rand_disaster == 1) {
             Disaster hurr = new Hurricane();
             hurr.applyDisaster(curr_player);
+            System.out.println("\n");
         }
         else if (rand_disaster == 2) {
             Disaster ghost = new GhostZone();
             ghost.applyDisaster(curr_player);
+            System.out.println("\n");
         }
         else if (rand_disaster == 3) {
             Disaster asteroid = new AsteroidField();
             asteroid.applyDisaster(curr_player);
+            System.out.println("\n");
         }
 
     }
