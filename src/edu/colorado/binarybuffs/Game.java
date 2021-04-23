@@ -79,15 +79,26 @@ public class Game {
             }
 
         }
-        System.out.print("The game has ended. Want to play again? (Y/N): ");
-        String play_again = input.next();
-        play_again = play_again.toLowerCase();
-        if (play_again.equals("y")) {
-            startGame();
-        }
-        else {
-            System.out.println("Thanks for playing Battleship!");
-        }
+
+        boolean invalid_input;
+
+        do {
+            invalid_input = false;
+            try {
+                System.out.print("The game has ended. Want to play again? (Y/N): ");
+                String play_again = input.next();
+                play_again = play_again.toLowerCase();
+                if (play_again.equals("y")) {
+                    startGame();
+                }
+                else {
+                    System.out.println("Thanks for playing Battleship!");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid choice, please enter a valid option (Y/N)");
+            }
+
+        } while (invalid_input);
 
     }
 
@@ -99,11 +110,24 @@ public class Game {
     }
 
     public void turn(newPlayer current_player, newPlayer opponent_player, ArrayList<newShip> ship_objects) {
-        showTurnMenu();
-        System.out.print("Enter your option: ");
-        //take in user choice
+
+        boolean invalid_input;
         Scanner input = new Scanner(System.in);
-        int user_choice = input.nextInt();
+        int user_choice = 0;
+
+        do {
+            invalid_input = false;
+            try {
+                showTurnMenu();
+                System.out.print("Enter your option: ");
+                //take in user choice
+                user_choice = input.nextInt();
+            } catch (InputMismatchException e) {
+                invalid_input = true;
+                input.nextLine();
+            }
+        } while (invalid_input);
+
         while (validateInt(user_choice, 1, 7) == false) {
             showTurnMenu();
             System.out.print("Enter your option: ");
@@ -143,7 +167,6 @@ public class Game {
                     else {
                         current_player.player_maps.get(map_choice).printOffensiveGrid();
 
-                        boolean invalid_input;
                         do {
                             invalid_input = false;
                             try {
@@ -153,7 +176,7 @@ public class Game {
                                 System.out.print("Y: ");
                                 int coord_choice_y = input.nextInt();
                                 System.out.println("You are attacking on (" + coord_choice_x + ", " + coord_choice_y + ")");
-                                current_player.useWeapon(user_weapon_choice, coord_choice_x, coord_choice_y, current_player, map_choice, 2);
+                                current_player.useWeapon(user_weapon_choice, coord_choice_x, coord_choice_y, opponent_player, map_choice, 2);
                                 System.out.println("\n");
                             } catch (InputMismatchException e) {
                                 System.out.println("Invalid target coordinate(s) detected! Please re-enter your coordinates");
@@ -386,7 +409,7 @@ public class Game {
 //        if (user_weapon_choice == curr_player.player_weapons.size()) {
 //            turn(curr_player, opponent_player, ship_objects);
 //        }
-        if (validateInt(user_weapon_choice, 0, curr_player.player_weapons.size() - 1) == false) {
+        if (validateInt(user_weapon_choice, 0, curr_player.player_weapons.size()) == false) {
             displayWeaponMenu(curr_player, opponent_player, ship_objects);
         }
         return user_weapon_choice;
@@ -405,7 +428,7 @@ public class Game {
 //        if (user_boost_choice == curr_player.player_boosts.size()) {
 //            turn(curr_player, opponent_player, ship_objects);
 //        }
-        if (validateInt(user_boost_choice, 0, curr_player.player_boosts.size() - 1) == false) {
+        if (validateInt(user_boost_choice, 0, curr_player.player_boosts.size()) == false) {
             displayBoostMenu(curr_player, opponent_player, ship_objects);
         }
         return user_boost_choice;
