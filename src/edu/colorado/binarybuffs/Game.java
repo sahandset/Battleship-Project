@@ -66,6 +66,11 @@ public class Game {
 //                System.out.println(game_has_ended);
 
                 if (game_has_ended == false) {
+                    Scanner s = new Scanner(System.in);
+
+                    System.out.println("Press enter to continue to next turn.....");
+
+                    s.nextLine();
                     turn_number++;
                 }
 //                System.out.println(turn_number);
@@ -74,6 +79,11 @@ public class Game {
                 game_has_ended = checkEndGame(player2, player1, player2_ship_objects);
 
                 if (game_has_ended == false) {
+                    Scanner s = new Scanner(System.in);
+
+                    System.out.println("Press enter to continue to next turn.....");
+
+                    s.nextLine();
                     turn_number++;
                 }
             }
@@ -166,12 +176,12 @@ public class Game {
                         do {
                             invalid_input = false;
                             try {
-                                System.out.println("Which coordinate would you like to attack?");
+                                System.out.println("Which coordinate would you like to deploy your weapon?");
                                 System.out.print("X: ");
                                 int coord_choice_x = input.nextInt();
                                 System.out.print("Y: ");
                                 int coord_choice_y = input.nextInt();
-                                System.out.println("You are attacking on (" + coord_choice_x + ", " + coord_choice_y + ")");
+                                System.out.println("You are using " + current_player.player_weapons.get(user_weapon_choice).getName() + " on (" + coord_choice_x + ", " + coord_choice_y + ")");
                                 current_player.useWeapon(user_weapon_choice, coord_choice_x, coord_choice_y, opponent_player, map_choice, 2);
                                 System.out.println("\n");
                             } catch (InputMismatchException e) {
@@ -206,7 +216,7 @@ public class Game {
                         }
                         else {
                             current_player.player_maps.get(map_choice).printDefensiveGrid();
-                            System.out.println("Which ship would you like to use your Lifesaver on?");
+                            System.out.println("Which ship would you like to use your Lifesaver boost on?");
                             for (int i = 0; i < current_player.getPlayerMaps().get(map_choice).sunk_ships.size(); i++) {
                                 System.out.println( i+1 + ". " + current_player.getPlayerMaps().get(map_choice).sunk_ships.get(i));
                             }
@@ -312,10 +322,11 @@ public class Game {
                 System.out.println("How would you like to create your ship fleet?");
                 System.out.println("1. Create a random fleet");
                 System.out.println("2. Manually place fleet");
-
+                System.out.print("Enter your option: ");
                 user_choice = input.nextInt();
             } catch (InputMismatchException e) {
                 System.out.println("Invalid input, please enter a number from the menu!");
+                System.out.print("Enter your option: ");
                 invalid_input = true;
                 input.nextLine();
             }
@@ -363,13 +374,11 @@ public class Game {
         }
         System.out.print("You have successfully placed all your ships! Would you like to view your maps? (Y/N): ");
         String view_choice = input.next();
+        System.out.println("\n");
         view_choice = view_choice.toLowerCase();
         if (view_choice.equals("y")) {
-            System.out.println("Ocean Defensive Grid: \n");
             curr_player.player_maps.get(0).printDefensiveGrid();
-            System.out.println("Underwater Defensive Grid: \n");
             curr_player.player_maps.get(1).printDefensiveGrid();
-            System.out.println("Space Defensive Grid: \n");
             curr_player.player_maps.get(2).printDefensiveGrid();
         }
         else {
@@ -418,11 +427,13 @@ public class Game {
                     System.out.println( i+1 + ". " + curr_player.player_weapons.get(i).getName());
                 }
                 System.out.println(curr_player.player_weapons.size() + 1 + ". Go back");
+                System.out.print("Enter your option: ");
                 user_weapon_choice = input.nextInt() - 1;
                 System.out.println("\n");
             } catch (InputMismatchException e) {
                 System.out.println("Invalid input, please enter a number from the menu!");
                 invalid_input = true;
+                System.out.print("Enter your option: ");
                 input.nextLine();
             }
         } while (invalid_input || validateInt(user_weapon_choice, 0, curr_player.player_weapons.size()) == false);
@@ -437,7 +448,7 @@ public class Game {
             System.out.println( i+1 + ". " + curr_player.player_boosts.get(i).getName());
         }
         System.out.println(curr_player.player_boosts.size() + 1 + ". Go back");
-
+        System.out.print("Enter your option: ");
         int user_boost_choice = input.nextInt() - 1;
         System.out.println("\n");
 //        if (user_boost_choice == curr_player.player_boosts.size()) {
