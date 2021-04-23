@@ -36,7 +36,10 @@ public class Bomb extends Weapon {
         if (is_occupied == 0) {
             //System.out.println("You've attempted an attack on " + attacked_map.getName() + ", but you've missed!");
             bombOutputs(method_choice, 3, attacked_map, temp_ship, x, y);
-            current_player_map.offensiveGrid.setCellStatus(1, x, y);
+
+            if (method_choice == 2) {
+                current_player_map.offensiveGrid.setCellStatus(1, x, y);
+            }
         } else if (is_occupied == 1) {
             newShip attacked_ship = new Minesweeper();
 
@@ -53,10 +56,13 @@ public class Bomb extends Weapon {
             Coordinate capt_quart = attacked_map.captains_quarters.get(attacked_ship);
             if (capt_quart.x == x && capt_quart.y == y) {
                 if (attacked_ship instanceof ArmoredShip) {
+                    //System.out.print("This ship is armoured");
                     if (((ArmoredShip) attacked_ship).getHitCount() == 0) {
                         //System.out.println("You've attempted an attack on " + attacked_map.getName() + ", but you've missed!");
                         bombOutputs(method_choice, 4, attacked_map, attacked_ship, x, y);
-                        current_player_map.offensiveGrid.setCellStatus(1, x, y);
+                        if (method_choice == 2) {
+                            current_player_map.offensiveGrid.setCellStatus(1, x, y);
+                        }
                         ((ArmoredShip) attacked_ship).updateHitCount();
                     }
                     else if (((ArmoredShip) attacked_ship).getHitCount() == 1){
@@ -67,11 +73,13 @@ public class Bomb extends Weapon {
                         attacked_map.sinkShip(attacked_ship);
                         current_player.incrementShipSunkCount();
                         current_player.hasSunkFirstShip();
-                        int current_health = attacked_map.ship_health.get(attacked_ship);
-                        attacked_map.ship_health.replace(attacked_ship, current_health, 0);
+                        //int current_health = attacked_map.ship_health.get(attacked_ship);
+                        attacked_map.ship_health.replace(attacked_ship, 0);
                         ArrayList<Coordinate> coordsList = attacked_map.ship_coordinates.get(attacked_ship);
                         for (int j = 0; j < coordsList.size(); j++){
-                            current_player_map.offensiveGrid.setCellStatus(2, coordsList.get(j).x, coordsList.get(j).y);
+                            if (method_choice == 2) {
+                                current_player_map.offensiveGrid.setCellStatus(2, coordsList.get(j).x, coordsList.get(j).y);
+                            }
                             attacked_map.defensiveGrid.setCellStatus(2, x, y);
                         }
                         ((ArmoredShip) attacked_ship).updateHitCount();
@@ -83,21 +91,26 @@ public class Bomb extends Weapon {
                     attacked_map.sinkShip(attacked_ship);
                     current_player.incrementShipSunkCount();
                     current_player.hasSunkFirstShip();
-                    int current_health = attacked_map.ship_health.get(attacked_ship);
-                    attacked_map.ship_health.replace(attacked_ship, current_health, 0);
+                    //int current_health = attacked_map.ship_health.get(attacked_ship);
+                    attacked_map.ship_health.replace(attacked_ship, 0);
                     ArrayList<Coordinate> coordsList = attacked_map.ship_coordinates.get(attacked_ship);
                     for (int i = 0; i < coordsList.size(); i++){
-                        current_player_map.offensiveGrid.setCellStatus(2, coordsList.get(i).x, coordsList.get(i).y);
+                        if (method_choice == 2) {
+                            current_player_map.offensiveGrid.setCellStatus(2, coordsList.get(i).x, coordsList.get(i).y);
+                        }
                         attacked_map.defensiveGrid.setCellStatus(2, x, y);
                     }
                 }
             }
             else {
                 int current_health = attacked_map.ship_health.get(attacked_ship);
-                attacked_map.ship_health.replace(attacked_ship, current_health, current_health--);
+                int new_health = current_health--;
+                attacked_map.ship_health.replace(attacked_ship, new_health);
                 //System.out.println("You've attempted an attack on " + attacked_map.getName() + "- it's a hit!");
                 bombOutputs(method_choice, 8, attacked_map, temp_ship, x, y);
-                current_player_map.offensiveGrid.setCellStatus(2, x, y);
+                if (method_choice == 2) {
+                    current_player_map.offensiveGrid.setCellStatus(2, x, y);
+                }
                 attacked_map.defensiveGrid.setCellStatus(2, x, y);
             }
         } else if (is_occupied == 2) {
@@ -166,18 +179,18 @@ public class Bomb extends Weapon {
                     System.out.println("You've already attacked and hit a ship here.");
                 }
                 break;
-            case 3: //shuttle debris
-                if (print_choice == 1) {
-                    System.out.println("The debris hit a captain's quarters! You've sunk a " + attacked_ship.getName() + "!");
-                }
-                else if (print_choice == 2){
-                    System.out.println("The debris hit a captain's quarters on " + attacked_map.getName() + "! You've sunk a " + attacked_ship.getName() + "!");
-                }
-                else if (print_choice == 3){
-                    System.out.println("The debris hit a part of a ship!");
-                }
-                break;
-            case 4: //asteroids
+//            case 3: //shuttle debris
+//                if (print_choice == 1) {
+//                    System.out.println("The debris hit a captain's quarters! You've sunk a " + attacked_ship.getName() + "!");
+//                }
+//                else if (print_choice == 2){
+//                    System.out.println("The debris hit a captain's quarters on " + attacked_map.getName() + "! You've sunk a " + attacked_ship.getName() + "!");
+//                }
+//                else if (print_choice == 3){
+//                    System.out.println("The debris hit a part of a ship!");
+//                }
+//                break;
+            case 3: //asteroids
                 if (print_choice == 1) {
                     System.out.println("Asteroids cannot attack on " + attacked_map.getName());
                 }
@@ -185,10 +198,10 @@ public class Bomb extends Weapon {
                     System.out.println("The asteroids can't fire outside of the grid! (They attempted a hit at (" + x + "," + y + ")) on " + attacked_map.getName() + ".");
                 }
                 else if (print_choice == 3){
-                    System.out.println("The asteroids fired on " + attacked_map.getName() + ", but luckily missed your shuttle!");
+                    System.out.println("The asteroids fired on " + attacked_map.getName() + ", but luckily missed your ship!");
                 }
                 else if (print_choice == 4){
-                    System.out.println("The asteroids fired on " + attacked_map.getName() + ", but luckily missed your shuttle!");
+                    System.out.println("The asteroids fired on " + attacked_map.getName() + ", but luckily missed your ship!");
                 }
                 else if (print_choice == 5){
                     System.out.println("The asteroids attacked there once on the " + attacked_map.getName() + ".");

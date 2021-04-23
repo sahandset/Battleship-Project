@@ -89,7 +89,7 @@ public class newPlayer {
         if (boost_choice >= 0 && boost_choice < this.player_boosts.size()) {
             Boost boost = this.player_boosts.get(boost_choice);
             Map curr_players_map = this.player_maps.get(map_choice);
-            newShip ship = curr_players_map.existing_ships.get(ship_choice);
+            newShip ship = curr_players_map.sunk_ships.get(ship_choice);
             System.out.println(ship.getName());
             boolean result = boost.equipBoost(ship, curr_players_map, this);
             if (result && boost_uses.containsKey(boost)) {

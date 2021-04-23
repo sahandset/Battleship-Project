@@ -30,7 +30,7 @@ public class AsteroidField extends Disaster {
         newShip space_ship = curr_player.getPlayerMaps().get(2).existing_ships.get(0);
         shuttle_coordinates = curr_player.getPlayerMaps().get(2).ship_coordinates.get(space_ship);
 
-         SpaceLaser asteroid_hit = new SpaceLaser();
+        SpaceLaser asteroid_hit = new SpaceLaser();
 
         System.out.println(curr_player.getName() + "'s Space shuttle has encountered an asteroid field!");
         System.out.println(this);

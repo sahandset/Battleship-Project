@@ -185,7 +185,7 @@ public abstract class Map {
                         newShip shipy = this.existing_ships.get(i);
                         ArrayList<Coordinate> coordsList = this.ship_coordinates.get(shipy);
                         for (int j = 0; j < coordsList.size(); j++) {
-                            if (coordsList.get(j).x == row && coordsList.get(j).y == col) {
+                            if (coordsList.get(j).x == col && coordsList.get(j).y == row) {
                                 ship_at_coord = shipy;
                             }
                         }

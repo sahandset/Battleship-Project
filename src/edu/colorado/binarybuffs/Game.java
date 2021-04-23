@@ -32,22 +32,28 @@ public class Game {
         ArrayList<newShip> player1_ship_objects = new ArrayList<>();
         ArrayList<newShip> player2_ship_objects = new ArrayList<>();
 
-        Minesweeper sweeper = new Minesweeper();
-        Destroyer dest = new Destroyer();
-        Battleship bat = new Battleship();
-        Submarine sub = new Submarine();
-        Spaceshuttle shut = new Spaceshuttle();
+        Minesweeper sweeper1 = new Minesweeper();
+        Destroyer dest1 = new Destroyer();
+        Battleship bat1 = new Battleship();
+        Submarine sub1 = new Submarine();
+        Spaceshuttle shut1 = new Spaceshuttle();
 
-        player1_ship_objects.add(sweeper);
-        player1_ship_objects.add(bat);
-        player1_ship_objects.add(dest);
-        player1_ship_objects.add(sub);
-        player1_ship_objects.add(shut);
-        player2_ship_objects.add(sweeper);
-        player2_ship_objects.add(bat);
-        player2_ship_objects.add(dest);
-        player2_ship_objects.add(sub);
-        player2_ship_objects.add(shut);
+        Minesweeper sweeper2 = new Minesweeper();
+        Destroyer dest2 = new Destroyer();
+        Battleship bat2 = new Battleship();
+        Submarine sub2 = new Submarine();
+        Spaceshuttle shut2 = new Spaceshuttle();
+
+        player1_ship_objects.add(sweeper1);
+        player1_ship_objects.add(bat1);
+        player1_ship_objects.add(dest1);
+        player1_ship_objects.add(sub1);
+        player1_ship_objects.add(shut1);
+        player2_ship_objects.add(sweeper2);
+        player2_ship_objects.add(bat2);
+        player2_ship_objects.add(dest2);
+        player2_ship_objects.add(sub2);
+        player2_ship_objects.add(shut2);
 
         displayStartingMenu(player1, player1_ship_objects);
         displayStartingMenu(player2, player2_ship_objects);
@@ -136,6 +142,7 @@ public class Game {
                     }
                     else {
                         current_player.player_maps.get(map_choice).printOffensiveGrid();
+
                         boolean invalid_input;
                         do {
                             invalid_input = false;
@@ -184,7 +191,7 @@ public class Game {
                             for (int i = 0; i < current_player.getPlayerMaps().get(map_choice).sunk_ships.size(); i++) {
                                 System.out.println( i+1 + ". " + current_player.getPlayerMaps().get(map_choice).sunk_ships.get(i));
                             }
-                            int lifesaver_choice = input.nextInt();
+                            int lifesaver_choice = input.nextInt() - 1;
                             current_player.useBoost(user_boost_choice, lifesaver_choice, map_choice);
                         }
                     }
@@ -439,7 +446,7 @@ public class Game {
         System.out.println("|-----------Current Score---------|");
         System.out.println("                   " + player1.getName() + " | " + player2.getName());
         System.out.println("Total ships alive: " + total_ships1 + repeated_space1 + "| " + total_ships2 + repeated_space2);
-        System.out.println("Total ships sunk:  " + ship_sunk_1 + repeated_space1 + "| " + ship_sunk_2 + repeated_space2);
+        System.out.println("Total ships sunk:  " + ship_sunk_2 + repeated_space1 + "| " + ship_sunk_1 + repeated_space2);
         System.out.println("|---------Your Ship Healths-------|");
 
         for (int j = 0; j < ship_objects.size(); j++) {
