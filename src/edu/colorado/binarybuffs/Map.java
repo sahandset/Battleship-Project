@@ -159,7 +159,55 @@ public abstract class Map {
     public void printDefensiveGrid() {
         System.out.println(this.getName() + " -- DEFENSIVE GRID -- ");
         System.out.println("0: Cell is empty, 1: Cell is occupied");
-        System.out.println(defensiveGrid);
+//        System.out.println(defensiveGrid);
+
+        String result = "";
+        String axis_label = "";
+        for (int axis = 0; axis < 10; axis++) {
+            System.out.print("   " + axis);
+        }
+        System.out.println("\n  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+        for (int row = 0; row < this.defensiveGrid.grid.length; row++) {
+//            System.out.print(row + "║");
+            for (int col = 0; col < this.defensiveGrid.grid[row].length; col++) {
+                if (col == 0) {
+                    axis_label = row + "┃ ";
+                }
+                else {
+                    axis_label = "";
+                }
+
+                if (defensiveGrid.grid[col][row] == 1 || defensiveGrid.grid[col][row] == 2) {
+                    //get ship that is at the coordinate
+                    newShip ship_at_coord = new Minesweeper();
+
+                    for (int i = 0; i < this.existing_ships.size(); i++) {
+                        newShip shipy = this.existing_ships.get(i);
+                        ArrayList<Coordinate> coordsList = this.ship_coordinates.get(shipy);
+                        for (int j = 0; j < coordsList.size(); j++) {
+                            if (coordsList.get(j).x == row && coordsList.get(j).y == col) {
+                                ship_at_coord = shipy;
+                            }
+                        }
+                    }
+
+                    Character ship_char = ship_at_coord.getName().charAt(0);
+
+                    if (defensiveGrid.grid[col][row] == 1) {
+                        result += axis_label + " " + ship_char + "   │ ";
+                    }
+                    else if (defensiveGrid.grid[col][row] == 2 ) {
+                        result += axis_label + ship_char + "(X)" + " │ ";
+                    }
+                }
+                else {
+                    result += axis_label + " " + defensiveGrid.grid[col][row] + "   │ ";
+                }
+
+            }
+            result += "\n ┃---------------------------------------------------------------------│\n";
+        }
+        System.out.println(result);
     }
 
     public void printOffensiveGrid() {
