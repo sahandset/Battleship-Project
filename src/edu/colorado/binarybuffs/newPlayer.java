@@ -135,15 +135,17 @@ public class newPlayer {
     public Coordinate getOffsetCoord(String direction) {
         Coordinate offset_coord = new Coordinate(0, 0);
 
-        if ((direction.toLowerCase() == "north") || (direction.toLowerCase() == "n")) {
+        direction = direction.toLowerCase();
+
+        if ((direction.equals("north")) || (direction.equals("n"))) {
             offset_coord = new Coordinate(0, -1);
-        } else if ((direction.toLowerCase() == "south") || (direction.toLowerCase() == "s")) {
+        } else if ((direction.equals("south")) || (direction.equals("s"))) {
             offset_coord = new Coordinate(0, 1);
 
-        } else if ((direction.toLowerCase() == "east") || (direction.toLowerCase() == "e")) {
+        } else if ((direction.equals("east")) || (direction.equals("e"))) {
             offset_coord = new Coordinate(1, 0);
 
-        } else if ((direction.toLowerCase() == "west") || (direction.toLowerCase() == "w")) {
+        } else if ((direction.equals("west")) || (direction.equals("w"))) {
             offset_coord = new Coordinate(-1, 0);
         }
 
@@ -156,6 +158,7 @@ public class newPlayer {
 
     public boolean playerMoveFleet(String direction) {
         Coordinate offset_coord = getOffsetCoord(direction);
+        System.out.println(offset_coord);
         undo_move_actions.clear();
         boolean success = moveFleet(offset_coord);
         if (success) {
@@ -255,7 +258,7 @@ public class newPlayer {
     public boolean surrender() {
         int total = 0;
         //go through all the player maps and check their ships alive
-        for (int i = 0; i < player_maps.size(); i++) {
+        for (int i = 0; i < this.player_maps.size(); i++) {
             total += this.player_maps.get(i).getShipsAlive();
         }
         //if all ships alive == 0
