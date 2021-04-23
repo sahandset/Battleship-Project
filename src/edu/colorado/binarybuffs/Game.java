@@ -165,7 +165,7 @@ public class Game {
                     turn(current_player, opponent_player, ship_objects);
                 }
                 else {
-                    if (current_player.player_weapons.get(user_weapon_choice) instanceof Bomb) {
+                    if ((current_player.player_weapons.get(user_weapon_choice) instanceof Bomb) || (current_player.player_weapons.get(user_weapon_choice) instanceof SonarPulse)) {
                         map_choice = displayMapMenu(current_player, opponent_player, ship_objects);
                     }
                     else {
@@ -236,22 +236,46 @@ public class Game {
 
                 break;
             case 5: //Move fleet
-                System.out.print("Which direction will you move fleet? (N, S, E, or W): ");
-                String fleet_direction_choice = input.next();
-                //move fleet function
-                current_player.playerMoveFleet(fleet_direction_choice);
-                System.out.print("Would you like to view your updated maps? (Y/N): ");
-                String view_choice = input.next();
-                view_choice = view_choice.toLowerCase();
-                if (view_choice.equals("y")) {
-                    current_player.player_maps.get(0).printDefensiveGrid();
-                    current_player.player_maps.get(1).printDefensiveGrid();
-                    current_player.player_maps.get(2).printDefensiveGrid();
+//                System.out.print("Which direction will you move fleet? (N, S, E, or W): ");
+                String fleet_direction_choice = "";
+                boolean fleet_moved = false;
+                boolean fleet_fail = false;
+                do {
+                    System.out.print("Which direction will you move fleet? (N, S, E, or W): ");
+                    fleet_direction_choice = input.next();
+                    fleet_moved = current_player.playerMoveFleet(fleet_direction_choice);
+
+                    if (!current_player.playerMoveFleet(fleet_direction_choice)) {
+                        if ((!current_player.playerMoveFleet("N")) && (!current_player.playerMoveFleet("S")) &&
+                                (!current_player.playerMoveFleet("E")) && (!current_player.playerMoveFleet("W"))) {
+                            System.out.println("Looks like moving your fleet in any direction will cause ships to go out of bounds...better luck next time!");
+                            fleet_fail = true;
+                            break;
+                        }
+                        else {
+                            System.out.println("You cannot move your fleet, your ships are out of bounds! Try again!");
+                        }
+                    }
+                    else {
+                        System.out.println("You have successfully moved your fleet!");
+                    }
+                } while (!fleet_moved);
+                if (fleet_fail) {
+                    turn(current_player, opponent_player, ship_objects);
+                    break;
                 }
                 else {
-                    System.out.println("You may view your maps at a later point in the game.\n");
+                    System.out.print("Would you like to view your updated maps? (Y/N): ");
+                    String view_choice = input.next();
+                    view_choice = view_choice.toLowerCase();
+                    if (view_choice.equals("y")) {
+                        current_player.player_maps.get(0).printDefensiveGrid();
+                        current_player.player_maps.get(1).printDefensiveGrid();
+                        current_player.player_maps.get(2).printDefensiveGrid();
+                    } else {
+                        System.out.println("You may view your maps at a later point in the game.\n");
+                    }
                 }
-                //go back
                 break;
             case 6: //Undo and redo move fleet
                 System.out.println("1. Undo Move Fleet");

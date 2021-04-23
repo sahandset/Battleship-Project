@@ -67,9 +67,14 @@ public class SonarPulse extends Weapon{
             String result = "";
             String axis_label = "";
             for (int axis = 0; axis < 10; axis++) {
-                System.out.print("   " + axis + "  ");
+                if (axis == 0) {
+                    System.out.print("X   " + axis + " ");
+                }
+                else {
+                    System.out.print("    " + axis + " ");
+                }
             }
-            System.out.println("\n  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+            System.out.println("\nY ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
             for (int row = 0; row < vision.length; row++) {
                 for (int col = 0; col < vision[row].length; col++) {
                     if (col == 0) {
@@ -80,7 +85,7 @@ public class SonarPulse extends Weapon{
                     }
                     result += axis_label + " " + vision[row][col];
                 }
-                result += "\n" + " ┃------------------------------------------------------------" + "\n";
+                result += "\n ┃------------------------------------------------------------" + "\n";
             }
             System.out.println(result);
 
