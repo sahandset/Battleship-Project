@@ -48,7 +48,7 @@ public class SpaceLaser extends Weapon {
          * If it it a miss, check to see if a ship exists on the surface using opp_surface defensive grid */
         Bomb b = new Bomb();
 
-        System.out.print("Currently attacking in space! ");
+        spaceLaserOutputs(method_choice, );
         b.deployWeapon(x, y, opponent, opp_space, curr_space, currentPlayer, 2);
 
         //check if you hit a space shuttle, and if it sank
@@ -180,5 +180,15 @@ public class SpaceLaser extends Weapon {
             return false;
         }
         return true;
+    }
+
+    public void spaceLaserOutputs(int method_choice, int print_choice, Map attacked_map, newShip attacked_ship, int x, int y) {
+        switch (method_choice) {
+            case 0: // Space Laser Attack
+                System.out.print("Currently attacking in space! ");
+                if ()
+            case 1: //
+
+        }
     }
 }
