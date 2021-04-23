@@ -1,5 +1,6 @@
 package edu.colorado.binarybuffs;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -97,6 +98,12 @@ public class Game {
         //take in user choice
         Scanner input = new Scanner(System.in);
         int user_choice = input.nextInt();
+        while (validateInt(user_choice, 1, 7) == false) {
+            showTurnMenu();
+            System.out.print("Enter your option: ");
+            //take in user choice
+            user_choice = input.nextInt();
+        }
         System.out.print("\n");
 
         //switch statements for user choice
@@ -123,19 +130,30 @@ public class Game {
                 }
                 else {
                     map_choice = displayMapMenu(current_player, opponent_player, ship_objects);
+
                     if (map_choice == current_player.player_maps.size()) {
                         turn(current_player, opponent_player, ship_objects);
                     }
                     else {
                         current_player.player_maps.get(map_choice).printOffensiveGrid();
-                        System.out.println("Which coordinate would you like to attack?");
-                        System.out.print("X: ");
-                        int coord_choice_x = input.nextInt();
-                        System.out.print("Y: ");
-                        int coord_choice_y = input.nextInt();
-                        System.out.println("You are attacking on (" + coord_choice_x + ", " + coord_choice_y + ")");
-                        current_player.useWeapon(user_weapon_choice, coord_choice_x, coord_choice_y, current_player, map_choice, 2);
-                        System.out.println("\n");
+                        boolean invalid_input;
+                        do {
+                            invalid_input = false;
+                            try {
+                                System.out.println("Which coordinate would you like to attack?");
+                                System.out.print("X: ");
+                                int coord_choice_x = input.nextInt();
+                                System.out.print("Y: ");
+                                int coord_choice_y = input.nextInt();
+                                System.out.println("You are attacking on (" + coord_choice_x + ", " + coord_choice_y + ")");
+                                current_player.useWeapon(user_weapon_choice, coord_choice_x, coord_choice_y, current_player, map_choice, 2);
+                                System.out.println("\n");
+                            } catch (InputMismatchException e) {
+                                System.out.println("Invalid target coordinate(s) detected! Please re-enter your coordinates");
+                                invalid_input = true;
+                                input.nextLine();
+                            }
+                        } while (invalid_input);
                     }
                 }
                 break;
@@ -227,7 +245,6 @@ public class Game {
 
     }
 
-
     public boolean checkEndGame(newPlayer curr_player, newPlayer opponent_player, ArrayList<newShip> ship_objects) {
         boolean game_has_ended;
         if (curr_player.getSurrenderStatus()) {
@@ -265,6 +282,14 @@ public class Game {
 
         Scanner input = new Scanner(System.in);
         int user_choice = input.nextInt();
+
+        while (validateInt(user_choice, 1, 2) == false) {
+            System.out.println(curr_player.getName() + ", create your fleet!");
+            System.out.println("How would you like to create your ship fleet?");
+            System.out.println("1. Create a random fleet");
+            System.out.println("2. Manually place fleet");
+            user_choice = input.nextInt();
+        }
 
         switch (user_choice) {
             case 1: //create random fleet
@@ -336,6 +361,9 @@ public class Game {
 //        if (map_choice == curr_player.player_maps.size()) {
 //            turn(curr_player, opponent_player, ship_objects);
 //        }
+        if (validateInt(map_choice, 0, curr_player.player_maps.size()) == false) {
+            displayMapMenu(curr_player, opponent_player, ship_objects);
+        }
         return map_choice;
     }
 
@@ -351,8 +379,7 @@ public class Game {
 //        if (user_weapon_choice == curr_player.player_weapons.size()) {
 //            turn(curr_player, opponent_player, ship_objects);
 //        }
-        if (user_weapon_choice < 0 || user_weapon_choice > curr_player.player_weapons.size()) {
-            System.out.println("That is not an option! Please enter an option again.");
+        if (validateInt(user_weapon_choice, 0, curr_player.player_weapons.size() - 1) == false) {
             displayWeaponMenu(curr_player, opponent_player, ship_objects);
         }
         return user_weapon_choice;
@@ -371,8 +398,7 @@ public class Game {
 //        if (user_boost_choice == curr_player.player_boosts.size()) {
 //            turn(curr_player, opponent_player, ship_objects);
 //        }
-        if (user_boost_choice < 0 || user_boost_choice > curr_player.player_boosts.size()) {
-            System.out.println("That is not an option! Please enter an option again.");
+        if (validateInt(user_boost_choice, 0, curr_player.player_boosts.size() - 1) == false) {
             displayBoostMenu(curr_player, opponent_player, ship_objects);
         }
         return user_boost_choice;
@@ -396,7 +422,6 @@ public class Game {
             asteroid.applyDisaster(curr_player);
             System.out.println("\n");
         }
-
     }
 
     //prints out current score of both players
@@ -429,5 +454,23 @@ public class Game {
             }
         }
         System.out.println("\n");
+    }
+    public boolean validateInt(int user_input,int lower_bound, int upper_bound) {
+        if (user_input >= lower_bound && user_input <= upper_bound) {
+            return true;
+        }
+        System.out.println("That is not an option! Please enter an option again.");
+        System.out.println("Please enter a valid number between " + lower_bound + " and " + upper_bound);
+        return false;
+    }
+    public boolean validateString(String user_input, String [] options) {
+        for (String s: options) {
+            if (s.equals(user_input)) {
+                return true;
+            }
+        }
+        System.out.println("That is not an option! Please enter an option again.");
+        System.out.println("Please enter valid characters or words (" + options.toString() + ")");
+        return false;
     }
 }
