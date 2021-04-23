@@ -80,7 +80,7 @@ public class Bomb extends Weapon {
                             if (method_choice == 2) {
                                 current_player_map.offensiveGrid.setCellStatus(2, coordsList.get(j).x, coordsList.get(j).y);
                             }
-                            attacked_map.defensiveGrid.setCellStatus(2, x, y);
+                            attacked_map.defensiveGrid.setCellStatus(2, coordsList.get(j).x, coordsList.get(j).y);
                         }
                         ((ArmoredShip) attacked_ship).updateHitCount();
                     }
@@ -98,7 +98,7 @@ public class Bomb extends Weapon {
                         if (method_choice == 2) {
                             current_player_map.offensiveGrid.setCellStatus(2, coordsList.get(i).x, coordsList.get(i).y);
                         }
-                        attacked_map.defensiveGrid.setCellStatus(2, x, y);
+                        attacked_map.defensiveGrid.setCellStatus(2, coordsList.get(i).x, coordsList.get(i).y);
                     }
                 }
             }

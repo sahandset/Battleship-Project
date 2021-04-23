@@ -33,7 +33,7 @@ public class SonarPulse extends Weapon{
 
             for (int i = 0; i < 10; i++) {
                 for (int j = 0; j < 10; j++) {
-                    vision[i][j] = "Hidden | ";
+                    vision[i][j] = "~ | ";
                 }
             }
 
@@ -56,17 +56,25 @@ public class SonarPulse extends Weapon{
             for (Coordinate c: revealed_cells) {
                 if (c.x >= 0 && c.x <= 9 && c.y >= 0 && c.y <= 9) {
                     if((attacked_map.defensiveGrid.checkCellStatus(c.x, c.y) == 1) || (attacked_map.defensiveGrid.checkCellStatus(c.x, c.y) == 2)) {
-                        vision[c.y][c.x] = "Black  | ";
+                        vision[c.y][c.x] = "B  | ";
                     } else {
-                        vision[c.y][c.x] = " Grey  | ";
+                        vision[c.y][c.x] = " G  | ";
                     }
                 }
             }
 
+            System.out.println("B: Black -- Ship Exists Here, G: Grey -- Ship Does Not Exist Here");
             String result = "";
+            String axis_label = "";
             for (int row = 0; row < vision.length; row++) {
                 for (int col = 0; col < vision[row].length; col++) {
-                    result += " " + vision[row][col];
+                    if (col == 0) {
+                        axis_label = row + "┃ ";
+                    }
+                    else {
+                        axis_label = "";
+                    }
+                    result += axis_label + " " + vision[row][col];
                 }
                 result += "\n" + "---------------------------------------------------------------------------------------------------" + "\n";
             }
