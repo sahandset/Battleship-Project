@@ -158,18 +158,33 @@ public class newPlayer {
 
     public boolean playerMoveFleet(String direction) {
         Coordinate offset_coord = getOffsetCoord(direction);
-        System.out.println(offset_coord);
+        Coordinate coord_n = new Coordinate(0, -1);
+        Coordinate coord_s = new Coordinate(0, 1);
+        Coordinate coord_e = new Coordinate(1, 0);
+        Coordinate coord_w = new Coordinate(-1, 0);
+//        System.out.println(offset_coord);
         undo_move_actions.clear();
         boolean success = moveFleet(offset_coord);
+        boolean success_n = moveFleet(coord_n);
+        boolean success_s = moveFleet(coord_s);
+        boolean success_e = moveFleet(coord_e);
+        boolean success_w = moveFleet(coord_w);
+
         if (success) {
             Action newAction = new Action(offset_coord.x, offset_coord.y);
             fleet_move_actions.push(newAction);
-            System.out.println("You have successfully moved your fleet!");
+//            System.out.println("You have successfully moved your fleet!");
+            return true;
         }
+//        else if (success_n && success_s && success_e && success_w) {
+//            System.out.println("Looks like moving your fleet in any direction will cause ships to go out of bounds...better luck next time!");
+//            success = false;
+//        }
         else {
-            System.out.println("You cannot move your fleet, your ships are out of bounds!");
+//            System.out.println("You cannot move your fleet, your ships are out of bounds!");
+            return false;
         }
-        return success;
+//        return success;
     }
 
     public boolean undo(){
