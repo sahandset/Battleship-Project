@@ -135,15 +135,17 @@ public class newPlayer {
     public Coordinate getOffsetCoord(String direction) {
         Coordinate offset_coord = new Coordinate(0, 0);
 
-        if ((direction.toLowerCase() == "north") || (direction.toLowerCase() == "n")) {
+        direction = direction.toLowerCase();
+
+        if ((direction.equals("north")) || (direction.equals("n"))) {
             offset_coord = new Coordinate(0, -1);
-        } else if ((direction.toLowerCase() == "south") || (direction.toLowerCase() == "s")) {
+        } else if ((direction.equals("south")) || (direction.equals("s"))) {
             offset_coord = new Coordinate(0, 1);
 
-        } else if ((direction.toLowerCase() == "east") || (direction.toLowerCase() == "e")) {
+        } else if ((direction.equals("east")) || (direction.equals("e"))) {
             offset_coord = new Coordinate(1, 0);
 
-        } else if ((direction.toLowerCase() == "west") || (direction.toLowerCase() == "w")) {
+        } else if ((direction.equals("west")) || (direction.equals("w"))) {
             offset_coord = new Coordinate(-1, 0);
         }
 

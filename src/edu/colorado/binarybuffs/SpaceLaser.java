@@ -51,7 +51,7 @@ public class SpaceLaser extends Weapon {
 //        System.out.println("Currently attacking in space!");
         newShip attack_ship = new Minesweeper();
         spaceLaserOutputs(method_choice, 1, attacked_map, attack_ship);
-        b.deployWeapon(x, y, opponent, opp_space, curr_space, currentPlayer, 3);
+        b.deployWeapon(x, y, opponent, opp_space, curr_space, currentPlayer, 4);
 
         //check if you hit a space shuttle, and if it sank
         //we could check the attacked_map's defensive grid and see if there is a ship there
@@ -187,7 +187,7 @@ public class SpaceLaser extends Weapon {
 
     public void spaceLaserOutputs(int method_choice, int print_choice, Map attacked_map, newShip attacked_ship) {
         switch (method_choice) {
-            case 0: // Space Laser Attack
+            case 0: // Space Laser Attack + Debris
                 if (print_choice == 1) {
                     System.out.println("Currently attacking in space!");
                 }
@@ -212,31 +212,31 @@ public class SpaceLaser extends Weapon {
                 if (print_choice == 8) {
                     System.out.println("The debris hit a part of a ship!");
                 }
-            case 1: // Asteroid Attack
-                if (print_choice == 1) {
-                    System.out.println("The asteroids are firing in space!");
-                }
-                if (print_choice == 2) {
-                    System.out.println("WOW! The asteroids sunk the " + attacked_ship.getName() + ", and some of the debris fell to the surface!");
-                }
-                if (print_choice == 3) {
-                    System.out.println("Debris is hitting the surface! ");
-                }
-                if (print_choice == 4) {
-                    System.out.print("Debris is landing underwater! ");
-                }
-                if (print_choice == 5) {
-                    System.out.print("Debris is landing underwater! ");
-                }
-                if (print_choice == 6) {
-                    System.out.println("The debris hit a captain's quarters! The" + attacked_ship.getName() + " sunk!");
-                }
-                if (print_choice == 7) {
-                    System.out.println("The debris hit a captain's quarters on " + attacked_map.getName() + "! The " + attacked_ship.getName() + " sunk!");
-                }
-                if (print_choice == 8) {
-                    System.out.println("The debris hit a part of a ship!");
-                }
+//            case 1: // Asteroid Attack
+//                if (print_choice == 1) {
+//                    System.out.println("The asteroids are firing in space!");
+//                }
+//                if (print_choice == 2) {
+//                    System.out.println("WOW! The asteroids sunk the " + attacked_ship.getName() + ", and some of the debris fell to the surface!");
+//                }
+//                if (print_choice == 3) {
+//                    System.out.println("Debris is hitting the surface! ");
+//                }
+//                if (print_choice == 4) {
+//                    System.out.print("Debris is landing underwater! ");
+//                }
+//                if (print_choice == 5) {
+//                    System.out.print("Debris is landing underwater! ");
+//                }
+//                if (print_choice == 6) {
+//                    System.out.println("The debris hit a captain's quarters! The" + attacked_ship.getName() + " sunk!");
+//                }
+//                if (print_choice == 7) {
+//                    System.out.println("The debris hit a captain's quarters on " + attacked_map.getName() + "! The " + attacked_ship.getName() + " sunk!");
+//                }
+//                if (print_choice == 8) {
+//                    System.out.println("The debris hit a part of a ship!");
+//                }
 
         }
     }
