@@ -62,12 +62,28 @@ public class AsteroidField extends Disaster {
 
 
         String result = "";
+        String axis_label = "";
+        for (int axis = 0; axis < 10; axis++) {
+            if (axis == 0) {
+                System.out.print("X  " + axis);
+            }
+            else {
+                System.out.print("   " + axis);
+            }
+        }
+        System.out.println("\nY ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
         for (int row = 0; row < asteroid_map.length; row++) {
             for (int col = 0; col < asteroid_map[row].length; col++) {
-                result += " | " + asteroid_map[col][row];
+                if (col == 0) {
+                    axis_label = row + "┃ ";
+                }
+                else {
+                    axis_label = "";
+                }
+                result += axis_label + asteroid_map[col][row] + " │ ";
             }
-            result += " | ";
-            result += "\n" + " -----------------------------------------" + "\n";
+//            result += " | ";
+            result += "\n" + " ┃----------------------------------------" + "\n";
         }
         return result;
     }

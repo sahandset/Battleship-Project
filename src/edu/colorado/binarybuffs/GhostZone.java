@@ -96,11 +96,27 @@ public class GhostZone extends Disaster {
 
 
         String result = "";
+        String axis_label = "";
+        for (int axis = 0; axis < 10; axis++) {
+            if (axis == 0) {
+                System.out.print("X  " + axis);
+            }
+            else {
+                System.out.print("   " + axis);
+            }
+        }
+        System.out.println("\nY ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
         for (int row = 0; row < ghost_zone_map.length; row++) {
             for (int col = 0; col < ghost_zone_map[row].length; col++) {
-                result += " | " + ghost_zone_map[col][row];
+                if (col == 0) {
+                    axis_label = row + "┃ ";
+                }
+                else {
+                    axis_label = "";
+                }
+                result += axis_label + ghost_zone_map[col][row] + " │ ";
             }
-            result += " | ";
+//            result += " | ";
             result += "\n" + " -----------------------------------------" + "\n";
         }
         return result;

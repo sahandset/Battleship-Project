@@ -137,6 +137,7 @@ public abstract class Map {
     public void reviveShip(newShip ship) {
         ship_health.replace(ship, ship.getShipSize());
         sunk_ships.remove(ship);
+//        System.out.println(sunk_ships);
         this.ships_alive++;
     }
 
@@ -157,9 +158,14 @@ public abstract class Map {
         String result = "";
         String axis_label = "";
         for (int axis = 0; axis < 10; axis++) {
-            System.out.print("    " + axis + "  ");
+            if (axis == 0) {
+                System.out.print("X   " + axis + "  ");
+            }
+            else {
+                System.out.print("    " + axis + "  ");
+            }
         }
-        System.out.println("\n  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+        System.out.println("\nY ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
         for (int row = 0; row < this.defensiveGrid.grid.length; row++) {
 //            System.out.print(row + "║");
             for (int col = 0; col < this.defensiveGrid.grid[row].length; col++) {
@@ -212,9 +218,15 @@ public abstract class Map {
         String axis_label = "";
         int status = 0;
         for (int axis = 0; axis < 10; axis++) {
-            System.out.print("    " + axis + "  ");
+
+            if (axis == 0) {
+                System.out.print("X   " + axis + "  ");
+            }
+            else {
+                System.out.print("    " + axis + "  ");
+            }
         }
-        System.out.println("\n  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+        System.out.println("\nY ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
         for (int row = 0; row < this.offensiveGrid.grid.length; row++) {
             for (int col = 0; col < this.offensiveGrid.grid[row].length; col++) {
                 if (col == 0) {
