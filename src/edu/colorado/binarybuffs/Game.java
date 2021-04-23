@@ -96,6 +96,7 @@ public class Game {
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Invalid choice, please enter a valid option (Y/N)");
+                input.nextLine();
             }
 
         } while (invalid_input);
@@ -123,17 +124,12 @@ public class Game {
                 //take in user choice
                 user_choice = input.nextInt();
             } catch (InputMismatchException e) {
+                System.out.println("Invalid input, please enter a number from the menu!");
                 invalid_input = true;
                 input.nextLine();
             }
-        } while (invalid_input);
+        } while (invalid_input  || validateInt(user_choice, 1, 7) == false);
 
-        while (validateInt(user_choice, 1, 7) == false) {
-            showTurnMenu();
-            System.out.print("Enter your option: ");
-            //take in user choice
-            user_choice = input.nextInt();
-        }
         System.out.print("\n");
 
         //switch statements for user choice
@@ -305,21 +301,25 @@ public class Game {
 
     public void displayStartingMenu(newPlayer curr_player, ArrayList<newShip> ship_objects) {
         int map_choice = 0;
-        System.out.println(curr_player.getName() + ", create your fleet!");
-        System.out.println("How would you like to create your ship fleet?");
-        System.out.println("1. Create a random fleet");
-        System.out.println("2. Manually place fleet");
-
+        boolean invalid_input;
+        int user_choice = 0;
         Scanner input = new Scanner(System.in);
-        int user_choice = input.nextInt();
 
-        while (validateInt(user_choice, 1, 2) == false) {
-            System.out.println(curr_player.getName() + ", create your fleet!");
-            System.out.println("How would you like to create your ship fleet?");
-            System.out.println("1. Create a random fleet");
-            System.out.println("2. Manually place fleet");
-            user_choice = input.nextInt();
-        }
+        do {
+            invalid_input = false;
+            try {
+                System.out.println(curr_player.getName() + ", create your fleet!");
+                System.out.println("How would you like to create your ship fleet?");
+                System.out.println("1. Create a random fleet");
+                System.out.println("2. Manually place fleet");
+
+                user_choice = input.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input, please enter a number from the menu!");
+                invalid_input = true;
+                input.nextLine();
+            }
+        } while (invalid_input || validateInt(user_choice, 1, 2) == false);
 
         switch (user_choice) {
             case 1: //create random fleet
@@ -375,43 +375,58 @@ public class Game {
         else {
             System.out.println("You may view your maps at a later point in the game.\n");
         }
-
     }
 
     public int displayMapMenu(newPlayer curr_player, newPlayer opponent_player, ArrayList<newShip> ship_objects) {
         Scanner input = new Scanner(System.in);
+        int map_choice = 0;
+        boolean invalid_input;
         System.out.println("----MAPS----");
         for (int i = 0; i < curr_player.player_maps.size(); i++) {
             System.out.println( i+1 + ". " + curr_player.player_maps.get(i).getName());
         }
-        System.out.println(curr_player.player_maps.size() + 1 + ". Go back");
-        System.out.print("Enter your option: ");
-        int map_choice = input.nextInt() - 1;
-        System.out.println("\n");
 //        if (map_choice == curr_player.player_maps.size()) {
 //            turn(curr_player, opponent_player, ship_objects);
 //        }
-        if (validateInt(map_choice, 0, curr_player.player_maps.size()) == false) {
-            displayMapMenu(curr_player, opponent_player, ship_objects);
-        }
+        do {
+            invalid_input = false;
+            try {
+                System.out.println(curr_player.player_maps.size() + 1 + ". Go back");
+                System.out.print("Enter your option: ");
+                map_choice = input.nextInt() - 1;
+                System.out.println("\n");
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input, please enter a number from the menu!");
+            }
+        } while (invalid_input || validateInt(map_choice, 0, curr_player.player_maps.size()) == false);
+
         return map_choice;
     }
 
     public int displayWeaponMenu(newPlayer curr_player, newPlayer opponent_player, ArrayList<newShip> ship_objects) {
         Scanner input = new Scanner(System.in);
-        System.out.println("----WEAPON CHOICES----");
-        for (int i = 0; i < curr_player.player_weapons.size(); i++) {
-            System.out.println( i+1 + ". " + curr_player.player_weapons.get(i).getName());
-        }
-        System.out.println(curr_player.player_weapons.size() + 1 + ". Go back");
-        int user_weapon_choice = input.nextInt() - 1;
-        System.out.println("\n");
+        boolean invalid_input;
+        int user_weapon_choice = 0;
 //        if (user_weapon_choice == curr_player.player_weapons.size()) {
 //            turn(curr_player, opponent_player, ship_objects);
 //        }
-        if (validateInt(user_weapon_choice, 0, curr_player.player_weapons.size()) == false) {
-            displayWeaponMenu(curr_player, opponent_player, ship_objects);
-        }
+        do {
+            invalid_input = false;
+            try {
+                System.out.println("----WEAPON CHOICES----");
+                for (int i = 0; i < curr_player.player_weapons.size(); i++) {
+                    System.out.println( i+1 + ". " + curr_player.player_weapons.get(i).getName());
+                }
+                System.out.println(curr_player.player_weapons.size() + 1 + ". Go back");
+                user_weapon_choice = input.nextInt() - 1;
+                System.out.println("\n");
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input, please enter a number from the menu!");
+                invalid_input = true;
+                input.nextLine();
+            }
+        } while (invalid_input || validateInt(user_weapon_choice, 0, curr_player.player_weapons.size()) == false);
+
         return user_weapon_choice;
     }
 
