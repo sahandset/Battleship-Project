@@ -156,6 +156,7 @@ public class newPlayer {
 
     public boolean playerMoveFleet(String direction) {
         Coordinate offset_coord = getOffsetCoord(direction);
+        System.out.println(offset_coord);
         undo_move_actions.clear();
         boolean success = moveFleet(offset_coord);
         if (success) {
@@ -255,7 +256,7 @@ public class newPlayer {
     public boolean surrender() {
         int total = 0;
         //go through all the player maps and check their ships alive
-        for (int i = 0; i < player_maps.size(); i++) {
+        for (int i = 0; i < this.player_maps.size(); i++) {
             total += this.player_maps.get(i).getShipsAlive();
         }
         //if all ships alive == 0
