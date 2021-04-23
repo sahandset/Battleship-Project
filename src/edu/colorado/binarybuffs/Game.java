@@ -610,10 +610,12 @@ public class Game {
 
     //prints out current score of both players
     public void showStatus(newPlayer player1, newPlayer player2, ArrayList<newShip> ship_objects) {
-        int total_ships1 = player1.getPlayerMaps().get(0).getShipsAlive() + player1.getPlayerMaps().get(1).getShipsAlive() + player1.getPlayerMaps().get(2).getShipsAlive();
-        int total_ships2 = player2.getPlayerMaps().get(0).getShipsAlive() + player2.getPlayerMaps().get(1).getShipsAlive() + player2.getPlayerMaps().get(2).getShipsAlive();
-        int ship_sunk_1 = player1.getShipsSunk();
-        int ship_sunk_2 = player2.getShipsSunk();
+        int total_ships_alive1 = player1.getPlayerMaps().get(0).getShipsAlive() + player1.getPlayerMaps().get(1).getShipsAlive() + player1.getPlayerMaps().get(2).getShipsAlive();
+        int total_ships_alive2 = player2.getPlayerMaps().get(0).getShipsAlive() + player2.getPlayerMaps().get(1).getShipsAlive() + player2.getPlayerMaps().get(2).getShipsAlive();
+        int ultimate_total_ships1 = player1.getPlayerMaps().get(0).getExistingShips().size() + player1.getPlayerMaps().get(1).getExistingShips().size() + player1.getPlayerMaps().get(2).getExistingShips().size();
+        int ultimate_total_ships2 = player2.getPlayerMaps().get(0).getExistingShips().size() + player1.getPlayerMaps().get(1).getExistingShips().size() + player1.getPlayerMaps().get(2).getExistingShips().size();
+        int ship_sunk_1 = ultimate_total_ships1 - total_ships_alive1;
+        int ship_sunk_2 = ultimate_total_ships2 - total_ships_alive2;
 
         int name_length1 = player1.getName().length();
         int name_length2 = player2.getName().length();
@@ -622,8 +624,8 @@ public class Game {
 
         System.out.println("|-----------Current Score---------|");
         System.out.println("                   " + player1.getName() + " | " + player2.getName());
-        System.out.println("Total ships alive: " + total_ships1 + repeated_space1 + "| " + total_ships2 + repeated_space2);
-        System.out.println("Total ships sunk:  " + ship_sunk_2 + repeated_space1 + "| " + ship_sunk_1 + repeated_space2);
+        System.out.println("Total ships alive: " + total_ships_alive1 + repeated_space1 + "| " + total_ships_alive2 + repeated_space2);
+        System.out.println("Total ships sunk:  " + ship_sunk_1 + repeated_space1 + "| " + ship_sunk_2 + repeated_space2);
         System.out.println("|---------Your Ship Healths-------|");
 
         for (int j = 0; j < ship_objects.size(); j++) {

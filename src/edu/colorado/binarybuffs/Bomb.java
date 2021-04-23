@@ -179,36 +179,7 @@ public class Bomb extends Weapon {
                     System.out.println("You've already attacked and hit a ship here.");
                 }
                 break;
-            case 3: //asteroids
-                if (print_choice == 1) {
-                    System.out.println("Asteroids cannot attack on " + attacked_map.getName());
-                }
-                else if (print_choice == 2){
-                    System.out.println("The asteroids can't fire outside of the grid! (They attempted a hit at (" + x + "," + y + ")) on " + attacked_map.getName() + ".");
-                }
-                else if (print_choice == 3){
-                    System.out.println("The asteroids fired on " + attacked_map.getName() + ", but luckily missed your ship!");
-                }
-                else if (print_choice == 4){
-                    System.out.println("The asteroids fired on " + attacked_map.getName() + ", but luckily missed your ship!");
-                }
-                else if (print_choice == 5){
-                    System.out.println("The asteroids attacked there once on the " + attacked_map.getName() + ".");
-                }
-                else if (print_choice == 6){
-                    System.out.println("-- But they hit a captain's quarters and sunk a " + attacked_ship.getName() + "!");
-                }
-                else if (print_choice == 7){
-                    System.out.println("The asteroids hit a captain's quarters on " + attacked_map.getName() + "! They sunk a " + attacked_ship.getName() + "!");
-                }
-                else if (print_choice == 8){
-                    System.out.println("The asteroids fired on " + attacked_map.getName() + "- your ships have been hit!");
-                }
-                else if (print_choice == 9){
-                    System.out.println("The asteroids already attacked and hit a ship here.");
-                }
-                break;
-            case 4: //shuttle attack
+            case 3: //shuttle attack
                 if (print_choice == 1) {
                     System.out.println("You cannot use the space laser on " + attacked_map.getName());
                 }
@@ -235,6 +206,35 @@ public class Bomb extends Weapon {
                 }
                 else if (print_choice == 9){
                     System.out.println("You've already attacked and hit a ship here.");
+                }
+                break;
+            case 4: //asteroids
+                if (print_choice == 1) {
+                    System.out.println("Asteroids cannot attack on " + attacked_map.getName());
+                }
+                else if (print_choice == 2){
+                    System.out.println("The asteroids can't fire outside of the grid! (They attempted a hit at (" + x + "," + y + ")) on " + attacked_map.getName() + ".");
+                }
+                else if (print_choice == 3){
+                    System.out.println("The asteroids fired on " + attacked_map.getName() + ", but luckily missed your ship!");
+                }
+                else if (print_choice == 4){
+                    System.out.println("The asteroids fired on " + attacked_map.getName() + ", but luckily missed your ship!");
+                }
+                else if (print_choice == 5){
+                    System.out.println("There had been attack earlier on " + attacked_map.getName() + ".");
+                }
+                else if (print_choice == 6){
+                    System.out.println("-- But the asteroids managed to hit a captain's quarters and sunk a " + attacked_ship.getName() + "!");
+                }
+                else if (print_choice == 7){
+                    System.out.println("The asteroids hit a captain's quarters on " + attacked_map.getName() + "! They sunk a " + attacked_ship.getName() + "!");
+                }
+                else if (print_choice == 8){
+                    System.out.println("The asteroids fired on " + attacked_map.getName() + "- your ships have been hit!");
+                }
+                else if (print_choice == 9){
+                    System.out.println("A ship has already been hit here.");
                 }
                 break;
         }
