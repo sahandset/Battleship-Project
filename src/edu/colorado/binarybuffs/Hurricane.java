@@ -141,7 +141,7 @@ public class Hurricane extends Disaster{
                             this.hurricane_ships.add(shipy);
                             String direction = hurricane_border_coordinates.get(hurricane_coordinate_keys.get(i));
                             this.hurricane_ship_directions.put(shipy, direction);
-                            if (hurricane_ships.isEmpty()) {
+                            if (hurricane_ships.size() == 0) {
                                 System.out.println("All your ships survived the hurricane and remained in the same locations.");
                             }
                             System.out.println("The " + shipy.getName() + " got caught in the hurricane!");
@@ -217,7 +217,7 @@ public class Hurricane extends Disaster{
                 ocean_map.captains_quarters.replace(ship_to_move, new_Capts_Coords);
             }
 //            System.out.println(movedCoordsList);
-            System.out.println("Ships have been moved around! Display your grid to see their updated locations.\n");
         }
+        System.out.println("Ships have been moved around! Display your grid to see their updated locations.\n");
     }
 }

@@ -140,13 +140,6 @@ public abstract class Map {
         this.ships_alive++;
     }
 
-//    public boolean surrender() {
-//        if (ships_alive == 0) {
-//            return true;
-//        }
-//        return false;
-//    }
-
     public boolean checkIfSunk(newShip ship){
         if (sunk_ships.contains(ship)){
             return true;

@@ -165,7 +165,12 @@ public class Game {
                     turn(current_player, opponent_player, ship_objects);
                 }
                 else {
-                    map_choice = displayMapMenu(current_player, opponent_player, ship_objects);
+                    if (current_player.player_weapons.get(user_weapon_choice) instanceof Bomb) {
+                        map_choice = displayMapMenu(current_player, opponent_player, ship_objects);
+                    }
+                    else {
+                        map_choice = 2;
+                    }
 
                     if (map_choice == current_player.player_maps.size()) {
                         turn(current_player, opponent_player, ship_objects);
@@ -220,8 +225,11 @@ public class Game {
                             for (int i = 0; i < current_player.getPlayerMaps().get(map_choice).sunk_ships.size(); i++) {
                                 System.out.println( i+1 + ". " + current_player.getPlayerMaps().get(map_choice).sunk_ships.get(i));
                             }
+                            System.out.print("Enter your option: ");
                             int lifesaver_choice = input.nextInt() - 1;
                             current_player.useBoost(user_boost_choice, lifesaver_choice, map_choice);
+                            int player_sunk_ships = current_player.getShipsSunk();
+                            player_sunk_ships-= 1;
                         }
                     }
                 }
