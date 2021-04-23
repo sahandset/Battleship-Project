@@ -48,8 +48,10 @@ public class SpaceLaser extends Weapon {
          * If it it a miss, check to see if a ship exists on the surface using opp_surface defensive grid */
         Bomb b = new Bomb();
 
-        spaceLaserOutputs(method_choice, );
-        b.deployWeapon(x, y, opponent, opp_space, curr_space, currentPlayer, 2);
+//        System.out.println("Currently attacking in space!");
+        newShip attack_ship = new Minesweeper();
+        spaceLaserOutputs(method_choice, 1, attacked_map, attack_ship);
+        b.deployWeapon(x, y, opponent, opp_space, curr_space, currentPlayer, 3);
 
         //check if you hit a space shuttle, and if it sank
         //we could check the attacked_map's defensive grid and see if there is a ship there
@@ -75,40 +77,38 @@ public class SpaceLaser extends Weapon {
 
             //with the ship, check if its sunk
             if (opp_space.sunk_ships.contains(attacked_ship)) {
-                System.out.println("WOW! By sinking the " + attacked_ship.getName() + ", some of the debris fell to the surface!");
+//                System.out.println("WOW! By sinking the " + attacked_ship.getName() + ", some of the debris fell to the surface!");
+                spaceLaserOutputs(method_choice, 2, attacked_map, attacked_ship);
                 //get the coords of that row
                 ArrayList<Coordinate> coords = opp_space.ship_coordinates.get(attacked_ship);
                 for (Coordinate coord : coords){
-                    this.attackUnderSpaceShuttle(coord.x, coord.y, opp_surface, curr_surface, currentPlayer);
+                    this.attackUnderSpaceShuttle(coord.x, coord.y, opp_surface, curr_surface, currentPlayer, method_choice);
                 }
             }
         }
 
-        //if yes: get the coords of the row
-        //call a function:
-        //iterates through every coordinate, and:
-        //basically calls the bomb function, but w/o the print statements
-
-
-        System.out.print("Currently attacking on the surface! ");
-        b.deployWeapon(x, y, opponent, opp_surface, curr_surface, currentPlayer, 2);
+//        System.out.print("Currently attacking on the surface! ");
+        spaceLaserOutputs(method_choice, 3, attacked_map, attack_ship);
+        b.deployWeapon(x, y, opponent, opp_surface, curr_surface, currentPlayer, 3);
 
         // If you attack a cell and hit a surface ship, check underwater
         if (opp_surface.defensiveGrid.checkCellStatus(x, y) == 2) {
-            System.out.print("Currently attacking underwater! ");
-            b.deployWeapon(x, y, opponent, opp_underwater, curr_underwater, currentPlayer, 2);
+//            System.out.print("Currently attacking underwater! ");
+            spaceLaserOutputs(method_choice, 4, attacked_map, attack_ship);
+            b.deployWeapon(x, y, opponent, opp_underwater, curr_underwater, currentPlayer, 3);
             // If you have attacked a cell and there is no surface ship, check underwater
         } else if (opp_surface.defensiveGrid.checkCellStatus(x, y) == 0) {
 //            if (opp_surface.defensiveGrid.checkCellStatus(x, y) == 0) {
-            System.out.print("Currently attacking underwater! ");
-            b.deployWeapon(x, y, opponent, opp_underwater, curr_underwater, currentPlayer, 2);
+//            System.out.print("Currently attacking underwater! ");
+            spaceLaserOutputs(method_choice, 5, attacked_map, attack_ship);
+            b.deployWeapon(x, y, opponent, opp_underwater, curr_underwater, currentPlayer, 3);
 //            }
         }
         return true;
     }
 
     // REFACTOR THIS METHOD
-    public boolean attackUnderSpaceShuttle(int x, int y, Map attacked_map, Map current_player_map, newPlayer current_player){
+    public boolean attackUnderSpaceShuttle(int x, int y, Map attacked_map, Map current_player_map, newPlayer current_player, int method_choice){
         //copy the functionality of a bomb here
         int has_been_attacked = current_player_map.offensiveGrid.checkCellStatus(x,y);
         int is_occupied = attacked_map.defensiveGrid.checkCellStatus(x,y);
@@ -139,7 +139,8 @@ public class SpaceLaser extends Weapon {
                     } else if (((ArmoredShip) attacked_ship).getHitCount() == 1) {
                         for (int i = 0; i < attacked_map.captains_quarters.size(); i++) {
                             if (attacked_map.captains_quarters.get(attacked_ship).x == x && attacked_map.captains_quarters.get(attacked_ship).y == y) {
-                                System.out.println("The debris hit a captain's quarters! You've sunk a " + attacked_ship.getName() + "!");
+//                                System.out.println("The debris hit a captain's quarters! You've sunk a " + attacked_ship.getName() + "!");
+                                spaceLaserOutputs(method_choice, 6, attacked_map, attacked_ship);
                                 attacked_map.sinkShip(attacked_ship);
                                 current_player.incrementShipSunkCount();
                                 current_player.hasSunkFirstShip();
@@ -153,7 +154,8 @@ public class SpaceLaser extends Weapon {
                         }
                     }
                 } else {
-                    System.out.println("The debris hit a captain's quarters on " + attacked_map.getName() + "! You've sunk a " + attacked_ship.getName() + "!");
+//                    System.out.println("The debris hit a captain's quarters on " + attacked_map.getName() + "! You've sunk a " + attacked_ship.getName() + "!");
+                    spaceLaserOutputs(method_choice, 7, attacked_map, attacked_ship);
                     attacked_map.sinkShip(attacked_ship);
                     current_player.incrementShipSunkCount();
                     current_player.hasSunkFirstShip();
@@ -168,7 +170,8 @@ public class SpaceLaser extends Weapon {
                 int current_health = attacked_map.ship_health.get(attacked_ship);
                 attacked_map.ship_health.replace(attacked_ship, current_health, current_health--);
                 //System.out.println("You've attempted an attack on " + attacked_map.getName() + "- it's a hit!");
-                System.out.println("The debris hit a part of a ship!");
+//                System.out.println("The debris hit a part of a ship!");
+                spaceLaserOutputs(method_choice, 8, attacked_map, attacked_ship);
                 current_player_map.offensiveGrid.setCellStatus(2, x, y);
             }
         }
@@ -182,12 +185,58 @@ public class SpaceLaser extends Weapon {
         return true;
     }
 
-    public void spaceLaserOutputs(int method_choice, int print_choice, Map attacked_map, newShip attacked_ship, int x, int y) {
+    public void spaceLaserOutputs(int method_choice, int print_choice, Map attacked_map, newShip attacked_ship) {
         switch (method_choice) {
             case 0: // Space Laser Attack
-                System.out.print("Currently attacking in space! ");
-                if ()
-            case 1: //
+                if (print_choice == 1) {
+                    System.out.println("Currently attacking in space!");
+                }
+                if (print_choice == 2) {
+                    System.out.println("WOW! By sinking the " + attacked_ship.getName() + ", some of the debris fell to the surface!");
+                }
+                if (print_choice == 3) {
+                    System.out.println("Currently attacking on the surface! ");
+                }
+                if (print_choice == 4) {
+                    System.out.print("Currently attacking underwater! ");
+                }
+                if (print_choice == 5) {
+                    System.out.print("Currently attacking underwater! ");
+                }
+                if (print_choice == 6) {
+                    System.out.println("The debris hit a captain's quarters! You've sunk a " + attacked_ship.getName() + "!");
+                }
+                if (print_choice == 7) {
+                    System.out.println("The debris hit a captain's quarters on " + attacked_map.getName() + "! You've sunk a " + attacked_ship.getName() + "!");
+                }
+                if (print_choice == 8) {
+                    System.out.println("The debris hit a part of a ship!");
+                }
+            case 1: // Asteroid Attack
+                if (print_choice == 1) {
+                    System.out.println("The asteroids are firing in space!");
+                }
+                if (print_choice == 2) {
+                    System.out.println("WOW! The asteroids sunk the " + attacked_ship.getName() + ", and some of the debris fell to the surface!");
+                }
+                if (print_choice == 3) {
+                    System.out.println("Debris is hitting the surface! ");
+                }
+                if (print_choice == 4) {
+                    System.out.print("Debris is landing underwater! ");
+                }
+                if (print_choice == 5) {
+                    System.out.print("Debris is landing underwater! ");
+                }
+                if (print_choice == 6) {
+                    System.out.println("The debris hit a captain's quarters! The" + attacked_ship.getName() + " sunk!");
+                }
+                if (print_choice == 7) {
+                    System.out.println("The debris hit a captain's quarters on " + attacked_map.getName() + "! The " + attacked_ship.getName() + " sunk!");
+                }
+                if (print_choice == 8) {
+                    System.out.println("The debris hit a part of a ship!");
+                }
 
         }
     }

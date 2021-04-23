@@ -164,7 +164,7 @@ public abstract class Map {
         String result = "";
         String axis_label = "";
         for (int axis = 0; axis < 10; axis++) {
-            System.out.print("   " + axis);
+            System.out.print("    " + axis + "  ");
         }
         System.out.println("\n  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
         for (int row = 0; row < this.defensiveGrid.grid.length; row++) {
@@ -213,7 +213,30 @@ public abstract class Map {
     public void printOffensiveGrid() {
         System.out.println(this.getName() + " -- OFFENSIVE GRID -- ");
         System.out.println("0: Cell is not hit, 1: Cell has been hit but found empty, 2: Cell has been hit and found occupied");
-        System.out.println(offensiveGrid);
+//        System.out.println(offensiveGrid);
+
+        String result = "";
+        String axis_label = "";
+        int status = 0;
+        for (int axis = 0; axis < 10; axis++) {
+            System.out.print("    " + axis + "  ");
+        }
+        System.out.println("\n  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+        for (int row = 0; row < this.offensiveGrid.grid.length; row++) {
+            for (int col = 0; col < this.offensiveGrid.grid[row].length; col++) {
+                if (col == 0) {
+                    axis_label = row + " ┃ ";
+                }
+                else {
+                    axis_label = "";
+                }
+                status = this.offensiveGrid.grid[col][row];
+                result += axis_label + status + "   │  ";
+
+            }
+            result += "\n  ┃--------------------------------------------------------------------│\n";
+        }
+        System.out.println(result);
     }
 
     public abstract void placeNarwhal();

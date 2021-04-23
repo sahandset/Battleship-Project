@@ -141,6 +141,9 @@ public class Hurricane extends Disaster{
                             this.hurricane_ships.add(shipy);
                             String direction = hurricane_border_coordinates.get(hurricane_coordinate_keys.get(i));
                             this.hurricane_ship_directions.put(shipy, direction);
+                            if (hurricane_ships.isEmpty()) {
+                                System.out.println("All your ships survived the hurricane and remained in the same locations.");
+                            }
                             System.out.println("The " + shipy.getName() + " got caught in the hurricane!");
                         }
                     }
