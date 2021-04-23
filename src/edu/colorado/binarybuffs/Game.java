@@ -106,6 +106,7 @@ public class Game {
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Invalid choice, please enter a valid option (Y/N)");
+                invalid_input = true;
                 input.nextLine();
             }
 
@@ -236,8 +237,20 @@ public class Game {
 
                 break;
             case 5: //Move fleet
-                System.out.print("Which direction will you move fleet? (N, S, E, or W): ");
-                String fleet_direction_choice = input.next();
+                String []  valid_inputs= {"N", "S", "E", "W"};
+                String fleet_direction_choice = "";
+                do {
+                    invalid_input = false;
+                    try {
+                        System.out.print("Which direction will you move fleet? (N, S, E, or W): ");
+                        fleet_direction_choice = input.next();
+                    } catch (InputMismatchException e){
+                        System.out.println("Invalid input, please enter a valid direction!");
+                        invalid_input = true;
+                        input.nextLine();
+                    }
+                } while (invalid_input || validateString(fleet_direction_choice, valid_inputs) == false);
+
                 //move fleet function
                 current_player.playerMoveFleet(fleet_direction_choice);
                 System.out.print("Would you like to view your updated maps? (Y/N): ");
@@ -254,11 +267,23 @@ public class Game {
                 //go back
                 break;
             case 6: //Undo and redo move fleet
-                System.out.println("1. Undo Move Fleet");
-                System.out.println("2. Redo Move Fleet");
-                System.out.println("3. Go back");
 
-                int move_choice = input.nextInt();
+                int move_choice = 0;
+                do {
+                    invalid_input = false;
+                    try {
+                        System.out.println("1. Undo Move Fleet");
+                        System.out.println("2. Redo Move Fleet");
+                        System.out.println("3. Go back");
+                        System.out.print("Enter your option: ");
+                        move_choice = input.nextInt();
+
+                    } catch (InputMismatchException e) {
+                        System.out.println("Invalid input, please enter a number from the menu!");
+                        invalid_input = true;
+                        input.nextLine();
+                    }
+                } while (invalid_input || validateInt(move_choice, 1, 3) == false);
 
                 if (move_choice == 1) {
                     //undo move function
@@ -349,41 +374,112 @@ public class Game {
 
                 System.out.println("The following ships will be deployed based on a starting coordinate that faces either N, S, E, or W. ");
 
-                    for (int j = 0; j < ship_objects.size(); j++) {
+                for (int j = 0; j < ship_objects.size(); j++) {
 
-                        if (ship_objects.get(j) instanceof OrbitableShip) {
-                            map_choice = 2;
-                        }
-                        else if (ship_objects.get(j) instanceof SubmersibleShip) {
-                            System.out.println("Which map do you want to deploy the submarine? Note: if there is a ship existing there on the ocean, your sub will automatically be placed underwater");
-                            System.out.println("1. Ocean");
-                            System.out.println("2. Underwater");
-                            map_choice = input.nextInt() - 1;
-                        } else {
-                            map_choice = 0;
-                        }
-                        boolean success = false;
-
-                        while (success == false) {
-                            System.out.println("Place your " + ship_objects.get(j).getName());
-                            System.out.print("X: ");
-                            int coord_choice_x = input.nextInt();
-                            System.out.print("Y: ");
-                            int coord_choice_y = input.nextInt();
-                            System.out.print("Ship direction: ");
-                            String direction_choice = input.next();
-                            success = curr_player.deployShip(ship_objects.get(j), coord_choice_x, coord_choice_y, direction_choice, map_choice);
-                            if (!success) {
-                                System.out.println("You can't place the " + ship_objects.get(j).getName()+  " there! Try again.");
+                    if (ship_objects.get(j) instanceof OrbitableShip) {
+                        map_choice = 2;
+                    }
+                    else if (ship_objects.get(j) instanceof SubmersibleShip) {
+                        do {
+                            invalid_input = false;
+                            try {
+                                System.out.println("Which map do you want to deploy the submarine? Note: if there is a ship existing there on the ocean, your sub will automatically be placed underwater");
+                                System.out.println("1. Ocean");
+                                System.out.println("2. Underwater");
+                                map_choice = input.nextInt();
+                            } catch (InputMismatchException e) {
+                                System.out.println("Invalid input, please enter a number from the menu!");
+                                System.out.print("Enter your option: ");
+                                invalid_input = true;
+                                input.nextLine();
                             }
+
+                        } while (invalid_input || validateInt(map_choice, 1, 2) == false);
+
+                        map_choice = map_choice - 1;
+
+                    } else {
+                        map_choice = 0;
+                    }
+                    int coord_choice_x = 0;
+                    int coord_choice_y = 0;
+
+                    System.out.println("Place your " + ship_objects.get(j).getName());
+
+                    do {
+                        invalid_input = false;
+                        try {
+                            System.out.print("X: ");
+                            coord_choice_x = input.nextInt();
+                        } catch (InputMismatchException e) {
+                            System.out.println("Invalid input, please enter a valid coordinate!");
+                            invalid_input = true;
+                            input.nextLine();
+                        }
+                    } while (invalid_input || validateInt(coord_choice_x, 0, 9) == false);
+
+                    do {
+                        invalid_input = false;
+                        try {
+                            System.out.print("Y: ");
+                            coord_choice_y = input.nextInt();
+                        } catch (InputMismatchException e) {
+                            System.out.println("Invalid input, please enter a valid coordinate!");
+                            invalid_input = true;
+                            input.nextLine();
+                        }
+                    } while (invalid_input || validateInt(coord_choice_y, 0, 9) == false);
+
+                    String [] options = {"N", "S", "E", "W"};
+                    String direction_choice = "";
+
+                    do {
+                        invalid_input = false;
+                        try {
+                            System.out.print("Ship direction: ");
+                            direction_choice = input.next();
+                        } catch (InputMismatchException e) {
+                            System.out.println("Invalid input, please enter a valid coordinate!");
+                            invalid_input = true;
+                            input.nextLine();
+                        }
+                    } while (invalid_input || validateString(direction_choice, options) == false);
+
+                    boolean success = false;
+
+                    while (success == false) {
+                        System.out.println("Place your " + ship_objects.get(j).getName());
+                        System.out.print("X: ");
+                        coord_choice_x = input.nextInt();
+                        System.out.print("Y: ");
+                        coord_choice_y = input.nextInt();
+                        System.out.print("Ship direction: ");
+                        direction_choice = input.next();
+                        success = curr_player.deployShip(ship_objects.get(j), coord_choice_x, coord_choice_y, direction_choice, map_choice);
+                        if (!success) {
+                            System.out.println("You can't place the " + ship_objects.get(j).getName()+  " there! Try again.");
                         }
                     }
-            break;
+                }
+                break;
         }
-        System.out.print("You have successfully placed all your ships! Would you like to view your maps? (Y/N): ");
-        String view_choice = input.next();
-        System.out.println("\n");
+        String view_choice = "";
+        String [] options = {"Y", "N"};
+        do {
+            invalid_input = false;
+            try {
+                System.out.print("You have successfully placed all your ships! Would you like to view your maps? (Y/N): ");
+                view_choice = input.next();
+                System.out.println("\n");
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid choice, please enter a valid option (Y/N)");
+                invalid_input = true;
+                input.nextLine();
+            }
+        } while (invalid_input || validateString(view_choice, options) == false);
+
         view_choice = view_choice.toLowerCase();
+
         if (view_choice.equals("y")) {
             curr_player.player_maps.get(0).printDefensiveGrid();
             curr_player.player_maps.get(1).printDefensiveGrid();
@@ -398,26 +494,28 @@ public class Game {
         Scanner input = new Scanner(System.in);
         int map_choice = 0;
         boolean invalid_input;
-        System.out.println("----MAPS----");
-        for (int i = 0; i < curr_player.player_maps.size(); i++) {
-            System.out.println( i+1 + ". " + curr_player.player_maps.get(i).getName());
-        }
 //        if (map_choice == curr_player.player_maps.size()) {
 //            turn(curr_player, opponent_player, ship_objects);
 //        }
         do {
             invalid_input = false;
             try {
+                System.out.println("----MAPS----");
+                for (int i = 0; i < curr_player.player_maps.size(); i++) {
+                    System.out.println( i+1 + ". " + curr_player.player_maps.get(i).getName());
+                }
                 System.out.println(curr_player.player_maps.size() + 1 + ". Go back");
                 System.out.print("Enter your option: ");
-                map_choice = input.nextInt() - 1;
+                map_choice = input.nextInt();
                 System.out.println("\n");
             } catch (InputMismatchException e) {
                 System.out.println("Invalid input, please enter a number from the menu!");
+                invalid_input = true;
+                input.nextLine();
             }
-        } while (invalid_input || validateInt(map_choice, 0, curr_player.player_maps.size()) == false);
+        } while (invalid_input || validateInt(map_choice, 1, curr_player.player_maps.size() + 1) == false);
 
-        return map_choice;
+        return map_choice - 1;
     }
 
     public int displayWeaponMenu(newPlayer curr_player, newPlayer opponent_player, ArrayList<newShip> ship_objects) {
@@ -436,7 +534,32 @@ public class Game {
                 }
                 System.out.println(curr_player.player_weapons.size() + 1 + ". Go back");
                 System.out.print("Enter your option: ");
-                user_weapon_choice = input.nextInt() - 1;
+                user_weapon_choice = input.nextInt();
+                System.out.println("\n");
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input, please enter a number from the menu!");
+                invalid_input = true;
+                input.nextLine();
+            }
+        } while (invalid_input || validateInt(user_weapon_choice, 1, curr_player.player_weapons.size() + 1) == false);
+
+        return user_weapon_choice - 1;
+    }
+
+    public int displayBoostMenu(newPlayer curr_player, newPlayer opponent_player, ArrayList<newShip> ship_objects) {
+        Scanner input = new Scanner(System.in);
+        boolean invalid_input;
+        int user_boost_choice = 0;
+        do {
+            invalid_input = false;
+            try {
+                System.out.println("----BOOST CHOICES----");
+                for (int i = 0; i < curr_player.player_boosts.size(); i++) {
+                    System.out.println( i+1 + ". " + curr_player.player_boosts.get(i).getName());
+                }
+                System.out.println(curr_player.player_boosts.size() + 1 + ". Go back");
+                System.out.print("Enter your option: ");
+                user_boost_choice = input.nextInt();
                 System.out.println("\n");
             } catch (InputMismatchException e) {
                 System.out.println("Invalid input, please enter a number from the menu!");
@@ -444,28 +567,12 @@ public class Game {
                 System.out.print("Enter your option: ");
                 input.nextLine();
             }
-        } while (invalid_input || validateInt(user_weapon_choice, 0, curr_player.player_weapons.size()) == false);
-
-        return user_weapon_choice;
-    }
-
-    public int displayBoostMenu(newPlayer curr_player, newPlayer opponent_player, ArrayList<newShip> ship_objects) {
-        Scanner input = new Scanner(System.in);
-        System.out.println("----BOOST CHOICES----");
-        for (int i = 0; i < curr_player.player_boosts.size(); i++) {
-            System.out.println( i+1 + ". " + curr_player.player_boosts.get(i).getName());
-        }
-        System.out.println(curr_player.player_boosts.size() + 1 + ". Go back");
-        System.out.print("Enter your option: ");
-        int user_boost_choice = input.nextInt() - 1;
-        System.out.println("\n");
+        } while (invalid_input || validateInt(user_boost_choice, 1, curr_player.player_boosts.size() + 1) == false);
 //        if (user_boost_choice == curr_player.player_boosts.size()) {
 //            turn(curr_player, opponent_player, ship_objects);
 //        }
-        if (validateInt(user_boost_choice, 0, curr_player.player_boosts.size()) == false) {
-            displayBoostMenu(curr_player, opponent_player, ship_objects);
-        }
-        return user_boost_choice;
+
+        return user_boost_choice - 1;
     }
 
     public void createDisaster(newPlayer curr_player) {
@@ -523,7 +630,6 @@ public class Game {
         if (user_input >= lower_bound && user_input <= upper_bound) {
             return true;
         }
-        System.out.println("That is not an option! Please enter an option again.");
         System.out.println("Please enter a valid number between " + lower_bound + " and " + upper_bound);
         return false;
     }
@@ -534,7 +640,6 @@ public class Game {
             }
         }
         System.out.println("That is not an option! Please enter an option again.");
-        System.out.println("Please enter valid characters or words (" + options.toString() + ")");
         return false;
     }
 }
