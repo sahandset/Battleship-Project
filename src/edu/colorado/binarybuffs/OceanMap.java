@@ -99,12 +99,14 @@ public class OceanMap extends Map {
      * @return true if an Animal exists at an overlapping coordinate with a Ship, false otherwise
      */
     public boolean checkForAnimal(Player current_player) {
+        /* Iterates through every ship coordinate and compares it with the coordinates of animals on the map */
         boolean animal_exists = false;
         for (int i = 0; i < animal_coordinates.size(); i++) {
             for (int j = 0; j < ship_coordinates.size(); j++) {
                 Animal a = animals.get(i);
                 Ship shipy = existing_ships.get(j);
                 for (int k = 0; k < ship_coordinates.get(shipy).size(); k++) {
+                    /* If any coordinates overlap */
                     if ((animal_coordinates.get(a).x == ship_coordinates.get(shipy).get(k).x) && (animal_coordinates.get(a).y == ship_coordinates.get(shipy).get(k).y)) {
                         a.useAnimal(current_player, this);
                         animal_exists = true;

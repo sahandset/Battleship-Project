@@ -9,7 +9,6 @@ public class Grid {
     /**
      * Grid() Constructor that contains a 2D Matrix array of length_x columns and length_y rows, all initially set to 0
      * A Grid's matrix array is comprised of cell statuses that can inform of objects and interactions:
-     *
      * -- Offensive Grid --
      * 0 = Not Hit
      * 1 = Attacked, Missed
@@ -18,7 +17,6 @@ public class Grid {
      *  -- Defensive Grid --
      *  0 = Unoccupied
      *  1 = Occupied
-     *
      */
     public Grid(){
         for (int i = 0; i < length_x; i++) {
@@ -65,7 +63,6 @@ public class Grid {
     }
 
     /** toString() method that prints out cell statuses of the Grid
-     *
      * -- Offensive Grid --
      * 0 = Not Hit
      * 1 = Attacked, Missed
