@@ -85,9 +85,12 @@ public class Player {
     }
 
     public boolean useBoost(int boost_choice, int ship_choice, int map_choice) {
-        if (boost_choice >= 0 && boost_choice < this.player_boosts.size()) {
+        if (boost_choice >= 0 && boost_choice < this.player_boosts.size() && this.player_boosts.size() != 0) {
             Boost boost = this.player_boosts.get(boost_choice);
             Map curr_players_map = this.player_maps.get(map_choice);
+            if (curr_players_map.sunk_ships.size() == 0) {
+                return false;
+            }
             Ship ship = curr_players_map.sunk_ships.get(ship_choice);
             System.out.println(ship.getName());
             boolean result = boost.equipBoost(ship, curr_players_map, this);
