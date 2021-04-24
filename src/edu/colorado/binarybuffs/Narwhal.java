@@ -4,16 +4,21 @@ public class Narwhal extends Animal{
 
     private String name = "Narwhal";
 
+    //Constructor for Narwhal Class
     public Narwhal() {
 
     }
 
+    //Gets the name of the current narwhal
     public String getName() {return this.name;}
 
-    /** grantUses() is where, once created and validated, the narwhal will increment the player's sonar pulse uses by 1
+     /**
+     * grantUses() is where, once created and validated, the narwhal will increment the player's sonar pulse uses by 1
      * Checks if the user has reached the point of acquiring a sonar pulse
      * Accesses the player's current number of uses and decrements that by 1
      * Removes the narwhal after it has granted its uses
+     * @param curr_player object of type Player class which is the current player on the turn
+     * @param curr_player_map object of type Map class which is the current player's map where functionality occurs
      */
     public void grantUses(Player curr_player, Map curr_player_map) {
         if (curr_player.player_weapons.size() == 2) {
@@ -32,7 +37,11 @@ public class Narwhal extends Animal{
     }
 
 
-    /** useAnimal() is a function to be called within the Map class, which in turn calls the grantUses function */
+     /**
+     * useAnimal() is a function to be called within the Map class, which in turn calls the grantUses function
+     * @param curr_player object of type Player class which is the current player on the turn
+     * @param curr_player_map object of type Map class which is the current player's map where functionality occurs
+     */
     public void useAnimal(Player curr_player, Map curr_player_map) {
         grantUses(curr_player, curr_player_map);
     }

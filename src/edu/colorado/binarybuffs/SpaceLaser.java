@@ -16,13 +16,30 @@ public class SpaceLaser extends Weapon {
         return this.name;
     }
 
-    public boolean deployWeapon(int x, int y, Player opponent, Map attacked_map, Map current_player_map, Player currentPlayer, int method_choice) {
+    /**
+     * deployWeapon() uses a space laser to attack the opponents maps. The space laser attacks the
+     *      designated coordinate on every map.
+     *
+     * If a space shuttle is hit and sunk on the space map, every location below the shuttle is attacked
+     *      by space shuttle debris therefore calling attackUnderSpaceShuttle()
+     * @param x the x-coordinate where the weapon is being deployed
+     * @param y the y-coordinate where the weapon is being deployed
+     * @param opponent the player being "attacked" on
+     * @param attacked_map the map of player being "attacked"
+     * @param current_player_map the map of player using weapon
+     * @param current_player the player attacking
+     * @param method_choice the method of use of deployWeapon (bomb, asteroids, etc.)
+     * @return boolean returns success of deployment
+     */
+    public boolean deployWeapon(int x, int y, Player opponent, Map attacked_map, Map current_player_map, Player current_player, int method_choice) {
+
+        //Checks if coordinate is out of bounds
         if (x > 10 || x < 0 || y > 10 || y < 0) {
             System.out.println("You cannot attack outside of the grid! (Attempted an attack at (" + x + "," + y + "))");
             return false;
         }
 
-        /* What can happen:
+        /* What can happen after hitting on the space map:
          *  Miss - Surface and Underwater
          *  Hit - Surface only
          *     Hit - Captains' Quarters
@@ -40,29 +57,21 @@ public class SpaceLaser extends Weapon {
         Map opp_underwater = opponent.player_maps.get(1);
         Map opp_space = opponent.player_maps.get(2);
 
-        Map curr_surface = currentPlayer.player_maps.get(0);
-        Map curr_underwater = currentPlayer.player_maps.get(1);
-        Map curr_space = currentPlayer.player_maps.get(2);
+        Map curr_surface = current_player.player_maps.get(0);
+        Map curr_underwater = current_player.player_maps.get(1);
+        Map curr_space = current_player.player_maps.get(2);
 
-        /* Check curr_player offensive grid cell status at xy to see if it is a miss - either from an actual miss or a result of hitting a armored CQ
-         * If it it a miss, check to see if a ship exists on the surface using opp_surface defensive grid */
         Bomb b = new Bomb();
 
-//        System.out.println("Currently attacking in space!");
+        //Attack in space!
         Ship attack_ship = new Minesweeper();
         spaceLaserOutputs(method_choice, 1, attacked_map, attack_ship);
-        b.deployWeapon(x, y, opponent, opp_space, curr_space, currentPlayer, method_choice+1);
+        b.deployWeapon(x, y, opponent, opp_space, curr_space, current_player, method_choice+1);
 
-        //check if you hit a space shuttle, and if it sank
-        //we could check the attacked_map's defensive grid and see if there is a ship there
-        //get that ship
-        //see if its in their sunk ships
-        //destroy everything underneath that ship's coords
-
-        //check if ship there (meaning you hit ship)
+        //Check to see if you hit a space shuttle
         int value = opp_space.defensiveGrid.checkCellStatus(x, y);
         if (value == 2) {
-            //get ship at the coordinate
+            //Get ship at the coordinate
             Ship attacked_ship = new Spaceshuttle();
 
             for (int i = 0; i < opp_space.existing_ships.size(); i++) {
@@ -75,46 +84,42 @@ public class SpaceLaser extends Weapon {
                 }
             }
 
-            //with the ship, check if its sunk
+            //With the ship, check if its sunk
             if (opp_space.sunk_ships.contains(attacked_ship)) {
-//                System.out.println("WOW! By sinking the " + attacked_ship.getName() + ", some of the debris fell to the surface!");
+                //If ship sank, called attackUnderSpaceShuttle()
                 spaceLaserOutputs(method_choice, 2, attacked_map, attacked_ship);
                 //get the coords of that row
                 ArrayList<Coordinate> coords = opp_space.ship_coordinates.get(attacked_ship);
                 for (Coordinate coord : coords){
-                    this.attackUnderSpaceShuttle(coord.x, coord.y, opp_surface, curr_surface, currentPlayer, 0);
+                    this.attackUnderSpaceShuttle(coord.x, coord.y, opp_surface, curr_surface, current_player, 0);
                 }
             }
         }
 
-//        System.out.print("Currently attacking on the surface! ");
+        //Attack on surface!
         spaceLaserOutputs(method_choice, 3, attacked_map, attack_ship);
-        b.deployWeapon(x, y, opponent, opp_surface, curr_surface, currentPlayer, method_choice+1);
+        b.deployWeapon(x, y, opponent, opp_surface, curr_surface, current_player, method_choice+1);
 
-        // If you attack a cell and hit a surface ship, check underwater
+        //Check to see if you hit an armoured captains quarters (if you did, space laser cannot penetrate through)
         if (opp_surface.defensiveGrid.checkCellStatus(x, y) == 2) {
-//            System.out.print("Currently attacking underwater! ");
+            //Attack underwater
             spaceLaserOutputs(method_choice, 4, attacked_map, attack_ship);
-            b.deployWeapon(x, y, opponent, opp_underwater, curr_underwater, currentPlayer, method_choice+1);
-            // If you have attacked a cell and there is no surface ship, check underwater
+            b.deployWeapon(x, y, opponent, opp_underwater, curr_underwater, current_player, method_choice+1);
         } else if (opp_surface.defensiveGrid.checkCellStatus(x, y) == 0) {
-//            if (opp_surface.defensiveGrid.checkCellStatus(x, y) == 0) {
-//            System.out.print("Currently attacking underwater! ");
+            //Attack underwater
             spaceLaserOutputs(method_choice, 5, attacked_map, attack_ship);
-            b.deployWeapon(x, y, opponent, opp_underwater, curr_underwater, currentPlayer, method_choice+1);
-//            }
+            b.deployWeapon(x, y, opponent, opp_underwater, curr_underwater, current_player, method_choice+1);
         }
         return true;
     }
 
-    // REFACTOR THIS METHOD
     public boolean attackUnderSpaceShuttle(int x, int y, Map attacked_map, Map current_player_map, Player current_player, int method_choice){
-        //copy the functionality of a bomb here
-        int has_been_attacked = current_player_map.offensiveGrid.checkCellStatus(x,y);
+        //similar to the functionality of a bomb
         int is_occupied = attacked_map.defensiveGrid.checkCellStatus(x,y);
 
+        //Checks if there is a ship at the attacked location: 0 = no ship, 1 = ship exists, 2 = ship exists and already hit
         if (is_occupied == 0) {
-            //System.out.println("You've attempted an attack on " + attacked_map.getName() + ", but you've missed!");
+            //no ship: miss!
             current_player_map.offensiveGrid.setCellStatus(1, x, y);
         } else if (is_occupied == 1) {
             Ship attacked_ship = new Minesweeper();

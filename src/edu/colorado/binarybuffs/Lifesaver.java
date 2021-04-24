@@ -11,15 +11,21 @@ public class Lifesaver extends Boost{
     public Lifesaver(){
         this.num_uses = 2;
     }
+
+    //Getter method to return name of boost
     public String getName(){
         return this.name;
     }
 
-    /** equipBoost() performs the functionality of reviving the chosen ship
+     /**
+     * equipBoost() performs the functionality of reviving the chosen ship
      * Checks if the passed in ship object is of status sunken
      * Traverses through coordinates of the sunken ship, resets its cell status to 1 - exists on the map once again
      * Calls the revive function to update ship health, remove the ship from sunken ships array
-     * returns a boolean whether the ship has been successfully revived
+     * @param ship object of type Ship class which is the ship that boost will revive
+     * @param current_player_map object of type Map class which is the current player's map where functionality occurs
+     * @param current_player object of type Player class which is the current player on the turn
+     * @return boolean whether the ship has been successfully revived
      */
     public boolean equipBoost(Ship ship, Map current_player_map, Player current_player) {
         if (current_player_map.checkIfSunk(ship)) {
@@ -35,9 +41,11 @@ public class Lifesaver extends Boost{
         return false;
     }
 
-    /** checkAvailability() checks uses of boost
+    /**
+     * checkAvailability() checks uses of boost
      * Checks if the number of times a player has already used is the same as maximum uses
-     * returns a boolean whether the boost is able to be used
+     * @param num_used integer value that tracks how many times a boost has been used
+     * @return boolean whether the boost is able to be used
      */
     public boolean checkAvailability(int num_used) {
         if (num_used == this.num_uses) {
