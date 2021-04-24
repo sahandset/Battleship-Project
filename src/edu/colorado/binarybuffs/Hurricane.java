@@ -3,7 +3,8 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Random;
 
-/** Hurricane extends Disaster superclass that moves ships that are caught on its borders, occuring on the ocean map
+/**
+ * Hurricane extends Disaster superclass that moves ships that are caught on its borders, occurring on the OceanMap
  */
 public class Hurricane extends Disaster{
 
@@ -15,6 +16,7 @@ public class Hurricane extends Disaster{
     private int category;
 
     /** Hurricane() constructor which sets hurricane coordinates when a Disaster is created in Game class
+     * @Return void
      */
     public Hurricane() {
         this.setHurricaneCoordinates();
@@ -23,9 +25,8 @@ public class Hurricane extends Disaster{
     /** setHurricaneCoordinates() method to create hurricane on a portion of player's ocean map
      * Creates a random value for nxn dimensions of hurricane
      * New coordinate is created to act as starting coordinate (top left), traverses through dimensions and creates hurricane
-        * Only borders are created, middle of hurricane has no effect on ships
+     * Only borders are created, middle of hurricane has no effect on ships
      * Performed in a do while loop in order to validate hurricane borders before actually creating it
-     * returns void
      */
     public void setHurricaneCoordinates() {
 
@@ -74,9 +75,10 @@ public class Hurricane extends Disaster{
         return hurricane_coordinate_keys;
     }
 
-    /** toString method to print out location of hurricane on respective map
+    /** toString() method that prints out location of hurricane on respective map
      * Traverses through the list of added hurricane border coordinates
      * Prints out the character "@" to denote a hurricane by row/column
+     * @return A printed map representation of the coordinates affected by the Hurricane disaster
      */
     public String toString() {
         for (int i = 0; i < this.hurricane_map.length; i++) {
@@ -118,7 +120,7 @@ public class Hurricane extends Disaster{
 
     /** validateHurricane() method to ensure that hurricane is not created out of bounds
      * Traverses through the list of added hurricane border coordinates and checks whether coords are either less than 0 or greater than 10
-     * returns boolean true for proper validation
+     * @return  true for proper validation, false otherwise
      */
     public boolean validateHurricane() {
         for (int i = 0; i < this.hurricane_border_coordinates.size(); i++) {
@@ -134,7 +136,7 @@ public class Hurricane extends Disaster{
      * Traverses through existing ships of player, checking if any of them overlap with coordinates of hurricane border, adds those ships to a hashtable
      * Traverses through the ships caught in the hurricane, validates which directions they are able to move, and moves them accordingly
      * Uses similar functionality as moveFleet in Player class, by moving ships using an offset coordinate for each direction
-     * returns void
+     * @param current_player the current player who's map's will be affected by the disaster event
      */
     public void applyDisaster(Player current_player) {
         ArrayList<Ship> player_ships = current_player.getPlayerMaps().get(0).existing_ships;
@@ -225,7 +227,6 @@ public class Hurricane extends Disaster{
                 Coordinate new_Capts_Coords = new Coordinate(old_Capts_Coords.x + offset_coord.x, old_Capts_Coords.y + offset_coord.y);
                 ocean_map.captains_quarters.replace(ship_to_move, new_Capts_Coords);
             }
-
         }
         System.out.println("Ships may have been moved around! Display your grid to see their updated locations.\n");
     }
