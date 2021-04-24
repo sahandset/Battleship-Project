@@ -30,8 +30,8 @@ public class Lifesaver extends Boost{
     public boolean equipBoost(Ship ship, Map current_player_map, Player current_player) {
         if (current_player_map.checkIfSunk(ship)) {
             ArrayList <Coordinate> sunkShipCoords = current_player_map.ship_coordinates.get(ship);
-            for (int i = 0; i < sunkShipCoords.size(); i++) {
-                current_player_map.defensiveGrid.setCellStatus(1, sunkShipCoords.get(i).x, sunkShipCoords.get(i).y);
+            for (Coordinate sunkShipCoord : sunkShipCoords) {
+                current_player_map.defensiveGrid.setCellStatus(1, sunkShipCoord.x, sunkShipCoord.y);
             }
             current_player_map.reviveShip(ship);
             System.out.println("You have successfully revived your ship!");
@@ -48,9 +48,6 @@ public class Lifesaver extends Boost{
      * @return boolean whether the boost is able to be used
      */
     public boolean checkAvailability(int num_used) {
-        if (num_used == this.num_uses) {
-            return false;
-        }
-        return true;
+        return num_used != this.num_uses;
     }
 }

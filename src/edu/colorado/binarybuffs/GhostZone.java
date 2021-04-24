@@ -8,7 +8,7 @@ import java.util.ArrayList;
  */
 public class GhostZone extends Disaster {
     private int ghost_zone_dimension;
-    private ArrayList<Coordinate> ghost_zone_coords = new ArrayList<Coordinate>();
+    private ArrayList<Coordinate> ghost_zone_coords = new ArrayList<>();
     boolean ghosted = false;
 
     private String [][] ghost_zone_map = new String[10][10];
@@ -73,12 +73,12 @@ public class GhostZone extends Disaster {
         System.out.println("Some of your intel might be scrambled...");
         Grid new_ocean_offensive_grid = current_player.getPlayerMaps().get(0).offensiveGrid;
         Grid new_underwater_offensive_grid = current_player.getPlayerMaps().get(1).offensiveGrid;
-        int scramble_num = 0;
-        for (int i = 0; i < ghost_zone_coords.size(); i++) {
+        int scramble_num;
+        for (Coordinate ghost_zone_coord : ghost_zone_coords) {
             Random rand = new Random();
             scramble_num = rand.nextInt(3);
-            new_ocean_offensive_grid.setCellStatus(scramble_num, ghost_zone_coords.get(i).x, ghost_zone_coords.get(i).y);
-            new_underwater_offensive_grid.setCellStatus(scramble_num, ghost_zone_coords.get(i).x, ghost_zone_coords.get(i).y);
+            new_ocean_offensive_grid.setCellStatus(scramble_num, ghost_zone_coord.x, ghost_zone_coord.y);
+            new_underwater_offensive_grid.setCellStatus(scramble_num, ghost_zone_coord.x, ghost_zone_coord.y);
         }
 
         ghosted = true;
@@ -90,9 +90,9 @@ public class GhostZone extends Disaster {
      * returns boolean true for proper validation
      */
     public boolean validateGhostZone() {
-        for (int i = 0; i < this.ghost_zone_coords.size(); i++) {
-            if (this.ghost_zone_coords.get(i).x < 0 || this.ghost_zone_coords.get(i).y < 0 ||
-                    this.ghost_zone_coords.get(i).x >= 10 || this.ghost_zone_coords.get(i).y >= 10) {
+        for (Coordinate ghost_zone_coord : this.ghost_zone_coords) {
+            if (ghost_zone_coord.x < 0 || ghost_zone_coord.y < 0 ||
+                    ghost_zone_coord.x >= 10 || ghost_zone_coord.y >= 10) {
                 return false;
             }
         }
@@ -111,12 +111,12 @@ public class GhostZone extends Disaster {
             }
         }
 
-        for (int i = 0; i < this.ghost_zone_coords.size(); i++) {
-            this.ghost_zone_map[this.ghost_zone_coords.get(i).x][this.ghost_zone_coords.get(i).y] = "&";
+        for (Coordinate ghost_zone_coord : this.ghost_zone_coords) {
+            this.ghost_zone_map[ghost_zone_coord.x][ghost_zone_coord.y] = "&";
         }
 
         String result = "";
-        String axis_label = "";
+        String axis_label;
         for (int axis = 0; axis < 10; axis++) {
             if (axis == 0) {
                 System.out.print("X  " + axis);

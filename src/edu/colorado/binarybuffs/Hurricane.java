@@ -15,9 +15,7 @@ public class Hurricane extends Disaster{
     private String [][] hurricane_map = new String [10][10];
     private int category;
 
-    /** Hurricane() constructor which sets hurricane coordinates when a Disaster is created in Game class
-     * @Return void
-     */
+    /** Hurricane() constructor which sets hurricane coordinates when a Disaster is created in Game class */
     public Hurricane() {
         this.setHurricaneCoordinates();
     }
@@ -87,12 +85,12 @@ public class Hurricane extends Disaster{
             }
         }
 
-        for (int i = 0; i < this.hurricane_coordinate_keys.size(); i++) {
-            this.hurricane_map[this.hurricane_coordinate_keys.get(i).x][this.hurricane_coordinate_keys.get(i).y] = "@";
+        for (Coordinate hurricane_coordinate_key : this.hurricane_coordinate_keys) {
+            this.hurricane_map[hurricane_coordinate_key.x][hurricane_coordinate_key.y] = "@";
         }
 
         String result = "";
-        String axis_label = "";
+        String axis_label;
         for (int axis = 0; axis < 10; axis++) {
             if (axis == 0) {
                 System.out.print("X  " + axis);
@@ -164,61 +162,59 @@ public class Hurricane extends Disaster{
         }
 
         // Check if each ship caught in the hurricane can move in a certain direction (not overlap or go out of bounds), and if it can, set ALL of its coordinates to the offset
-        for (int i = 0; i < this.hurricane_ships.size(); i++) {
-            Ship ship_to_move = this.hurricane_ships.get(i);
+        for (Ship ship_to_move : this.hurricane_ships) {
             String direction_to_move = hurricane_ship_directions.get(ship_to_move);
             Coordinate offset_coord = current_player.getOffsetCoord(direction_to_move);
             ArrayList<Coordinate> coordsList = ocean_map.ship_coordinates.get(ship_to_move);
-            ArrayList<Coordinate> movedCoordsList = new ArrayList<Coordinate>();
-            int moved_x = 0;
-            int moved_y = 0;
+            ArrayList<Coordinate> movedCoordsList = new ArrayList<>();
+            int moved_x;
+            int moved_y;
             boolean movable = true;
-            for (int j = 0; j < coordsList.size(); j++) {
-                moved_x = coordsList.get(j).x + offset_coord.x;
-                moved_y = coordsList.get(j).y + offset_coord.y;
+            for (Coordinate item : coordsList) {
+                moved_x = item.x + offset_coord.x;
+                moved_y = item.y + offset_coord.y;
                 if (moved_x < 0 || moved_x > 9 || moved_y < 0 || moved_y > 9) {
                     movable = false;
-                }
-                else if (ocean_map.defensiveGrid.checkCellStatus(moved_x, moved_y) == 1 || ocean_map.defensiveGrid.checkCellStatus(moved_x, moved_y) == 2){
+                } else if (ocean_map.defensiveGrid.checkCellStatus(moved_x, moved_y) == 1 || ocean_map.defensiveGrid.checkCellStatus(moved_x, moved_y) == 2) {
                     Ship ship_found = new Minesweeper();
 
-                    for (int k = 0; k < ocean_map.existing_ships.size(); k++){
+                    for (int k = 0; k < ocean_map.existing_ships.size(); k++) {
                         Ship shipy = ocean_map.existing_ships.get(k);
                         ArrayList<Coordinate> coordsList2 = ocean_map.ship_coordinates.get(shipy);
-                        for (int p = 0; p < coordsList2.size(); p++){
-                            if (coordsList2.get(p).x == moved_x && coordsList2.get(p).y == moved_y){
+                        for (Coordinate coordinate : coordsList2) {
+                            if (coordinate.x == moved_x && coordinate.y == moved_y) {
                                 ship_found = shipy;
+                                break;
                             }
                         }
                     }
 
-                    if (ship_found == ship_to_move){
+                    if (ship_found == ship_to_move) {
                         movable = true;
-                    }
-                    else{
+                    } else {
                         movable = false;
                     }
                 }
             }
-            if (movable){ //Ship is ready to move
-                Hashtable<Coordinate, Integer> moved_coords_stati = new Hashtable<Coordinate, Integer>();
-                ArrayList<Coordinate> old_coords_keys = new ArrayList<Coordinate>();
-                for (int j = 0; j < coordsList.size(); j++) {
-                    int status = ocean_map.defensiveGrid.checkCellStatus(coordsList.get(j).x, coordsList.get(j).y);
-                    old_coords_keys.add(coordsList.get(j));
+            if (movable) { //Ship is ready to move
+                Hashtable<Coordinate, Integer> moved_coords_stati = new Hashtable<>();
+                ArrayList<Coordinate> old_coords_keys = new ArrayList<>();
+                for (Coordinate value : coordsList) {
+                    int status = ocean_map.defensiveGrid.checkCellStatus(value.x, value.y);
+                    old_coords_keys.add(value);
 
-                    moved_x = coordsList.get(j).x + offset_coord.x;
-                    moved_y = coordsList.get(j).y + offset_coord.y;
+                    moved_x = value.x + offset_coord.x;
+                    moved_y = value.y + offset_coord.y;
                     Coordinate moved_coord = new Coordinate(moved_x, moved_y);
                     movedCoordsList.add(moved_coord);
                     moved_coords_stati.put(moved_coord, status);
                 }
-                for (int j = 0; j < movedCoordsList.size(); j++){
-                    int status = moved_coords_stati.get(movedCoordsList.get(j));
-                    ocean_map.defensiveGrid.setCellStatus(status, movedCoordsList.get(j).x, movedCoordsList.get(j).y);
+                for (Coordinate coordinate : movedCoordsList) {
+                    int status = moved_coords_stati.get(coordinate);
+                    ocean_map.defensiveGrid.setCellStatus(status, coordinate.x, coordinate.y);
                 }
-                for (int j = 0; j < movedCoordsList.size(); j++){
-                    if (!(movedCoordsList.contains(old_coords_keys.get(j)))){
+                for (int j = 0; j < movedCoordsList.size(); j++) {
+                    if (!(movedCoordsList.contains(old_coords_keys.get(j)))) {
                         ocean_map.defensiveGrid.setCellStatus(0, old_coords_keys.get(j).x, old_coords_keys.get(j).y);
                     }
                 }

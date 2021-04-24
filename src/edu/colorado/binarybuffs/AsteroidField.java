@@ -8,8 +8,8 @@ import java.util.Random;
  * */
 public class AsteroidField extends Disaster {
 
-    private ArrayList<Coordinate> asteroids = new ArrayList<Coordinate>();
-    private ArrayList<Coordinate> shuttle_coordinates = new ArrayList<Coordinate>();
+    private ArrayList<Coordinate> asteroids = new ArrayList<>();
+    private ArrayList<Coordinate> shuttle_coordinates = new ArrayList<>();
     private String [][] asteroid_map = new String[10][10];
 
     /**
@@ -45,17 +45,17 @@ public class AsteroidField extends Disaster {
         System.out.println(current_player.getName() + "'s Space shuttle has encountered an asteroid field!");
         System.out.println(this);
 
-         for (int i = 0; i < this.shuttle_coordinates.size(); i++) {
-             for (int j = 0; j < this.asteroids.size(); j++) {
-                 if (this.shuttle_coordinates.get(i).x == this.asteroids.get(j).x
-                         && this.shuttle_coordinates.get(i).y == this.asteroids.get(j).y){
-                     // Call SpaceLaser on Player1 Space Map at this coordinate
-                     System.out.println("Your spaceshuttle has been bombarded by asteroids at " + this.asteroids.get(j).toString());
-                     asteroid_hit.deployWeapon(this.asteroids.get(j).x, this.asteroids.get(j).y, current_player,
-                             current_player.getPlayerMaps().get(2), current_player.getPlayerMaps().get(2), current_player, 3);
-                 }
-             }
-         }
+        for (Coordinate shuttle_coordinate : this.shuttle_coordinates) {
+            for (Coordinate asteroid : this.asteroids) {
+                if (shuttle_coordinate.x == asteroid.x
+                        && shuttle_coordinate.y == asteroid.y) {
+                    // Call SpaceLaser on Player1 Space Map at this coordinate
+                    System.out.println("Your spaceshuttle has been bombarded by asteroids at " + asteroid.toString());
+                    asteroid_hit.deployWeapon(asteroid.x, asteroid.y, current_player,
+                            current_player.getPlayerMaps().get(2), current_player.getPlayerMaps().get(2), current_player, 3);
+                }
+            }
+        }
     }
 
     /**
@@ -72,12 +72,12 @@ public class AsteroidField extends Disaster {
             }
         }
 
-        for (int i = 0; i < this.asteroids.size(); i++) {
-            this.asteroid_map[this.asteroids.get(i).x][this.asteroids.get(i).y] = "A";
+        for (Coordinate asteroid : this.asteroids) {
+            this.asteroid_map[asteroid.x][asteroid.y] = "A";
         }
 
         String result = "";
-        String axis_label = "";
+        String axis_label;
         for (int axis = 0; axis < 10; axis++) {
             if (axis == 0) {
                 System.out.print("X  " + axis);

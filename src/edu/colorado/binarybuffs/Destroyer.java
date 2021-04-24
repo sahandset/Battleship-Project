@@ -45,7 +45,7 @@ public class Destroyer extends Ship implements ArmoredShip {
      * @return array list of coordinates for ship's coordinates
      */
     public ArrayList<Coordinate> getCoords(int start_x, int start_y, String direction) {
-        ArrayList<Coordinate> ship_cells = new ArrayList<Coordinate>();
+        ArrayList<Coordinate> ship_cells = new ArrayList<>();
 
         direction = direction.toLowerCase();
 
