@@ -586,18 +586,18 @@ public class Game {
 
     public void createDisaster(newPlayer curr_player) {
         Random rand = new Random();
-        int rand_disaster = rand.nextInt(7);
-        if (rand_disaster == 1) {
+        int rand_disaster = rand.nextInt(10);
+        if (rand_disaster == 0) {
             Disaster hurr = new Hurricane();
             hurr.applyDisaster(curr_player);
             System.out.println("\n");
         }
-        else if (rand_disaster == 2) {
+        else if (rand_disaster == 1) {
             Disaster ghost = new GhostZone();
             ghost.applyDisaster(curr_player);
             System.out.println("\n");
         }
-        else if (rand_disaster == 3) {
+        else if (rand_disaster == 2) {
             Disaster asteroid = new AsteroidField();
             asteroid.applyDisaster(curr_player);
             System.out.println("\n");
