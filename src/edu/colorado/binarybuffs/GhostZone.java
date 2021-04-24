@@ -31,8 +31,16 @@ public class GhostZone extends Disaster {
         do {
             Random ghost_size = new Random();
             this.ghost_zone_dimension = ghost_size.nextInt(5) + 2;
-            Coordinate starting_coordinate = new Coordinate(ghost_size.nextInt(9), ghost_size.nextInt(9));
-
+            Coordinate starting_coordinate = new Coordinate(0, 0);
+            if (this.ghost_zone_dimension == 2) {
+                starting_coordinate = new Coordinate(ghost_size.nextInt(9),ghost_size.nextInt(9));
+            }
+            else if(this.ghost_zone_dimension == 3){
+                starting_coordinate = new Coordinate(ghost_size.nextInt(8), ghost_size.nextInt(8));
+            }
+            else if(this.ghost_zone_dimension == 4){
+                starting_coordinate = new Coordinate(ghost_size.nextInt(7), ghost_size.nextInt(7));
+            }
             for (int i = starting_coordinate.x; i < starting_coordinate.x + this.ghost_zone_dimension; i++) {
                 for (int j = starting_coordinate.y; j < starting_coordinate.y + this.ghost_zone_dimension; j++) {
                     this.ghost_zone_coords.add(new Coordinate(i, j));

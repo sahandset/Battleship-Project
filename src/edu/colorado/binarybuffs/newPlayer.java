@@ -158,17 +158,9 @@ public class newPlayer {
 
     public boolean playerMoveFleet(String direction) {
         Coordinate offset_coord = getOffsetCoord(direction);
-        Coordinate coord_n = new Coordinate(0, -1);
-        Coordinate coord_s = new Coordinate(0, 1);
-        Coordinate coord_e = new Coordinate(1, 0);
-        Coordinate coord_w = new Coordinate(-1, 0);
 //        System.out.println(offset_coord);
         undo_move_actions.clear();
         boolean success = moveFleet(offset_coord);
-        boolean success_n = moveFleet(coord_n);
-        boolean success_s = moveFleet(coord_s);
-        boolean success_e = moveFleet(coord_e);
-        boolean success_w = moveFleet(coord_w);
 
         if (success) {
             Action newAction = new Action(offset_coord.x, offset_coord.y);
@@ -230,6 +222,40 @@ public class newPlayer {
     public boolean moveFleet(Coordinate offset_coord) {
         int moved_x = 0;
         int moved_y = 0;
+        if (validateMoveFleet(offset_coord)) {
+            for (int k = 0; k < this.player_maps.size(); k++) {
+                Map curr_map = this.player_maps.get(k);
+                //curr_map.defensiveGrid.setAllCellStatus(0);
+                newGrid new_defense_grid = new newGrid();
+                for (int i = 0; i < curr_map.existing_ships.size(); i++) {
+                    newShip shipy = curr_map.existing_ships.get(i); //get the ship
+                    ArrayList<Coordinate> coordsList = curr_map.ship_coordinates.get(shipy);
+                    ArrayList<Coordinate> movedCoordsList = new ArrayList<Coordinate>();
+                    for (int j = 0; j < coordsList.size(); j++) {
+                        moved_x = coordsList.get(j).x + offset_coord.x;
+                        moved_y = coordsList.get(j).y + offset_coord.y;
+                        movedCoordsList.add(new Coordinate(moved_x, moved_y));
+                        //curr_map.defensiveGrid.setCellStatus(1, moved_x, moved_y);
+                        int updated_status = curr_map.defensiveGrid.checkCellStatus(coordsList.get(j).x, coordsList.get(j).y);
+                        new_defense_grid.setCellStatus(updated_status, moved_x, moved_y);
+                    }
+                    curr_map.ship_coordinates.replace(shipy, movedCoordsList);
+                    Coordinate old_Capts_Coords = curr_map.captains_quarters.get(shipy);
+                    Coordinate new_Capts_Coords = new Coordinate(old_Capts_Coords.x + offset_coord.x, old_Capts_Coords.y + offset_coord.y);
+                    curr_map.captains_quarters.replace(shipy, new_Capts_Coords);
+                }
+                curr_map.defensiveGrid = new_defense_grid;
+            }
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public boolean validateMoveFleet(Coordinate offset_coord){
+        int moved_x = 0;
+        int moved_y = 0;
         for (int k = 0; k < this.player_maps.size(); k++) {
             Map curr_map = this.player_maps.get(k);
             for (int i = 0; i < curr_map.existing_ships.size(); i++) {
@@ -244,30 +270,20 @@ public class newPlayer {
                 }
             }
         }
-        for (int k = 0; k < this.player_maps.size(); k++) {
-            Map curr_map = this.player_maps.get(k);
-            //curr_map.defensiveGrid.setAllCellStatus(0);
-            newGrid new_defense_grid = new newGrid();
-            for (int i = 0; i < curr_map.existing_ships.size(); i++) {
-                newShip shipy = curr_map.existing_ships.get(i); //get the ship
-                ArrayList<Coordinate> coordsList = curr_map.ship_coordinates.get(shipy);
-                ArrayList<Coordinate> movedCoordsList = new ArrayList<Coordinate>();
-                for (int j = 0; j < coordsList.size(); j++) {
-                    moved_x = coordsList.get(j).x + offset_coord.x;
-                    moved_y = coordsList.get(j).y + offset_coord.y;
-                    movedCoordsList.add(new Coordinate(moved_x, moved_y));
-                    //curr_map.defensiveGrid.setCellStatus(1, moved_x, moved_y);
-                    int updated_status = curr_map.defensiveGrid.checkCellStatus(coordsList.get(j).x, coordsList.get(j).y);
-                    new_defense_grid.setCellStatus(updated_status, moved_x, moved_y);
-                }
-                curr_map.ship_coordinates.replace(shipy, movedCoordsList);
-                Coordinate old_Capts_Coords = curr_map.captains_quarters.get(shipy);
-                Coordinate new_Capts_Coords = new Coordinate(old_Capts_Coords.x + offset_coord.x, old_Capts_Coords.y + offset_coord.y);
-                curr_map.captains_quarters.replace(shipy, new_Capts_Coords);
-            }
-            curr_map.defensiveGrid = new_defense_grid;
-        }
         return true;
+    }
+
+    public boolean validateAllDirections(){
+        Coordinate north = getOffsetCoord("N");
+        Coordinate south = getOffsetCoord("S");
+        Coordinate east = getOffsetCoord("E");
+        Coordinate west = getOffsetCoord("W");
+        if (!validateMoveFleet(north) && !validateMoveFleet(south) && !validateMoveFleet(west) && !validateMoveFleet(east)){
+            return false;
+        }
+        else{
+            return true;
+        }
     }
 
     public boolean surrender() {

@@ -237,45 +237,34 @@ public class Game {
                 break;
             case 5: //Move fleet
 
-                String []  valid_inputs= {"N", "S", "E", "W"};
-                String fleet_direction_choice = "";
-                boolean fleet_moved = false;
-                boolean fleet_fail = false;
-                do {
+                if(current_player.validateAllDirections()){
+                    String []  valid_inputs= {"N", "S", "E", "W"};
+                    String fleet_direction_choice = "";
+                    boolean fleet_moved = false;
+                    boolean fleet_fail = false;
                     do {
-                        invalid_input = false;
-                        try {
-                            System.out.print("Which direction will you move fleet? (N, S, E, or W): ");
-                            fleet_direction_choice = input.next();
-                        } catch (InputMismatchException e){
-                            System.out.println("Invalid input, please enter a valid direction!\n");
-                            invalid_input = true;
-                            input.nextLine();
-                        }
-                    } while (invalid_input || validateString(fleet_direction_choice, valid_inputs) == false);
+                        do {
+                            invalid_input = false;
+                            try {
+                                System.out.print("Which direction will you move fleet? (N, S, E, or W): ");
+                                fleet_direction_choice = input.next();
+                            } catch (InputMismatchException e){
+                                System.out.println("Invalid input, please enter a valid direction!\n");
+                                invalid_input = true;
+                                input.nextLine();
+                            }
+                        } while (invalid_input || validateString(fleet_direction_choice, valid_inputs) == false);
 
-                    fleet_moved = current_player.playerMoveFleet(fleet_direction_choice);
+                        fleet_moved = current_player.playerMoveFleet(fleet_direction_choice);
 
-                    if (!current_player.playerMoveFleet(fleet_direction_choice)) {
-                        if ((!current_player.playerMoveFleet("N")) && (!current_player.playerMoveFleet("S")) &&
-                                (!current_player.playerMoveFleet("E")) && (!current_player.playerMoveFleet("W"))) {
-                            System.out.println("Looks like moving your fleet in any direction will cause ships to go out of bounds...better luck next time!");
-                            fleet_fail = true;
-                            break;
+                        if (!fleet_moved) {
+                            System.out.println("You cannot move your fleet that direction, Try again!");
+                            System.out.println("Make sure every ship can be moved in a chosen direction!");
                         }
-                        else {
-                            System.out.println("You cannot move your fleet, your ships are out of bounds! Try again!");
-                        }
-                    }
-                    else {
-                        System.out.println("You have successfully moved your fleet!");
-                    }
-                } while (!fleet_moved);
-                if (fleet_fail) {
-                    turn(current_player, opponent_player, ship_objects);
-                    break;
-                }
-                else {
+                    } while (!fleet_moved);
+
+                    System.out.println("You have successfully moved your fleet!");
+
                     System.out.print("Would you like to view your updated maps? (Y/N): ");
                     String view_choice = input.next();
                     view_choice = view_choice.toLowerCase();
@@ -286,8 +275,14 @@ public class Game {
                     } else {
                         System.out.println("You may view your maps at a later point in the game.\n");
                     }
+                    break;
                 }
-                break;
+                else{
+                    System.out.println("Looks like moving your fleet in any direction will cause ships to go out of bounds...better luck next time!");
+                    turn(current_player, opponent_player, ship_objects);
+                    break;
+                }
+
             case 6: //Undo and redo move fleet
 
                 int move_choice = 0;
@@ -299,6 +294,7 @@ public class Game {
                         System.out.println("3. Go back");
                         System.out.print("Enter your option: ");
                         move_choice = input.nextInt();
+                        System.out.println("");
 
                     } catch (InputMismatchException e) {
                         System.out.println("Invalid input, please enter a number from the menu!\n");
