@@ -9,6 +9,12 @@ public class Narwhal extends Animal{
     }
 
     public String getName() {return this.name;}
+
+    /** grantUses() is where, once created and validated, the narwhal will increment the player's sonar pulse uses by 1
+     * Checks if the user has reached the point of acquiring a sonar pulse
+     * Accesses the player's current number of uses and decrements that by 1
+     * Removes the narwhal after it has granted its uses
+     */
     public void grantUses(newPlayer curr_player, Map curr_player_map) {
         if (curr_player.player_weapons.size() == 2) {
             Weapon sonar_pulse = curr_player.player_weapons.get(1);
@@ -24,6 +30,7 @@ public class Narwhal extends Animal{
 
     }
 
+    /** useAnimal() is a function to be called within the Map class, which in turn calls the grantUses function */
     public void useAnimal(newPlayer curr_player, Map curr_player_map) {
         grantUses(curr_player, curr_player_map);
     }

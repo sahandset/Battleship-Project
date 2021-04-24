@@ -1,19 +1,21 @@
 package edu.colorado.binarybuffs;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
 
+/** AsteroidField extends Disaster superclass that randomly fire asteroids at different coordinates on player's space map */
 public class AsteroidField extends Disaster {
 
     private ArrayList<Coordinate> asteroids = new ArrayList<Coordinate>();
     private ArrayList<Coordinate> shuttle_coordinates = new ArrayList<Coordinate>();
     private String [][] asteroid_map = new String[10][10];
 
+    /** AsteroidField() constructor generates random coordinates for asteroids on space map
+     * Traverses through number of rows of the grid, randomly creates up 10 asteroids in each row
+     * Adds each to overall asteroids array list
+     * returns void
+     */
     public AsteroidField() {
-        // Generate random coordinates for asteroids in the AsteroidField Disaster
-        ArrayList<Coordinate> asteroids = new ArrayList<>();
-
         for (int i = 0; i < 10; i++) {
             Random rand = new Random();
             int column = rand.nextInt(10);
@@ -26,6 +28,11 @@ public class AsteroidField extends Disaster {
         return this.asteroids;
     }
 
+    /** applyDisaster() method to initiate disaster on the current player
+     * Traverses through the coordinates of player's space shuttle as well as asteroid coordinates
+     * If shuttle coordinate overlaps with asteroid coordinate, perform space laser functionality on that cell
+     * returns void
+     */
     public void applyDisaster(newPlayer curr_player) {
         newShip space_ship = curr_player.getPlayerMaps().get(2).existing_ships.get(0);
         shuttle_coordinates = curr_player.getPlayerMaps().get(2).ship_coordinates.get(space_ship);
@@ -48,6 +55,10 @@ public class AsteroidField extends Disaster {
          }
     }
 
+    /** toString method to print out location of asteroids on respective map
+     * Traverses through the list of added asteroid coordinates
+     * Prints out the character "A" to denote an asteroid fire by row/column
+     */
     public String toString() {
 
         for (int i = 0; i < this.asteroid_map.length; i++) {
@@ -60,7 +71,6 @@ public class AsteroidField extends Disaster {
             this.asteroid_map[this.asteroids.get(i).x][this.asteroids.get(i).y] = "A";
         }
 
-
         String result = "";
         String axis_label = "";
         for (int axis = 0; axis < 10; axis++) {
@@ -72,6 +82,7 @@ public class AsteroidField extends Disaster {
             }
         }
         System.out.println("\nY ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+
         for (int row = 0; row < asteroid_map.length; row++) {
             for (int col = 0; col < asteroid_map[row].length; col++) {
                 if (col == 0) {
@@ -82,7 +93,7 @@ public class AsteroidField extends Disaster {
                 }
                 result += axis_label + asteroid_map[col][row] + " │ ";
             }
-//            result += " | ";
+
             result += "\n" + " ┃----------------------------------------" + "\n";
         }
         return result;

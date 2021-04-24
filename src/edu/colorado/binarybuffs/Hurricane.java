@@ -2,8 +2,9 @@ package edu.colorado.binarybuffs;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Random;
-import java.util.Arrays;
 
+/** Hurricane extends Disaster superclass that moves ships that are caught on its borders, occuring on the ocean map
+ */
 public class Hurricane extends Disaster{
 
     private Hashtable<Coordinate, String> hurricane_border_coordinates = new Hashtable<>();
@@ -13,26 +14,19 @@ public class Hurricane extends Disaster{
     private String [][] hurricane_map = new String [10][10];
     private int category;
 
+    /** Hurricane() constructor which sets hurricane coordinates when a Disaster is created in Game class
+     */
     public Hurricane() {
-
-        // generate random number for hurricane size -> 2-5
-        // Based on this number n, create a nxn hurricane
-        // Generate a random number pair starting_coordinate between 0-9 (x,y), keep generating if hurricane would end up out of bounds.
-        // Create Hurricane_coordinates ArrayList<Coordinates>
-        // Create Hurricane_border_coordinates -> i, j = starting_coordinate.x, starting_coordinate.y
-        // Loop: int i = starting_coordinate.x; i < starting_coordinate.x + n; i++
-            // Coordinate new_coord = new Coordinate(starting_coordinate.x, i) (1, 1) -> (1, 4)
-            // Coordinate new_coord2 = new Coordinate(starting_coordinate.x + (n - 1), i) 1 + 3 = (4, 1) -> (4, 4)
-            // Hurricane_border_coordinates.add(new_coord, "east") Hashtable<Coordinate, String>
-            // Hurricane_border_coordinates.add(new_coord2, "west")
-        // Loop: int i = starting_coordinate.y; i < starting_coordinate.y + n; i++
-            // Coordinate new_coord = new Coordinate(i, starting_coordinate.y)
-            // Coordinate new_coord2 = new Coordinate(i, starting_coordinate.y + (n - 1))
-            // Hurricane_border_coordinates.add(new_coord, "north") Hashtable<Coordinate, String>
-            // Hurricane_border_coordinates.add(new_coord2, "south")
-            this.setHurricaneCoordinates();
+        this.setHurricaneCoordinates();
     }
 
+    /** setHurricaneCoordinates() method to create hurricane on a portion of player's ocean map
+     * Creates a random value for nxn dimensions of hurricane
+     * New coordinate is created to act as starting coordinate (top left), traverses through dimensions and creates hurricane
+        * Only borders are created, middle of hurricane has no effect on ships
+     * Performed in a do while loop in order to validate hurricane borders before actually creating it
+     * returns void
+     */
     public void setHurricaneCoordinates() {
 
         do {
@@ -80,8 +74,11 @@ public class Hurricane extends Disaster{
         return hurricane_coordinate_keys;
     }
 
+    /** toString method to print out location of hurricane on respective map
+     * Traverses through the list of added hurricane border coordinates
+     * Prints out the character "@" to denote a hurricane by row/column
+     */
     public String toString() {
-
         for (int i = 0; i < this.hurricane_map.length; i++) {
             for (int j = 0; j < this.hurricane_map.length; j++) {
                 this.hurricane_map[i][j] = "~";
@@ -92,7 +89,6 @@ public class Hurricane extends Disaster{
             this.hurricane_map[this.hurricane_coordinate_keys.get(i).x][this.hurricane_coordinate_keys.get(i).y] = "@";
         }
 
-
         String result = "";
         String axis_label = "";
         for (int axis = 0; axis < 10; axis++) {
@@ -102,9 +98,9 @@ public class Hurricane extends Disaster{
             else {
                 System.out.print("   " + axis);
             }
-
         }
         System.out.println("\nY ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+
         for (int row = 0; row < hurricane_map.length; row++) {
             for (int col = 0; col < hurricane_map[row].length; col++) {
                 if (col == 0) {
@@ -120,10 +116,11 @@ public class Hurricane extends Disaster{
         return result;
     }
 
+    /** validateHurricane() method to ensure that hurricane is not created out of bounds
+     * Traverses through the list of added hurricane border coordinates and checks whether coords are either less than 0 or greater than 10
+     * returns boolean true for proper validation
+     */
     public boolean validateHurricane() {
-//        for (int i = 0; i < this.hurricane_border_coordinates.size(); i++) {
-//            this.hurricane_coordinate_keys.add(this.hurricane_border_coordinates.keys().nextElement());
-//        }
         for (int i = 0; i < this.hurricane_border_coordinates.size(); i++) {
             if (this.hurricane_coordinate_keys.get(i).x < 0 || this.hurricane_coordinate_keys.get(i).y < 0 ||
                     this.hurricane_coordinate_keys.get(i).x >= 10 || this.hurricane_coordinate_keys.get(i).y >= 10) {
@@ -133,16 +130,13 @@ public class Hurricane extends Disaster{
         return true;
     }
 
+    /** applyDisaster() method to initiate disaster on the current player
+     * Traverses through existing ships of player, checking if any of them overlap with coordinates of hurricane border, adds those ships to a hashtable
+     * Traverses through the ships caught in the hurricane, validates which directions they are able to move, and moves them accordingly
+     * Uses similar functionality as moveFleet in Player class, by moving ships using an offset coordinate for each direction
+     * returns void
+     */
     public void applyDisaster(newPlayer current_player) {
-        // Loop through existing ships of current player, and if they overlap with Hurricane_border_coordinates,
-        // add them to hurricane_ships <newShip, ArrayList<Coordinates>>
-        // Loop through each ship in hurricane_ships
-            // Loop through each ship's coordinates
-                // Cross reference ship coordinates with hurricane_border_coordinates
-                // get direction of that coordinate (which direction that ship should go)
-                // call getOffsetCoords(direction), and set that existing_ship coordinate to this IF
-                // the offset coord is not occupied OR the offset coord is not out of bounds
-
         ArrayList<newShip> player_ships = current_player.getPlayerMaps().get(0).existing_ships;
         Map ocean_map = current_player.getPlayerMaps().get(0);
 
@@ -204,8 +198,7 @@ public class Hurricane extends Disaster{
                     }
                 }
             }
-            if (movable){
-                //MOVE THAT SHIP
+            if (movable){ //Ship is ready to move
                 Hashtable<Coordinate, Integer> moved_coords_stati = new Hashtable<Coordinate, Integer>();
                 ArrayList<Coordinate> old_coords_keys = new ArrayList<Coordinate>();
                 for (int j = 0; j < coordsList.size(); j++) {
@@ -232,7 +225,7 @@ public class Hurricane extends Disaster{
                 Coordinate new_Capts_Coords = new Coordinate(old_Capts_Coords.x + offset_coord.x, old_Capts_Coords.y + offset_coord.y);
                 ocean_map.captains_quarters.replace(ship_to_move, new_Capts_Coords);
             }
-//            System.out.println(movedCoordsList);
+
         }
         System.out.println("Ships may have been moved around! Display your grid to see their updated locations.\n");
     }
