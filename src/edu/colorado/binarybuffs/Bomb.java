@@ -104,8 +104,8 @@ public class Bomb extends Weapon {
             }
             else {
                 int current_health = attacked_map.ship_health.get(attacked_ship);
-                int new_health = current_health--;
-                attacked_map.ship_health.replace(attacked_ship, new_health);
+                current_health -= 1;
+                attacked_map.ship_health.replace(attacked_ship, current_health);
                 //System.out.println("You've attempted an attack on " + attacked_map.getName() + "- it's a hit!");
                 bombOutputs(method_choice, 8, attacked_map, temp_ship, x, y);
                 if (method_choice == 2) {

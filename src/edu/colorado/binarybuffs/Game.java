@@ -166,7 +166,10 @@ public class Game {
                     turn(current_player, opponent_player, ship_objects);
                 }
                 else {
-                    if ((current_player.player_weapons.get(user_weapon_choice) instanceof Bomb) || (current_player.player_weapons.get(user_weapon_choice) instanceof SonarPulse)) {
+                    if ((current_player.player_weapons.get(user_weapon_choice) instanceof Bomb)){
+                        map_choice = 0;
+                    }
+                    else if ((current_player.player_weapons.get(user_weapon_choice) instanceof SonarPulse)) {
                         map_choice = displayMapMenu(current_player, opponent_player, ship_objects);
                     }
                     else {
@@ -177,7 +180,14 @@ public class Game {
                         turn(current_player, opponent_player, ship_objects);
                     }
                     else {
-                        current_player.player_maps.get(map_choice).printOffensiveGrid();
+                        if (current_player.player_weapons.get(user_weapon_choice) instanceof SpaceLaser){
+                            current_player.player_maps.get(0).printOffensiveGrid();
+                            current_player.player_maps.get(1).printOffensiveGrid();
+                            current_player.player_maps.get(2).printOffensiveGrid();
+                        }
+                        else{
+                            current_player.player_maps.get(map_choice).printOffensiveGrid();
+                        }
 
                         do {
                             invalid_input = false;
