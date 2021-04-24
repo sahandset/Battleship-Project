@@ -4,9 +4,15 @@ public abstract class Weapon {
     public int num_uses;
     private String name;
 
-    public Weapon(){
+    /**
+     * Constructor for creating Bomb object
+     */
+    public Weapon(){}
 
-    }
+    /**
+     * Retrieves a private variable
+     * @return String class variable name
+     */
     public String getName(){
         return this.name;
     }
