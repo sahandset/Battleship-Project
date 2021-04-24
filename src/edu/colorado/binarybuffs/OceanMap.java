@@ -75,7 +75,6 @@ public class OceanMap extends Map {
                         animal_exists = true;
                     }
                 }
-
             }
         }
         return animal_exists;
