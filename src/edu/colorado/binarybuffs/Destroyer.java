@@ -1,6 +1,7 @@
 package edu.colorado.binarybuffs;
 import java.util.ArrayList;
 
+/** Destroyer subclass extends Ship super class and implements interface ArmoredShip and creates a Destroyer ship*/
 public class Destroyer extends Ship implements ArmoredShip {
     private String ship_name = "Destroyer";
     private static int ship_size = 3;
@@ -30,6 +31,11 @@ public class Destroyer extends Ship implements ArmoredShip {
         hitCount++;
     }
 
+    /** getCoords() creates series of coordinates that make up the Destroyer
+     * Takes in user's input of x, y coordinates and direction which the head of ship should face
+     * Based on direction entered, creates 4 coordinates that make up length of Destroyer, and adds them to an array list
+     * returns array list of coordinates
+     */
     public ArrayList<Coordinate> getCoords(int start_x, int start_y, String direction) {
         ArrayList<Coordinate> ship_cells = new ArrayList<Coordinate>();
 
@@ -71,6 +77,10 @@ public class Destroyer extends Ship implements ArmoredShip {
         return null;
     }
 
+    /** getCaptsCoords() sets a single coordinate as the designated captain's quarters
+     * Depending on which direction ship is placed, captain's quarters are placed 1 cell away from starting coordinate
+     * returns coordinate
+     */
     public Coordinate getCaptsCoords(int start_x, int start_y, String direction){
         direction = direction.toLowerCase();
 

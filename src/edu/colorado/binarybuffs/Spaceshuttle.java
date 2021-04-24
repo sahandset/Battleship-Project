@@ -2,6 +2,7 @@ package edu.colorado.binarybuffs;
 
 import java.util.ArrayList;
 
+/** Spaceshuttle subclass extends Ship super class and implements interface OrbitableShip and creates a Spaceshuttle ship */
 public class Spaceshuttle extends Ship implements OrbitableShip {
     private String ship_name = "Spaceshuttle";
     private static int ship_size = 10;
@@ -20,6 +21,11 @@ public class Spaceshuttle extends Ship implements OrbitableShip {
         return this.ship_size;
     }
 
+    /** getCoords() creates series of coordinates that make up the Spaceshuttle
+     * Takes in user's input of x, y coordinates and direction which the head of ship should face
+     * Based on direction entered, creates 10 coordinates that make up length of Spaceshuttle, and adds them to an array list
+     * returns array list of coordinates
+     */
     public ArrayList<Coordinate> getCoords(int start_x, int start_y, String direction) {
         ArrayList<Coordinate> ship_cells = new ArrayList<Coordinate>();
 
@@ -53,6 +59,10 @@ public class Spaceshuttle extends Ship implements OrbitableShip {
         return null;
     }
 
+    /** getCaptsCoords() sets a single coordinate as the designated captain's quarters
+     * Depending on which direction ship is placed, captain's quarters are placed 5 cells away from starting coordinate
+     * returns coordinate
+     */
     public Coordinate getCaptsCoords(int start_x, int start_y, String direction){
         direction = direction.toLowerCase();
 
