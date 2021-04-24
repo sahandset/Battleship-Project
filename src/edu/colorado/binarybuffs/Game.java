@@ -278,7 +278,7 @@ public class Game {
                     break;
                 }
                 else{
-                    System.out.println("Looks like moving your fleet in any direction will cause ships to go out of bounds...better luck next time!");
+                    System.out.println("Looks like moving your fleet in any direction will cause ships to go out of bounds...better luck next time! \n");
                     turn(current_player, opponent_player, ship_objects);
                     break;
                 }

@@ -220,13 +220,13 @@ public class SpaceLaser extends Weapon {
                     System.out.println("WOW! The asteroids sunk the " + attacked_ship.getName() + ", and some of the debris fell to the surface!");
                 }
                 if (print_choice == 3) {
-                    System.out.println("Debris is hitting the surface! ");
+                    System.out.println("Asteroids is hitting the surface! ");
                 }
                 if (print_choice == 4) {
-                    System.out.print("Debris is landing underwater! ");
+                    System.out.print("Asteroids are landing underwater! ");
                 }
                 if (print_choice == 5) {
-                    System.out.print("Debris is landing underwater! ");
+                    System.out.print("Asteroids are landing underwater! ");
                 }
                 if (print_choice == 6) {
                     System.out.println("The debris hit a captain's quarters! The" + attacked_ship.getName() + " sunk!");
