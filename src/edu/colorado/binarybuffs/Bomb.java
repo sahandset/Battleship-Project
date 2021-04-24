@@ -1,6 +1,5 @@
 package edu.colorado.binarybuffs;
 
-import java.util.*;
 import java.util.ArrayList;
 
 public class Bomb extends Weapon {
@@ -16,8 +15,8 @@ public class Bomb extends Weapon {
         return this.name;
     }
 
-    public boolean deployWeapon(int x, int y, newPlayer opponent, Map attacked_map, Map current_player_map, newPlayer current_player, int method_choice) {
-        newShip temp_ship = new Minesweeper();
+    public boolean deployWeapon(int x, int y, Player opponent, Map attacked_map, Map current_player_map, Player current_player, int method_choice) {
+        Ship temp_ship = new Minesweeper();
         if (current_player.player_weapons.contains(this) && (attacked_map.getName() == "UnderwaterMap" || attacked_map.getName() == "SpaceMap")) {
             //System.out.println("You cannot use the bomb on " + attacked_map.getName());
             bombOutputs(method_choice, 1, attacked_map, temp_ship, x, y);
@@ -41,10 +40,10 @@ public class Bomb extends Weapon {
                 current_player_map.offensiveGrid.setCellStatus(1, x, y);
             }
         } else if (is_occupied == 1) {
-            newShip attacked_ship = new Minesweeper();
+            Ship attacked_ship = new Minesweeper();
 
             for (int i = 0; i < attacked_map.existing_ships.size(); i++){
-                newShip shipy = attacked_map.existing_ships.get(i);
+                Ship shipy = attacked_map.existing_ships.get(i);
                 ArrayList<Coordinate> coordsList = attacked_map.ship_coordinates.get(shipy);
                 for (int j = 0; j < coordsList.size(); j++){
                     if (coordsList.get(j).x == x && coordsList.get(j).y == y){
@@ -59,7 +58,7 @@ public class Bomb extends Weapon {
                     //System.out.print("This ship is armoured");
                     if (((ArmoredShip) attacked_ship).getHitCount() == 0) {
                         //System.out.println("You've attempted an attack on " + attacked_map.getName() + ", but you've missed!");
-                        bombOutputs(method_choice, 4, attacked_map, attacked_ship, x, y);
+                        bombOutputs(method_choice, 3, attacked_map, attacked_ship, x, y);
                         if (method_choice == 2) {
                             current_player_map.offensiveGrid.setCellStatus(1, x, y);
                         }
@@ -67,11 +66,13 @@ public class Bomb extends Weapon {
                     }
                     else if (((ArmoredShip) attacked_ship).getHitCount() == 1){
                         //System.out.println("You've already attacked there on the " + attacked_map.getName() + ".");
-                        bombOutputs(method_choice, 5, attacked_map, attacked_ship, x, y);
+                        bombOutputs(method_choice, 4, attacked_map, attacked_ship, x, y);
                         //System.out.println("-- But you've hit a captain's quarters! You've sunk a " + attacked_ship.getName() + "!");
-                        bombOutputs(method_choice, 6, attacked_map, attacked_ship, x, y);
+                        bombOutputs(method_choice, 5, attacked_map, attacked_ship, x, y);
                         attacked_map.sinkShip(attacked_ship);
-                        current_player.incrementShipSunkCount();
+                        if (method_choice != 4) {
+                            current_player.incrementShipSunkCount();
+                        }
                         current_player.hasSunkFirstShip();
                         //int current_health = attacked_map.ship_health.get(attacked_ship);
                         attacked_map.ship_health.replace(attacked_ship, 0);
@@ -87,9 +88,11 @@ public class Bomb extends Weapon {
                 }
                 else {
                     //System.out.println("You've hit a captain's quarters on " + attacked_map.getName() + "! You've sunk a " + attacked_ship.getName() + "!");
-                    bombOutputs(method_choice, 7, attacked_map, attacked_ship, x, y);
+                    bombOutputs(method_choice, 6, attacked_map, attacked_ship, x, y);
                     attacked_map.sinkShip(attacked_ship);
-                    current_player.incrementShipSunkCount();
+                    if (method_choice != 4) {
+                        current_player.incrementShipSunkCount();
+                    }
                     current_player.hasSunkFirstShip();
                     //int current_health = attacked_map.ship_health.get(attacked_ship);
                     attacked_map.ship_health.replace(attacked_ship, 0);
@@ -107,7 +110,7 @@ public class Bomb extends Weapon {
                 current_health -= 1;
                 attacked_map.ship_health.replace(attacked_ship, current_health);
                 //System.out.println("You've attempted an attack on " + attacked_map.getName() + "- it's a hit!");
-                bombOutputs(method_choice, 8, attacked_map, temp_ship, x, y);
+                bombOutputs(method_choice, 7, attacked_map, temp_ship, x, y);
                 if (method_choice == 2) {
                     current_player_map.offensiveGrid.setCellStatus(2, x, y);
                 }
@@ -115,13 +118,13 @@ public class Bomb extends Weapon {
             }
         } else if (is_occupied == 2) {
             //System.out.println("You've already attacked and hit a ship here.");
-            bombOutputs(method_choice, 9, attacked_map, temp_ship, x, y);
+            bombOutputs(method_choice, 8, attacked_map, temp_ship, x, y);
         }
 
         return true;
     }
 
-    public void bombOutputs(int method_choice, int print_choice, Map attacked_map, newShip attacked_ship, int x, int y) {
+    public void bombOutputs(int method_choice, int print_choice, Map attacked_map, Ship attacked_ship, int x, int y) {
 
         switch (method_choice) {
             case 1: //jaws

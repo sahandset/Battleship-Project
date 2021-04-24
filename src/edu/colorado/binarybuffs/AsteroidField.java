@@ -1,6 +1,5 @@
 package edu.colorado.binarybuffs;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -26,8 +25,8 @@ public class AsteroidField extends Disaster {
         return this.asteroids;
     }
 
-    public void applyDisaster(newPlayer curr_player) {
-        newShip space_ship = curr_player.getPlayerMaps().get(2).existing_ships.get(0);
+    public void applyDisaster(Player curr_player) {
+        Ship space_ship = curr_player.getPlayerMaps().get(2).existing_ships.get(0);
         shuttle_coordinates = curr_player.getPlayerMaps().get(2).ship_coordinates.get(space_ship);
 
         SpaceLaser asteroid_hit = new SpaceLaser();

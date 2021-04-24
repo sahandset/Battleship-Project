@@ -1,40 +1,38 @@
 package edu.colorado.binarybuffs;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Hashtable;
-import java.util.Random;
 
 public abstract class Map {
 
     private String name;
 
-    public newGrid offensiveGrid;
-    public newGrid defensiveGrid;
+    public Grid offensiveGrid;
+    public Grid defensiveGrid;
     public Animal narwhal;
     public Animal jaws;
 
-    Hashtable<newShip, Coordinate> captains_quarters = new Hashtable<>();
+    Hashtable<Ship, Coordinate> captains_quarters = new Hashtable<>();
 
-    Hashtable<newShip, ArrayList<Coordinate>> ship_coordinates = new Hashtable<>();
+    Hashtable<Ship, ArrayList<Coordinate>> ship_coordinates = new Hashtable<>();
 
     Hashtable<Animal, Coordinate> animal_coordinates = new Hashtable<>();
 
-    Hashtable<newShip, String> ship_directions = new Hashtable<>();
+    Hashtable<Ship, String> ship_directions = new Hashtable<>();
 
-    Hashtable<newShip, Integer> ship_health = new Hashtable<>();
+    Hashtable<Ship, Integer> ship_health = new Hashtable<>();
 
-    ArrayList<newShip> existing_ships = new ArrayList<>();
+    ArrayList<Ship> existing_ships = new ArrayList<>();
 
-    ArrayList<newShip> sunk_ships = new ArrayList<>();
+    ArrayList<Ship> sunk_ships = new ArrayList<>();
 
     ArrayList<Animal> animals = new ArrayList<>();
 
     private int ships_alive = 0;
     
     public Map(){
-        offensiveGrid = new newGrid();
-        defensiveGrid = new newGrid();
+        offensiveGrid = new Grid();
+        defensiveGrid = new Grid();
 //        narwhal = new Narwhal();
 //        jaws = new Jaws();
     }
@@ -67,15 +65,15 @@ public abstract class Map {
         return null;
     }
 
-    public ArrayList<newShip> getExistingShips(){
+    public ArrayList<Ship> getExistingShips(){
         return existing_ships;
     }
 
-    public Hashtable<newShip, ArrayList<Coordinate>> getShipCoordinatesHash(){
+    public Hashtable<Ship, ArrayList<Coordinate>> getShipCoordinatesHash(){
         return ship_coordinates;
     }
 
-    public boolean placeShip(newShip ship, int start_x, int start_y, String direction) {
+    public boolean placeShip(Ship ship, int start_x, int start_y, String direction) {
         //get the cords
         ArrayList<Coordinate> coords = ship.getCoords(start_x, start_y, direction);
         //get the capts quart
@@ -113,7 +111,7 @@ public abstract class Map {
         // checked cell status
         // returned true or false
 
-    public abstract boolean validateDeployment(newShip ship);
+    public abstract boolean validateDeployment(Ship ship);
 
     public boolean validateShip(ArrayList<Coordinate> coords) {
 
@@ -129,19 +127,19 @@ public abstract class Map {
         return true;
     }
 
-    public void sinkShip(newShip ship) {
+    public void sinkShip(Ship ship) {
         sunk_ships.add(ship);
         this.ships_alive--;
     }
 
-    public void reviveShip(newShip ship) {
+    public void reviveShip(Ship ship) {
         ship_health.replace(ship, ship.getShipSize());
         sunk_ships.remove(ship);
 //        System.out.println(sunk_ships);
         this.ships_alive++;
     }
 
-    public boolean checkIfSunk(newShip ship){
+    public boolean checkIfSunk(Ship ship){
         if (sunk_ships.contains(ship)){
             return true;
         }
@@ -178,10 +176,10 @@ public abstract class Map {
 
                 if (defensiveGrid.grid[col][row] == 1 || defensiveGrid.grid[col][row] == 2) {
                     //get ship that is at the coordinate
-                    newShip ship_at_coord = new Minesweeper();
+                    Ship ship_at_coord = new Minesweeper();
 
                     for (int i = 0; i < this.existing_ships.size(); i++) {
-                        newShip shipy = this.existing_ships.get(i);
+                        Ship shipy = this.existing_ships.get(i);
                         ArrayList<Coordinate> coordsList = this.ship_coordinates.get(shipy);
                         for (int j = 0; j < coordsList.size(); j++) {
                             if (coordsList.get(j).x == col && coordsList.get(j).y == row) {
@@ -248,7 +246,7 @@ public abstract class Map {
 
     public abstract void placeJaws();
 
-    public abstract boolean checkForAnimal(newPlayer curr_player);
+    public abstract boolean checkForAnimal(Player curr_player);
 
 
 }

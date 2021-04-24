@@ -3,17 +3,14 @@ package edu.colorado.binarybuffs.tests;
 import edu.colorado.binarybuffs.*;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.Hashtable;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class BombTest {
 
     @Test
     public void OOB() {
-        newPlayer player1 = new newPlayer("Tanvi");
-        newPlayer player2 = new newPlayer("Sahand");
+        Player player1 = new Player("Tanvi");
+        Player player2 = new Player("Sahand");
 
         Minesweeper sweeper = new Minesweeper();
         Submarine sub = new Submarine();
@@ -31,8 +28,8 @@ public class BombTest {
 
     @Test
     public void Hit() {
-        newPlayer player1 = new newPlayer("Tanvi");
-        newPlayer player2 = new newPlayer("Sahand");
+        Player player1 = new Player("Tanvi");
+        Player player2 = new Player("Sahand");
 
         Minesweeper sweeper = new Minesweeper();
         Submarine sub = new Submarine();
@@ -46,8 +43,8 @@ public class BombTest {
 
     @Test
     public void Miss() {
-        newPlayer player1 = new newPlayer("Tanvi");
-        newPlayer player2 = new newPlayer("Sahand");
+        Player player1 = new Player("Tanvi");
+        Player player2 = new Player("Sahand");
 
         Minesweeper sweeper = new Minesweeper();
         Submarine sub = new Submarine();
@@ -64,8 +61,8 @@ public class BombTest {
 
     @Test
     public void Sunk() {
-        newPlayer player1 = new newPlayer("Tanvi");
-        newPlayer player2 = new newPlayer("Sahand");
+        Player player1 = new Player("Tanvi");
+        Player player2 = new Player("Sahand");
 
         Minesweeper sweeper = new Minesweeper();
         Submarine sub = new Submarine();
@@ -82,8 +79,8 @@ public class BombTest {
 
     @Test
     public void Surrender() {
-        newPlayer player1 = new newPlayer("Tanvi");
-        newPlayer player2 = new newPlayer("Sahand");
+        Player player1 = new Player("Tanvi");
+        Player player2 = new Player("Sahand");
 
         Minesweeper sweeper = new Minesweeper();
         Submarine sub = new Submarine();
@@ -108,8 +105,8 @@ public class BombTest {
 
     @Test
     public void BombHittingWrongMap() {
-        newPlayer player1 = new newPlayer("Tanvi");
-        newPlayer player2 = new newPlayer("Sahand");
+        Player player1 = new Player("Tanvi");
+        Player player2 = new Player("Sahand");
 
         Minesweeper sweeper = new Minesweeper();
         Submarine sub = new Submarine();

@@ -17,11 +17,11 @@ public class Action {
         return new Coordinate(x_coord * -1, y_coord * -1);
     }
 
-    public boolean undoAction(newPlayer player){
+    public boolean undoAction(Player player){
         return player.moveFleet(getReversedCoordinate());
     }
 
-    public boolean redoAction(newPlayer player){
+    public boolean redoAction(Player player){
         return player.moveFleet(getCoordinate());
     }
 }

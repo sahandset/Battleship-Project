@@ -11,7 +11,7 @@ public abstract class Weapon {
         return this.name;
     }
 
-    public abstract boolean deployWeapon(int x, int y, newPlayer opponent, Map attacked_map, Map current_player_map, newPlayer currentPlayer, int method_choice);
+    public abstract boolean deployWeapon(int x, int y, Player opponent, Map attacked_map, Map current_player_map, Player currentPlayer, int method_choice);
 
     public abstract boolean checkAvailability(int num_used);
 

@@ -13,7 +13,7 @@ public class Lifesaver extends Boost{
         return this.name;
     }
 
-    public boolean equipBoost(newShip ship, Map current_player_map, newPlayer current_player) {
+    public boolean equipBoost(Ship ship, Map current_player_map, Player current_player) {
         if (current_player_map.checkIfSunk(ship)) {
             ArrayList <Coordinate> sunkShipCoords = current_player_map.ship_coordinates.get(ship);
             current_player_map.reviveShip(ship);

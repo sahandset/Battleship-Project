@@ -7,5 +7,5 @@ public abstract class Animal {
     }
 
     public String getName() {return this.name;}
-    public abstract void useAnimal(newPlayer curr_player, Map curr_player_map);
+    public abstract void useAnimal(Player curr_player, Map curr_player_map);
 }

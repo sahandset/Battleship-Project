@@ -2,11 +2,11 @@ package edu.colorado.binarybuffs;
 
 import java.util.ArrayList;
 
-public abstract class newShip {
+public abstract class Ship {
     private String ship_name;
     private int ship_size;
 
-    public newShip() {
+    public Ship() {
 
     }
     public String getName() {

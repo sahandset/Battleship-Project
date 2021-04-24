@@ -1,13 +1,13 @@
 package edu.colorado.binarybuffs;
 
-import java.util.Hashtable;
 import java.util.Random;
 
 public class OceanMap extends Map {
     private String name = "OceanMap";
 
     public OceanMap() {
-
+        placeNarwhal();
+        placeJaws();
     }
 
     public String getName() {
@@ -33,7 +33,7 @@ public class OceanMap extends Map {
     }
 
 
-    public boolean validateDeployment(newShip ship) {
+    public boolean validateDeployment(Ship ship) {
         return true;
     }
 
@@ -63,21 +63,22 @@ public class OceanMap extends Map {
         animals.add(jaws);
     }
 
-    public boolean checkForAnimal(newPlayer curr_player) {
+    public boolean checkForAnimal(Player curr_player) {
+        boolean animal_exists = false;
         for (int i = 0; i < animal_coordinates.size(); i++) {
             for (int j = 0; j < ship_coordinates.size(); j++) {
                 Animal a = animals.get(i);
-                newShip shipy = existing_ships.get(j);
+                Ship shipy = existing_ships.get(j);
                 for (int k = 0; k < ship_coordinates.get(shipy).size(); k++) {
                     if ((animal_coordinates.get(a).x == ship_coordinates.get(shipy).get(k).x) && (animal_coordinates.get(a).y == ship_coordinates.get(shipy).get(k).y)) {
                         a.useAnimal(curr_player, this);
-                        return true;
+                        animal_exists = true;
                     }
                 }
 
             }
         }
-        return false;
+        return animal_exists;
     }
 
 }

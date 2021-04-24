@@ -3,17 +3,14 @@ package edu.colorado.binarybuffs.tests;
 import edu.colorado.binarybuffs.*;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.Hashtable;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class LifesaverTest {
 
     @Test
     public void UseLifesaverOnce() {
-        newPlayer player1 = new newPlayer("Tanvi");
-        newPlayer player2 = new newPlayer("Sahand");
+        Player player1 = new Player("Tanvi");
+        Player player2 = new Player("Sahand");
 
         Minesweeper sweeper = new Minesweeper();
         Submarine sub = new Submarine();
@@ -36,8 +33,8 @@ public class LifesaverTest {
 
     @Test
     public void UseLifesaverTwice() {
-        newPlayer player1 = new newPlayer("Tanvi");
-        newPlayer player2 = new newPlayer("Sahand");
+        Player player1 = new Player("Tanvi");
+        Player player2 = new Player("Sahand");
 
         Minesweeper sweeper = new Minesweeper();
         Submarine sub = new Submarine();
@@ -59,8 +56,8 @@ public class LifesaverTest {
 
     @Test
     public void UseLifesaverNotSunkShip() {
-        newPlayer player1 = new newPlayer("Tanvi");
-        newPlayer player2 = new newPlayer("Sahand");
+        Player player1 = new Player("Tanvi");
+        Player player2 = new Player("Sahand");
 
         Minesweeper sweeper = new Minesweeper();
         Submarine sub = new Submarine();
@@ -82,8 +79,8 @@ public class LifesaverTest {
 
     @Test
     public void UseLifesaverSubmarine() {
-        newPlayer player1 = new newPlayer("Tanvi");
-        newPlayer player2 = new newPlayer("Sahand");
+        Player player1 = new Player("Tanvi");
+        Player player2 = new Player("Sahand");
 
         Minesweeper sweeper = new Minesweeper();
         Submarine sub = new Submarine();

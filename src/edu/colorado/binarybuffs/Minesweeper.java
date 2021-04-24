@@ -1,7 +1,7 @@
 package edu.colorado.binarybuffs;
 import java.util.ArrayList;
 
-public class Minesweeper extends newShip {
+public class Minesweeper extends Ship {
     private String ship_name = "Minesweeper";
     private static int ship_size = 2;
 
