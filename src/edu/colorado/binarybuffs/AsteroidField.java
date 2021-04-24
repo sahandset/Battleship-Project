@@ -3,17 +3,19 @@ package edu.colorado.binarybuffs;
 import java.util.ArrayList;
 import java.util.Random;
 
-/** AsteroidField extends Disaster superclass that randomly fire asteroids at different coordinates on player's space map */
+/**
+ * AsteroidField extends Disaster superclass that randomly fire asteroids at different coordinates on player's space map
+ * */
 public class AsteroidField extends Disaster {
 
     private ArrayList<Coordinate> asteroids = new ArrayList<Coordinate>();
     private ArrayList<Coordinate> shuttle_coordinates = new ArrayList<Coordinate>();
     private String [][] asteroid_map = new String[10][10];
 
-    /** AsteroidField() constructor generates random coordinates for asteroids on space map
+    /**
+     * AsteroidField() constructor generates random coordinates for asteroids on space map
      * Traverses through number of rows of the grid, randomly creates up 10 asteroids in each row
      * Adds each to overall asteroids array list
-     * returns void
      */
     public AsteroidField() {
         for (int i = 0; i < 10; i++) {
@@ -28,18 +30,19 @@ public class AsteroidField extends Disaster {
         return this.asteroids;
     }
 
-    /** applyDisaster() method to initiate disaster on the current player
+    /**
+     * applyDisaster() method to initiate disaster on the current player
      * Traverses through the coordinates of player's space shuttle as well as asteroid coordinates
      * If shuttle coordinate overlaps with asteroid coordinate, perform space laser functionality on that cell
-     * returns void
+     * @param current_player the current player who's map's will be affected by the disaster event
      */
-    public void applyDisaster(Player curr_player) {
-        Ship space_ship = curr_player.getPlayerMaps().get(2).existing_ships.get(0);
-        shuttle_coordinates = curr_player.getPlayerMaps().get(2).ship_coordinates.get(space_ship);
+    public void applyDisaster(Player current_player) {
+        Ship space_ship = current_player.getPlayerMaps().get(2).existing_ships.get(0);
+        shuttle_coordinates = current_player.getPlayerMaps().get(2).ship_coordinates.get(space_ship);
 
         SpaceLaser asteroid_hit = new SpaceLaser();
 
-        System.out.println(curr_player.getName() + "'s Space shuttle has encountered an asteroid field!");
+        System.out.println(current_player.getName() + "'s Space shuttle has encountered an asteroid field!");
         System.out.println(this);
 
          for (int i = 0; i < this.shuttle_coordinates.size(); i++) {
@@ -48,16 +51,18 @@ public class AsteroidField extends Disaster {
                          && this.shuttle_coordinates.get(i).y == this.asteroids.get(j).y){
                      // Call SpaceLaser on Player1 Space Map at this coordinate
                      System.out.println("Your spaceshuttle has been bombarded by asteroids at " + this.asteroids.get(j).toString());
-                     asteroid_hit.deployWeapon(this.asteroids.get(j).x, this.asteroids.get(j).y, curr_player,
-                             curr_player.getPlayerMaps().get(2), curr_player.getPlayerMaps().get(2), curr_player, 3);
+                     asteroid_hit.deployWeapon(this.asteroids.get(j).x, this.asteroids.get(j).y, current_player,
+                             current_player.getPlayerMaps().get(2), current_player.getPlayerMaps().get(2), current_player, 3);
                  }
              }
          }
     }
 
-    /** toString method to print out location of asteroids on respective map
+    /**
+     * toString() method that prints out location of asteroids on respective map
      * Traverses through the list of added asteroid coordinates
      * Prints out the character "A" to denote an asteroid fire by row/column
+     * @return A printed map representation of the coordinates affected by the AsteroidField disaster
      */
     public String toString() {
 
@@ -93,7 +98,6 @@ public class AsteroidField extends Disaster {
                 }
                 result += axis_label + asteroid_map[col][row] + " │ ";
             }
-
             result += "\n" + " ┃----------------------------------------" + "\n";
         }
         return result;
