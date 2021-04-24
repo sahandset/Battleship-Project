@@ -4,6 +4,7 @@ import java.util.Hashtable;
 import java.util.ArrayList;
 import java.util.Stack;
 
+
 public class Player {
     private String player_name;
     public ArrayList<Map> player_maps = new ArrayList<Map>();
@@ -12,53 +13,76 @@ public class Player {
     Hashtable<Weapon, Integer> weapon_uses = new Hashtable<Weapon, Integer>();
     Hashtable<Boost, Integer> boost_uses = new Hashtable<Boost, Integer>();
 
-//    Stack<Coordinate> fleet_moves = new Stack<Coordinate>();
-//    Stack<Coordinate> undo_moves = new Stack<Coordinate>();
-
     Stack<Action> fleet_move_actions = new Stack<>();
     Stack<Action> undo_move_actions = new Stack<>();
 
     private int ships_sunk = 0;
     private boolean surrender = false;
 
-
+    /**
+     * Constructor for Player class
+     * Creates new Map objects for each type of map and adds them to player_maps array list
+     * Creates new Bomb and Lifesaver objects and adds to respective array lists
+     * @param name player's name
+     */
     public Player(String name) {
         this.player_name = name;
         player_maps.add(new OceanMap());
         player_maps.add(new UnderwaterMap());
         player_maps.add(new SpaceMap());
         Bomb b = new Bomb();
-        Lifesaver boo = new Lifesaver();
-        player_boosts.add(boo);
+        Lifesaver l = new Lifesaver();
+        player_boosts.add(l);
         player_weapons.add(b);
         weapon_uses.put(b, 0);
-        boost_uses.put(boo, 0);
+        boost_uses.put(l, 0);
     }
 
+    //Getter method to get player's name
     public String getName() {
         return this.player_name;
     }
 
+    //Getter method to access player's current maps
     public ArrayList<Map> getPlayerMaps() {
         return this.player_maps;
     }
 
+    //Getter method to get how many ships the player has sunk
     public int getShipsSunk() {
         return this.ships_sunk;
     }
 
+    /**
+     * incrementShipSunkCount() increments the amount of ships the player sunk after sinking opponent's ships
+     */
     public void incrementShipSunkCount(){
         this.ships_sunk++;
     }
 
+    //Getter method to get player surrender status
     public boolean getSurrenderStatus() {
         return this.surrender;
     }
 
+    //Setter method to set player's surrender status to true when all their ships are sunk
     public void setSurrenderStatus() {
         this.surrender = true;
     }
 
+    /**
+     * useWeapon() is performing weapon functionality on desired location
+     * Sets a weapon and map object based on user input
+     * Calls deployWeapon() on those objects
+     * Checks number of uses for weapon, provides error message if uses are exceeded, etc.
+     * @param weapon_choice user's choice of which weapon they would like to use
+     * @param x x-coordinate of weapon use
+     * @param y y-coordinate of weapon use
+     * @param opponent player who is being attacked on
+     * @param map_choice corresponds to user choice of map where they want to deploy a weapon
+     * @param method_choice corresponds to the type of print statements that need to be shown for a bomb attack
+     * @return boolean whether weapon was successfully used
+     */
     public boolean useWeapon(int weapon_choice, int x, int y, Player opponent, int map_choice, int method_choice) {
         if (weapon_choice >= 0 && weapon_choice < this.player_weapons.size()) {
             Weapon weapon = this.player_weapons.get(weapon_choice);
@@ -84,6 +108,16 @@ public class Player {
         return false;
     }
 
+    /**
+     * useBoost() is performing weapon functionality on desired location
+     * Checks whether player is able to use boost based on number of sunk ships and number of uses
+     * Calls equipBoost() on the ship
+     * Checks number of uses for weapon, provides error message if uses are exceeded, etc.
+     * @param boost_choice user's choice of which boost they would like to use
+     * @param ship_choice ship which boost will be used on
+     * @param map_choice corresponds to user choice of map where they want to deploy a weapon
+     * @return boolean whether boost was successfully used
+     */
     public boolean useBoost(int boost_choice, int ship_choice, int map_choice) {
         if (boost_choice >= 0 && boost_choice < this.player_boosts.size() && this.player_boosts.size() != 0) {
             Boost boost = this.player_boosts.get(boost_choice);
@@ -108,6 +142,10 @@ public class Player {
         return false;
     }
 
+    /**
+     * hasSunkFirstShip() is performing all the actions to update weapon uses
+     * Goes through all the areas that weapons and their uses are kept track of and updates them accordingly
+     */
     public void hasSunkFirstShip() {
         if (this.getShipsSunk() == 1) {
             Weapon remove_bomb = player_weapons.get(0);
@@ -122,18 +160,32 @@ public class Player {
         }
     }
 
+    /**
+     * deployShip() places the ship on a specific map
+     * Gets user's map choice and calls placeShip on inputs
+     * @param ship ship that needs to be deployed
+     * @param x x coordinate for where ship is deployed
+     * @param y y coordinate for where ship is deployed
+     * @param direction 1 of 4 directions which ship could be facing
+     * @param map_choice user choice for which map ship should be deployed on
+     * @return boolean whether ship was deployed successfully
+     */
     public boolean deployShip(Ship ship, int x, int y, String direction, int map_choice) {
         Map deploy_map = this.player_maps.get(map_choice);
         if (deploy_map.validateDeployment(ship)) {
             boolean deployed_successfully = deploy_map.placeShip(ship, x, y, direction);
-//            deploy_map.checkForAnimal(this);
             return deployed_successfully;
         } else {
-//            System.out.println("You cannot place a " + ship.getName() + " on " + deploy_map.getName());
             return false;
         }
     }
 
+     /**
+     * getOffsetCoord() gets the value for which the x and y value coordinates need to be moved
+     * Takes in a direction and enters a series of if conditions that assigns a coordinate to each direction
+     * @param direction user's choice of which direction they would like to move fleet
+     * @return Coordinate offset coordinate direction which ship should be moved
+     */
     public Coordinate getOffsetCoord(String direction) {
         Coordinate offset_coord = new Coordinate(0, 0);
 
@@ -154,40 +206,41 @@ public class Player {
         return offset_coord;
     }
 
-//    public Coordinate reverseMove(Coordinate c) {
-//        return new Coordinate(c.x * -1, c.y * -1);
-//    }
 
+    /**
+     * playerMoveFleet() is performing move fleet functionality
+     * Every time a player wants to perform a new fleet move, clear any old moves in the undo actions stack
+     * Call moveFleet() function to perform move
+     * Add new move to fleet move actions stack
+     * @param direction user's choice of which direction they would like to move fleet
+     * @return boolean whether fleet was successfully moved
+     */
     public boolean playerMoveFleet(String direction) {
         Coordinate offset_coord = getOffsetCoord(direction);
-//        System.out.println(offset_coord);
         undo_move_actions.clear();
         boolean success = moveFleet(offset_coord);
 
         if (success) {
             Action newAction = new Action(offset_coord.x, offset_coord.y);
             fleet_move_actions.push(newAction);
-//            System.out.println("You have successfully moved your fleet!");
             return true;
         }
-//        else if (success_n && success_s && success_e && success_w) {
-//            System.out.println("Looks like moving your fleet in any direction will cause ships to go out of bounds...better luck next time!");
-//            success = false;
-//        }
         else {
-//            System.out.println("You cannot move your fleet, your ships are out of bounds!");
             return false;
         }
-//        return success;
     }
 
+    /**
+     * redo() function redoes the player move fleet action
+     * Check if there are any undone actions in the undo_move_actions stack
+     * Pop it off of the undo stack and add it to redo stack, which should undo the last move
+     * @return boolean whether player's fleet was successfully redoed
+     */
     public boolean undo(){
         if (!fleet_move_actions.empty()) {
             Action temp_action = fleet_move_actions.pop();
             undo_move_actions.push(temp_action);
             boolean success = temp_action.undoAction(this);
-            //Coordinate reversed_move = reverseMove(temp_move);
-            //boolean success = moveFleet(reversed_move);
             if (success) {
                 System.out.println("You have successfully undoed your move!");
             }
@@ -202,6 +255,12 @@ public class Player {
         }
     }
 
+    /**
+     * redo() function redoes the player move fleet action
+     * Check if there are any undone actions in the undo_move_actions stack
+     * Pop it off of the undo stack and add it to redo stack, which should undo the last move
+     * @return boolean whether player's fleet was successfully redoed
+     */
     public boolean redo(){
         if (!undo_move_actions.empty()) {
             Action temp_action = undo_move_actions.pop();
@@ -221,23 +280,29 @@ public class Player {
         }
     }
 
+    /**
+     * moveFleet() function moves the player's fleet in a desired direction
+     * If the fleet move is validated, traverse through player's maps and existing ships
+     * Add the offset coordinate to current ship coordinate and reset its original coordinate to the new coordinate
+     * Reset cell status after moving
+     * @param offset_coord takes in coordinate player wants to move to
+     * @return boolean whether player's fleet was successfully moved
+     */
     public boolean moveFleet(Coordinate offset_coord) {
-        int moved_x = 0;
-        int moved_y = 0;
+        int moved_x;
+        int moved_y;
         if (validateMoveFleet(offset_coord)) {
             for (int k = 0; k < this.player_maps.size(); k++) {
                 Map curr_map = this.player_maps.get(k);
-                //curr_map.defensiveGrid.setAllCellStatus(0);
                 Grid new_defense_grid = new Grid();
                 for (int i = 0; i < curr_map.existing_ships.size(); i++) {
                     Ship shipy = curr_map.existing_ships.get(i); //get the ship
                     ArrayList<Coordinate> coordsList = curr_map.ship_coordinates.get(shipy);
-                    ArrayList<Coordinate> movedCoordsList = new ArrayList<Coordinate>();
+                    ArrayList<Coordinate> movedCoordsList = new ArrayList<>();
                     for (int j = 0; j < coordsList.size(); j++) {
                         moved_x = coordsList.get(j).x + offset_coord.x;
                         moved_y = coordsList.get(j).y + offset_coord.y;
                         movedCoordsList.add(new Coordinate(moved_x, moved_y));
-                        //curr_map.defensiveGrid.setCellStatus(1, moved_x, moved_y);
                         int updated_status = curr_map.defensiveGrid.checkCellStatus(coordsList.get(j).x, coordsList.get(j).y);
                         new_defense_grid.setCellStatus(updated_status, moved_x, moved_y);
                     }
@@ -255,17 +320,23 @@ public class Player {
         }
     }
 
+    /**
+     * validateMoveFleet() function checks whether player's fleet is able to move in at least 1 of 4 directions
+     * Traverses through all of the player's maps and existing ships
+     * Adds offset coordinate to current coordinate and checks if moving fleet will cause it to go out of bounds
+     * @param offset_coord takes in coordinate player wants to move to
+     * @return boolean whether player's ship can move in desired direction
+     */
     public boolean validateMoveFleet(Coordinate offset_coord){
-        int moved_x = 0;
-        int moved_y = 0;
-        for (int k = 0; k < this.player_maps.size(); k++) {
-            Map curr_map = this.player_maps.get(k);
+        int moved_x;
+        int moved_y;
+        for (Map curr_map : this.player_maps) {
             for (int i = 0; i < curr_map.existing_ships.size(); i++) {
                 Ship shipy = curr_map.existing_ships.get(i);
                 ArrayList<Coordinate> coordsList = curr_map.ship_coordinates.get(shipy);
-                for (int j = 0; j < coordsList.size(); j++) {
-                    moved_x = coordsList.get(j).x + offset_coord.x;
-                    moved_y = coordsList.get(j).y + offset_coord.y;
+                for (Coordinate coordinate : coordsList) {
+                    moved_x = coordinate.x + offset_coord.x;
+                    moved_y = coordinate.y + offset_coord.y;
                     if (moved_x < 0 || moved_x > 9 || moved_y < 0 || moved_y > 9) {
                         return false;
                     }
@@ -275,6 +346,12 @@ public class Player {
         return true;
     }
 
+    /**
+     * validateAllDirections() function checks whether player's fleet is able to move in at least 1 of 4 directions
+     * Creates coordinates for each direction by calling getOffsetCoord
+     * Calls validateMoveFleet on each direction and checks that all of them return true or false
+     * @return boolean whether all player's ships are able to be moved in at least one direction
+     */
     public boolean validateAllDirections(){
         Coordinate north = getOffsetCoord("N");
         Coordinate south = getOffsetCoord("S");
@@ -288,14 +365,18 @@ public class Player {
         }
     }
 
+    /**
+     * surrender() function checks whether player should surrender
+     * Traverses through all player's maps and checks how many ships are alive on each map
+     * If no existing ships, then player has surrendered
+     * @return boolean whether player has surrendered or not
+     */
     public boolean surrender() {
         int total = 0;
-        //go through all the player maps and check their ships alive
         for (int i = 0; i < this.player_maps.size(); i++) {
             total += this.player_maps.get(i).getShipsAlive();
         }
-        //if all ships alive == 0
-        //then return true
+
         if (total == 0) {
             return true;
         }

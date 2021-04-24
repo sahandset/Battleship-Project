@@ -4,12 +4,14 @@ import edu.colorado.binarybuffs.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class BattleshipTest {
 
+    /**
+     * BattleshipGetCoords() checks if battleship coordinates are properly created with a given starting coordinate
+     */
     @Test
     public void BattleshipGetCoords() {
         Battleship bs = new Battleship();
@@ -24,6 +26,9 @@ public class BattleshipTest {
         assertEquals(5, results.get(0).y);
     }
 
+    /**
+     * BattleshipGetCaptsCoords() checks if battleship captain's coordinates are properly created with a given starting coordinate
+     */
     @Test
     public void BattleshipGetCaptsCoords() {
         Battleship bs = new Battleship();
