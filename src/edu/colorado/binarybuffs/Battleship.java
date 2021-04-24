@@ -2,7 +2,7 @@ package edu.colorado.binarybuffs;
 
 import java.util.ArrayList;
 
-public class Battleship extends newShip implements ArmoredShip{
+public class Battleship extends Ship implements ArmoredShip{
     private String ship_name = "Battleship";
     private static int ship_size = 4;
     private int hitCount = 0;

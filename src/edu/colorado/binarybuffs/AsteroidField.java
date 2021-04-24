@@ -33,8 +33,8 @@ public class AsteroidField extends Disaster {
      * If shuttle coordinate overlaps with asteroid coordinate, perform space laser functionality on that cell
      * returns void
      */
-    public void applyDisaster(newPlayer curr_player) {
-        newShip space_ship = curr_player.getPlayerMaps().get(2).existing_ships.get(0);
+    public void applyDisaster(Player curr_player) {
+        Ship space_ship = curr_player.getPlayerMaps().get(2).existing_ships.get(0);
         shuttle_coordinates = curr_player.getPlayerMaps().get(2).ship_coordinates.get(space_ship);
 
         SpaceLaser asteroid_hit = new SpaceLaser();

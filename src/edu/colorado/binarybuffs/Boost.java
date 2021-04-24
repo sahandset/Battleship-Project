@@ -11,7 +11,7 @@ public abstract class Boost {
         return this.name;
     }
 
-    public abstract boolean equipBoost(newShip ship, Map current_player_map, newPlayer current_player);
+    public abstract boolean equipBoost(Ship ship, Map current_player_map, Player current_player);
 
     public abstract boolean checkAvailability(int num_used);
 }

@@ -5,6 +5,7 @@ package edu.colorado.binarybuffs;
  * Hurricane Disaster
  * Asteroid Field Disaster
  */
+
 public abstract class Disaster {
 
     public Disaster() {
@@ -12,5 +13,5 @@ public abstract class Disaster {
     }
 
     //applyDisasterFunction() in all 3 subclasses, performs the actual disaster on player maps
-    public abstract void applyDisaster(newPlayer current_player);
+    public abstract void applyDisaster(Player current_player);
 }

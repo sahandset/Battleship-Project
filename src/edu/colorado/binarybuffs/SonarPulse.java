@@ -1,9 +1,6 @@
 package edu.colorado.binarybuffs;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.concurrent.atomic.AtomicReferenceArray;
 
 public class SonarPulse extends Weapon{
 
@@ -18,7 +15,7 @@ public class SonarPulse extends Weapon{
         return this.name;
     }
 
-    public boolean deployWeapon(int x, int y, newPlayer opponent, Map attacked_map, Map current_player_map, newPlayer currentPlayer, int method_choice){
+    public boolean deployWeapon(int x, int y, Player opponent, Map attacked_map, Map current_player_map, Player currentPlayer, int method_choice){
             // Reveal horizontal layer - (x-1, y) and (x-2, y)         (x+1, y) and (x + 2, y)
             // Reveal vertical layer - (x, y-1) and (x, y-2)         (x, y+1) and (x, y + 2)
             // Reveal diagonals - (x-1, y-1) and (x-1, y+1)      (x+1, y-1) and (x+1, y+1)

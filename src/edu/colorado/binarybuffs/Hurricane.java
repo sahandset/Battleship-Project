@@ -9,8 +9,8 @@ public class Hurricane extends Disaster{
 
     private Hashtable<Coordinate, String> hurricane_border_coordinates = new Hashtable<>();
     private ArrayList<Coordinate> hurricane_coordinate_keys = new ArrayList<>();
-    private ArrayList<newShip> hurricane_ships = new ArrayList<>();
-    private Hashtable<newShip, String> hurricane_ship_directions = new Hashtable<>();
+    private ArrayList<Ship> hurricane_ships = new ArrayList<>();
+    private Hashtable<Ship, String> hurricane_ship_directions = new Hashtable<>();
     private String [][] hurricane_map = new String [10][10];
     private int category;
 
@@ -136,13 +136,13 @@ public class Hurricane extends Disaster{
      * Uses similar functionality as moveFleet in Player class, by moving ships using an offset coordinate for each direction
      * returns void
      */
-    public void applyDisaster(newPlayer current_player) {
-        ArrayList<newShip> player_ships = current_player.getPlayerMaps().get(0).existing_ships;
+    public void applyDisaster(Player current_player) {
+        ArrayList<Ship> player_ships = current_player.getPlayerMaps().get(0).existing_ships;
         Map ocean_map = current_player.getPlayerMaps().get(0);
 
         for (int i = 0; i < this.hurricane_coordinate_keys.size(); i++) {
             for (int j = 0; j < current_player.getPlayerMaps().get(0).ship_coordinates.size(); j++) {
-                newShip shipy = player_ships.get(j);
+                Ship shipy = player_ships.get(j);
                 for (int k = 0; k < current_player.getPlayerMaps().get(0).ship_coordinates.get(shipy).size(); k++) {
                     Coordinate ship_coordinate = current_player.getPlayerMaps().get(0).ship_coordinates.get(shipy).get(k);
                     if ((this.hurricane_coordinate_keys.get(i).x == ship_coordinate.x) && (this.hurricane_coordinate_keys.get(i).y == ship_coordinate.y)) {
@@ -163,7 +163,7 @@ public class Hurricane extends Disaster{
 
         // Check if each ship caught in the hurricane can move in a certain direction (not overlap or go out of bounds), and if it can, set ALL of its coordinates to the offset
         for (int i = 0; i < this.hurricane_ships.size(); i++) {
-            newShip ship_to_move = this.hurricane_ships.get(i);
+            Ship ship_to_move = this.hurricane_ships.get(i);
             String direction_to_move = hurricane_ship_directions.get(ship_to_move);
             Coordinate offset_coord = current_player.getOffsetCoord(direction_to_move);
             ArrayList<Coordinate> coordsList = ocean_map.ship_coordinates.get(ship_to_move);
@@ -178,10 +178,10 @@ public class Hurricane extends Disaster{
                     movable = false;
                 }
                 else if (ocean_map.defensiveGrid.checkCellStatus(moved_x, moved_y) == 1 || ocean_map.defensiveGrid.checkCellStatus(moved_x, moved_y) == 2){
-                    newShip ship_found = new Minesweeper();
+                    Ship ship_found = new Minesweeper();
 
                     for (int k = 0; k < ocean_map.existing_ships.size(); k++){
-                        newShip shipy = ocean_map.existing_ships.get(k);
+                        Ship shipy = ocean_map.existing_ships.get(k);
                         ArrayList<Coordinate> coordsList2 = ocean_map.ship_coordinates.get(shipy);
                         for (int p = 0; p < coordsList2.size(); p++){
                             if (coordsList2.get(p).x == moved_x && coordsList2.get(p).y == moved_y){

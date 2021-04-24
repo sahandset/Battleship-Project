@@ -16,7 +16,7 @@ public class SpaceLaser extends Weapon {
         return this.name;
     }
 
-    public boolean deployWeapon(int x, int y, newPlayer opponent, Map attacked_map, Map current_player_map, newPlayer currentPlayer, int method_choice) {
+    public boolean deployWeapon(int x, int y, Player opponent, Map attacked_map, Map current_player_map, Player currentPlayer, int method_choice) {
         if (x > 10 || x < 0 || y > 10 || y < 0) {
             System.out.println("You cannot attack outside of the grid! (Attempted an attack at (" + x + "," + y + "))");
             return false;
@@ -49,7 +49,7 @@ public class SpaceLaser extends Weapon {
         Bomb b = new Bomb();
 
 //        System.out.println("Currently attacking in space!");
-        newShip attack_ship = new Minesweeper();
+        Ship attack_ship = new Minesweeper();
         spaceLaserOutputs(method_choice, 1, attacked_map, attack_ship);
         b.deployWeapon(x, y, opponent, opp_space, curr_space, currentPlayer, method_choice+1);
 
@@ -63,10 +63,10 @@ public class SpaceLaser extends Weapon {
         int value = opp_space.defensiveGrid.checkCellStatus(x, y);
         if (value == 2) {
             //get ship at the coordinate
-            newShip attacked_ship = new Spaceshuttle();
+            Ship attacked_ship = new Spaceshuttle();
 
             for (int i = 0; i < opp_space.existing_ships.size(); i++) {
-                newShip shipy = opp_space.existing_ships.get(i);
+                Ship shipy = opp_space.existing_ships.get(i);
                 ArrayList<Coordinate> coordsList = opp_space.ship_coordinates.get(shipy);
                 for (int j = 0; j < coordsList.size(); j++) {
                     if (coordsList.get(j).x == x && coordsList.get(j).y == y) {
@@ -108,7 +108,7 @@ public class SpaceLaser extends Weapon {
     }
 
     // REFACTOR THIS METHOD
-    public boolean attackUnderSpaceShuttle(int x, int y, Map attacked_map, Map current_player_map, newPlayer current_player, int method_choice){
+    public boolean attackUnderSpaceShuttle(int x, int y, Map attacked_map, Map current_player_map, Player current_player, int method_choice){
         //copy the functionality of a bomb here
         int has_been_attacked = current_player_map.offensiveGrid.checkCellStatus(x,y);
         int is_occupied = attacked_map.defensiveGrid.checkCellStatus(x,y);
@@ -117,10 +117,10 @@ public class SpaceLaser extends Weapon {
             //System.out.println("You've attempted an attack on " + attacked_map.getName() + ", but you've missed!");
             current_player_map.offensiveGrid.setCellStatus(1, x, y);
         } else if (is_occupied == 1) {
-            newShip attacked_ship = new Minesweeper();
+            Ship attacked_ship = new Minesweeper();
 
             for (int i = 0; i < attacked_map.existing_ships.size(); i++) {
-                newShip shipy = attacked_map.existing_ships.get(i);
+                Ship shipy = attacked_map.existing_ships.get(i);
                 ArrayList<Coordinate> coordsList = attacked_map.ship_coordinates.get(shipy);
                 for (int j = 0; j < coordsList.size(); j++) {
                     if (coordsList.get(j).x == x && coordsList.get(j).y == y) {
@@ -185,7 +185,7 @@ public class SpaceLaser extends Weapon {
         return true;
     }
 
-    public void spaceLaserOutputs(int method_choice, int print_choice, Map attacked_map, newShip attacked_ship) {
+    public void spaceLaserOutputs(int method_choice, int print_choice, Map attacked_map, Ship attacked_ship) {
         switch (method_choice) {
             case 2: // Space Laser Attack + Debris
                 if (print_choice == 1) {
@@ -212,6 +212,7 @@ public class SpaceLaser extends Weapon {
                 if (print_choice == 8) {
                     System.out.println("The debris hit a part of a ship!");
                 }
+                break;
             case 3: // Asteroid Attack + Debris
                 if (print_choice == 1) {
                     System.out.println("The asteroids are firing in space!");
@@ -237,7 +238,7 @@ public class SpaceLaser extends Weapon {
                 if (print_choice == 8) {
                     System.out.println("The debris hit a part of a ship!");
                 }
-
+                break;
         }
     }
 }

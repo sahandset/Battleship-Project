@@ -61,11 +61,11 @@ public class GhostZone extends Disaster {
      * Creates a random value between 0 and 2for each iteration of the ghost zone coords and updates current cell status to random value
      * returns void
      */
-    public void applyDisaster(newPlayer current_player) {
+    public void applyDisaster(Player current_player) {
         System.out.println("Watch out, there is a Ghost Zone covering part of your offensive grid!");
         System.out.println("Some of your intel might be scrambled...");
-        newGrid new_ocean_offensive_grid = current_player.getPlayerMaps().get(0).offensiveGrid;
-        newGrid new_underwater_offensive_grid = current_player.getPlayerMaps().get(1).offensiveGrid;
+        Grid new_ocean_offensive_grid = current_player.getPlayerMaps().get(0).offensiveGrid;
+        Grid new_underwater_offensive_grid = current_player.getPlayerMaps().get(1).offensiveGrid;
         int scramble_num = 0;
         for (int i = 0; i < ghost_zone_coords.size(); i++) {
             Random rand = new Random();

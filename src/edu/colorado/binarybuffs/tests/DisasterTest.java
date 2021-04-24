@@ -3,9 +3,7 @@ package edu.colorado.binarybuffs.tests;
 import edu.colorado.binarybuffs.*;
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Hashtable;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -13,8 +11,8 @@ public class DisasterTest {
 
     @Test
     public void ghostZoneTest() {
-        newPlayer player1 = new newPlayer("Tanvi");
-        newPlayer player2 = new newPlayer("Sahand");
+        Player player1 = new Player("Tanvi");
+        Player player2 = new Player("Sahand");
 
         Minesweeper sweeper = new Minesweeper();
 
@@ -32,7 +30,7 @@ public class DisasterTest {
 
     @Test
     public void hurricaneTest() {
-        newPlayer player1 = new newPlayer("Tanvi");
+        Player player1 = new Player("Tanvi");
 
         Minesweeper sweeper = new Minesweeper();
 
@@ -53,8 +51,8 @@ public class DisasterTest {
 
     @Test
     public void asteroidTest() {
-        newPlayer player1 = new newPlayer("Tanvi");
-        newPlayer player2 = new newPlayer("Sahand");
+        Player player1 = new Player("Tanvi");
+        Player player2 = new Player("Sahand");
 
         Spaceshuttle shut = new Spaceshuttle();
 

@@ -2,7 +2,7 @@ package edu.colorado.binarybuffs;
 
 import java.util.ArrayList;
 
-public class Submarine extends newShip implements SubmersibleShip {
+public class Submarine extends Ship implements SubmersibleShip {
     private String ship_name = "Submarine";
     private static int ship_size = 5;
 

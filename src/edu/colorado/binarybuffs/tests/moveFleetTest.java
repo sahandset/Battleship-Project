@@ -2,7 +2,6 @@ package edu.colorado.binarybuffs.tests;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import edu.colorado.binarybuffs.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -11,8 +10,8 @@ public class moveFleetTest {
     @Test
     //place ships and move them
     public void moveFleetTest() {
-        newPlayer player1 = new newPlayer("Tanvi");
-        newPlayer player2 = new newPlayer("Sahand");
+        Player player1 = new Player("Tanvi");
+        Player player2 = new Player("Sahand");
 
         Minesweeper sweeper = new Minesweeper();
         Submarine sub = new Submarine();
@@ -35,8 +34,8 @@ public class moveFleetTest {
     @Test
     //undo fleet move
     public void moveFleetBoundsTest() {
-        newPlayer player1 = new newPlayer("Tanvi");
-        newPlayer player2 = new newPlayer("Sahand");
+        Player player1 = new Player("Tanvi");
+        Player player2 = new Player("Sahand");
 
         Minesweeper sweeper = new Minesweeper();
         Submarine sub = new Submarine();
@@ -58,8 +57,8 @@ public class moveFleetTest {
     @Test
     //undo fleet move
     public void undoFleetTest() {
-        newPlayer player1 = new newPlayer("Tanvi");
-        newPlayer player2 = new newPlayer("Sahand");
+        Player player1 = new Player("Tanvi");
+        Player player2 = new Player("Sahand");
 
         Minesweeper sweeper = new Minesweeper();
         Submarine sub = new Submarine();
@@ -84,8 +83,8 @@ public class moveFleetTest {
     @Test
     //redo fleet move
     public void redoFleetTest() {
-        newPlayer player1 = new newPlayer("Tanvi");
-        newPlayer player2 = new newPlayer("Sahand");
+        Player player1 = new Player("Tanvi");
+        Player player2 = new Player("Sahand");
 
         Minesweeper sweeper = new Minesweeper();
         Submarine sub = new Submarine();
@@ -113,8 +112,8 @@ public class moveFleetTest {
     @Test
     //checks to undo on empty stack
     public void undoCheck1() {
-        newPlayer player1 = new newPlayer("Tanvi");
-        newPlayer player2 = new newPlayer("Sahand");
+        Player player1 = new Player("Tanvi");
+        Player player2 = new Player("Sahand");
 
         Minesweeper sweeper = new Minesweeper();
         Submarine sub = new Submarine();
@@ -137,8 +136,8 @@ public class moveFleetTest {
     @Test
     //move fleet twice, undo twice
     public void undoCheck2() {
-        newPlayer player1 = new newPlayer("Tanvi");
-        newPlayer player2 = new newPlayer("Sahand");
+        Player player1 = new Player("Tanvi");
+        Player player2 = new Player("Sahand");
 
         Minesweeper sweeper = new Minesweeper();
         Submarine sub = new Submarine();
@@ -168,8 +167,8 @@ public class moveFleetTest {
     @Test
     //redo fleet move after new move is made
     public void redoNewMoveTest() {
-        newPlayer player1 = new newPlayer("Tanvi");
-        newPlayer player2 = new newPlayer("Sahand");
+        Player player1 = new Player("Tanvi");
+        Player player2 = new Player("Sahand");
 
         Minesweeper sweeper = new Minesweeper();
         Submarine sub = new Submarine();
@@ -199,8 +198,8 @@ public class moveFleetTest {
     //TEST FOR MOVING SPACE SHUTTLE
     @Test
     public void moveFleetWithSpaceShuttleTest() {
-        newPlayer player1 = new newPlayer("Tanvi");
-        newPlayer player2 = new newPlayer("Sahand");
+        Player player1 = new Player("Tanvi");
+        Player player2 = new Player("Sahand");
 
         Minesweeper sweeper = new Minesweeper();
         Submarine sub = new Submarine();

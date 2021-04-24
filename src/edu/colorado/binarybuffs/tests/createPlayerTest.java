@@ -8,8 +8,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class createPlayerTest {
     @Test
     public void createPlayerTest() {
-        newPlayer player1 = new newPlayer("Tanvi");
-        newPlayer player2 = new newPlayer("Sahand");
+        Player player1 = new Player("Tanvi");
+        Player player2 = new Player("Sahand");
         assertEquals(player1, player1);
         assertEquals(player2, player2);
     }

@@ -1,11 +1,10 @@
 package edu.colorado.binarybuffs;
 
-import java.awt.*;
 import java.util.Hashtable;
 import java.util.ArrayList;
 import java.util.Stack;
 
-public class newPlayer {
+public class Player {
     private String player_name;
     public ArrayList<Map> player_maps = new ArrayList<Map>();
     ArrayList<Weapon> player_weapons = new ArrayList<>();
@@ -23,7 +22,7 @@ public class newPlayer {
     private boolean surrender = false;
 
 
-    public newPlayer(String name) {
+    public Player(String name) {
         this.player_name = name;
         player_maps.add(new OceanMap());
         player_maps.add(new UnderwaterMap());
@@ -60,7 +59,7 @@ public class newPlayer {
         this.surrender = true;
     }
 
-    public boolean useWeapon(int weapon_choice, int x, int y, newPlayer opponent, int map_choice, int method_choice) {
+    public boolean useWeapon(int weapon_choice, int x, int y, Player opponent, int map_choice, int method_choice) {
         if (weapon_choice >= 0 && weapon_choice < this.player_weapons.size()) {
             Weapon weapon = this.player_weapons.get(weapon_choice);
             Map attacked_map = opponent.player_maps.get(map_choice);
@@ -86,10 +85,13 @@ public class newPlayer {
     }
 
     public boolean useBoost(int boost_choice, int ship_choice, int map_choice) {
-        if (boost_choice >= 0 && boost_choice < this.player_boosts.size()) {
+        if (boost_choice >= 0 && boost_choice < this.player_boosts.size() && this.player_boosts.size() != 0) {
             Boost boost = this.player_boosts.get(boost_choice);
             Map curr_players_map = this.player_maps.get(map_choice);
-            newShip ship = curr_players_map.sunk_ships.get(ship_choice);
+            if (curr_players_map.sunk_ships.size() == 0) {
+                return false;
+            }
+            Ship ship = curr_players_map.sunk_ships.get(ship_choice);
             System.out.println(ship.getName());
             boolean result = boost.equipBoost(ship, curr_players_map, this);
             if (result && boost_uses.containsKey(boost)) {
@@ -120,11 +122,11 @@ public class newPlayer {
         }
     }
 
-    public boolean deployShip(newShip ship, int x, int y, String direction, int map_choice) {
+    public boolean deployShip(Ship ship, int x, int y, String direction, int map_choice) {
         Map deploy_map = this.player_maps.get(map_choice);
         if (deploy_map.validateDeployment(ship)) {
             boolean deployed_successfully = deploy_map.placeShip(ship, x, y, direction);
-            deploy_map.checkForAnimal(this);
+//            deploy_map.checkForAnimal(this);
             return deployed_successfully;
         } else {
 //            System.out.println("You cannot place a " + ship.getName() + " on " + deploy_map.getName());
@@ -226,9 +228,9 @@ public class newPlayer {
             for (int k = 0; k < this.player_maps.size(); k++) {
                 Map curr_map = this.player_maps.get(k);
                 //curr_map.defensiveGrid.setAllCellStatus(0);
-                newGrid new_defense_grid = new newGrid();
+                Grid new_defense_grid = new Grid();
                 for (int i = 0; i < curr_map.existing_ships.size(); i++) {
-                    newShip shipy = curr_map.existing_ships.get(i); //get the ship
+                    Ship shipy = curr_map.existing_ships.get(i); //get the ship
                     ArrayList<Coordinate> coordsList = curr_map.ship_coordinates.get(shipy);
                     ArrayList<Coordinate> movedCoordsList = new ArrayList<Coordinate>();
                     for (int j = 0; j < coordsList.size(); j++) {
@@ -259,7 +261,7 @@ public class newPlayer {
         for (int k = 0; k < this.player_maps.size(); k++) {
             Map curr_map = this.player_maps.get(k);
             for (int i = 0; i < curr_map.existing_ships.size(); i++) {
-                newShip shipy = curr_map.existing_ships.get(i);
+                Ship shipy = curr_map.existing_ships.get(i);
                 ArrayList<Coordinate> coordsList = curr_map.ship_coordinates.get(shipy);
                 for (int j = 0; j < coordsList.size(); j++) {
                     moved_x = coordsList.get(j).x + offset_coord.x;

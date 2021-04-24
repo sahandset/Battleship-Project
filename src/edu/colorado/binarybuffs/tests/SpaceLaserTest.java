@@ -8,8 +8,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class SpaceLaserTest {
     @Test
     public void spaceLaserTest() {
-        newPlayer player1 = new newPlayer("Tanvi");
-        newPlayer player2 = new newPlayer("Sahand");
+        Player player1 = new Player("Tanvi");
+        Player player2 = new Player("Sahand");
 
         Minesweeper sweeper = new Minesweeper();
         Submarine sub = new Submarine();
@@ -30,8 +30,8 @@ public class SpaceLaserTest {
 
     @Test
     public void spaceLaserOnSpaceMapTest() {
-        newPlayer player1 = new newPlayer("Tanvi");
-        newPlayer player2 = new newPlayer("Sahand");
+        Player player1 = new Player("Tanvi");
+        Player player2 = new Player("Sahand");
 
         Minesweeper sweeper = new Minesweeper();
         Submarine sub = new Submarine();

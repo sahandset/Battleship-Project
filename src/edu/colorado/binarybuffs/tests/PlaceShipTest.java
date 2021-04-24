@@ -8,8 +8,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class PlaceShipTest {
     @Test
     public void placeShipTest() {
-        newPlayer player1 = new newPlayer("Tanvi");
-        newPlayer player2 = new newPlayer("Sahand");
+        Player player1 = new Player("Tanvi");
+        Player player2 = new Player("Sahand");
 
         Minesweeper sweeper = new Minesweeper();
         Submarine sub = new Submarine();
@@ -23,8 +23,8 @@ public class PlaceShipTest {
 
     @Test
     public void placeSurfaceShipUnderwater() {
-        newPlayer player1 = new newPlayer("Tanvi");
-        newPlayer player2 = new newPlayer("Sahand");
+        Player player1 = new Player("Tanvi");
+        Player player2 = new Player("Sahand");
 
         Battleship bat = new Battleship();
 
@@ -33,8 +33,8 @@ public class PlaceShipTest {
 
     @Test
     public void placeShipOverlappingTest() {
-        newPlayer player1 = new newPlayer("Tanvi");
-        newPlayer player2 = new newPlayer("Sahand");
+        Player player1 = new Player("Tanvi");
+        Player player2 = new Player("Sahand");
 
         Minesweeper sweeper = new Minesweeper();
         Submarine sub = new Submarine();
@@ -46,8 +46,8 @@ public class PlaceShipTest {
     }
     @Test
     public void placeShipOutOfBoundsTest() {
-        newPlayer player1 = new newPlayer("Tanvi");
-        newPlayer player2 = new newPlayer("Sahand");
+        Player player1 = new Player("Tanvi");
+        Player player2 = new Player("Sahand");
 
         Minesweeper sweeper = new Minesweeper();
         Submarine sub = new Submarine();
@@ -61,8 +61,8 @@ public class PlaceShipTest {
 
     @Test
     public void submarineSurfacePlacementTest() {
-        newPlayer player1 = new newPlayer("Tanvi");
-        newPlayer player2 = new newPlayer("Sahand");
+        Player player1 = new Player("Tanvi");
+        Player player2 = new Player("Sahand");
 
         Minesweeper sweeper = new Minesweeper();
         Submarine sub = new Submarine();
@@ -75,8 +75,8 @@ public class PlaceShipTest {
 
     @Test
     public void submarineUnderwaterPlacementTest() {
-        newPlayer player1 = new newPlayer("Tanvi");
-        newPlayer player2 = new newPlayer("Sahand");
+        Player player1 = new Player("Tanvi");
+        Player player2 = new Player("Sahand");
 
         Minesweeper sweeper = new Minesweeper();
         Submarine sub = new Submarine();
@@ -89,8 +89,8 @@ public class PlaceShipTest {
 
     @Test
     public void submarineUnderwaterOverlapTest() {
-        newPlayer player1 = new newPlayer("Tanvi");
-        newPlayer player2 = new newPlayer("Sahand");
+        Player player1 = new Player("Tanvi");
+        Player player2 = new Player("Sahand");
 
         Submarine sub1 = new Submarine();
         Submarine sub2 = new Submarine();
@@ -103,8 +103,8 @@ public class PlaceShipTest {
     //START OF SPACE SHUTTLE TEST
     @Test
     public void placeSpaceshuttleTest() {
-        newPlayer player1 = new newPlayer("Tanvi");
-        newPlayer player2 = new newPlayer("Sahand");
+        Player player1 = new Player("Tanvi");
+        Player player2 = new Player("Sahand");
 
         Spaceshuttle shut = new Spaceshuttle();
 
@@ -113,8 +113,8 @@ public class PlaceShipTest {
 
     @Test
     public void placeShuttleOOBTest() {
-        newPlayer player1 = new newPlayer("Tanvi");
-        newPlayer player2 = new newPlayer("Sahand");
+        Player player1 = new Player("Tanvi");
+        Player player2 = new Player("Sahand");
 
         Spaceshuttle shut = new Spaceshuttle();
 
@@ -125,8 +125,8 @@ public class PlaceShipTest {
 
     @Test
     public void placeShipsUnderShuttleTest() {
-        newPlayer player1 = new newPlayer("Tanvi");
-        newPlayer player2 = new newPlayer("Sahand");
+        Player player1 = new Player("Tanvi");
+        Player player2 = new Player("Sahand");
 
         Spaceshuttle shut = new Spaceshuttle();
         Minesweeper sweeper = new Minesweeper();

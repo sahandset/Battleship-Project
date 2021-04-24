@@ -11,7 +11,7 @@ public class SpaceMap extends Map{
         return this.name;
     }
 
-    public boolean validateDeployment(newShip ship) {
+    public boolean validateDeployment(Ship ship) {
         if (ship instanceof OrbitableShip) {
             return true;
         } else {
@@ -27,11 +27,11 @@ public class SpaceMap extends Map{
         System.out.println("Cannot place a jaws on Underwater Map");
     }
 
-    public boolean checkForAnimal(newPlayer curr_player) {
+    public boolean checkForAnimal(Player curr_player) {
         for (int i = 0; i < animal_coordinates.size(); i++) {
             for (int j = 0; j < ship_coordinates.size(); j++) {
                 Animal a = animals.get(i);
-                newShip shipy = existing_ships.get(j);
+                Ship shipy = existing_ships.get(j);
                 for (int k = 0; k < ship_coordinates.get(shipy).size(); k++) {
                     if ((animal_coordinates.get(a).x == ship_coordinates.get(shipy).get(k).x) && (animal_coordinates.get(a).y == ship_coordinates.get(shipy).get(k).y)) {
                         a.useAnimal(curr_player, this);

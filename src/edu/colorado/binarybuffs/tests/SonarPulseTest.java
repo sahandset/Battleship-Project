@@ -3,9 +3,6 @@ package edu.colorado.binarybuffs.tests;
 import edu.colorado.binarybuffs.*;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.Hashtable;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SonarPulseTest {
@@ -80,8 +77,8 @@ public class SonarPulseTest {
 
     @Test
     public void sonarPulseTest(){
-        newPlayer player1 = new newPlayer("Tanvi");
-        newPlayer player2 = new newPlayer("Sahand");
+        Player player1 = new Player("Tanvi");
+        Player player2 = new Player("Sahand");
 
         Minesweeper sweeper = new Minesweeper();
         Submarine sub = new Submarine();
@@ -99,8 +96,8 @@ public class SonarPulseTest {
 
     @Test
     public void sonarPulseMaxUsesTest(){
-        newPlayer player1 = new newPlayer("Tanvi");
-        newPlayer player2 = new newPlayer("Sahand");
+        Player player1 = new Player("Tanvi");
+        Player player2 = new Player("Sahand");
 
         Minesweeper sweeper = new Minesweeper();
         Submarine sub = new Submarine();

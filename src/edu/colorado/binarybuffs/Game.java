@@ -6,20 +6,20 @@ import java.util.Scanner;
 
 public class Game {
 
-    private newPlayer player1;
-    private newPlayer player2;
+    private Player player1;
+    private Player player2;
 
     public Game(String player1_name, String player2_name) {
 
-        player1 = new newPlayer(player1_name);
-        player2 = new newPlayer(player2_name);
+        player1 = new Player(player1_name);
+        player2 = new Player(player2_name);
 
     }
 
-    public newPlayer getPlayer1() {
+    public Player getPlayer1() {
         return this.player1;
     }
-    public newPlayer getPlayer2() {
+    public Player getPlayer2() {
         return this.player2;
     }
 
@@ -29,8 +29,8 @@ public class Game {
 
         boolean game_has_ended = false;
 
-        ArrayList<newShip> player1_ship_objects = new ArrayList<>();
-        ArrayList<newShip> player2_ship_objects = new ArrayList<>();
+        ArrayList<Ship> player1_ship_objects = new ArrayList<>();
+        ArrayList<Ship> player2_ship_objects = new ArrayList<>();
 
         Minesweeper sweeper1 = new Minesweeper();
         Destroyer dest1 = new Destroyer();
@@ -114,14 +114,15 @@ public class Game {
 
     }
 
-    public void preTurn(newPlayer current_player, newPlayer opponent_player, ArrayList<newShip> ship_objects) {
+    public void preTurn(Player current_player, Player opponent_player, ArrayList<Ship> ship_objects) {
         System.out.println(current_player.getName().toUpperCase() + "'S TURN");
         createDisaster(current_player);
+        current_player.getPlayerMaps().get(0).checkForAnimal(current_player);
         turn(current_player, opponent_player, ship_objects);
         System.out.println(current_player.getName() + "'s turn has ended. \n\n");
     }
 
-    public void turn(newPlayer current_player, newPlayer opponent_player, ArrayList<newShip> ship_objects) {
+    public void turn(Player current_player, Player opponent_player, ArrayList<Ship> ship_objects) {
 
         boolean invalid_input;
         Scanner input = new Scanner(System.in);
@@ -166,7 +167,10 @@ public class Game {
                     turn(current_player, opponent_player, ship_objects);
                 }
                 else {
-                    if ((current_player.player_weapons.get(user_weapon_choice) instanceof Bomb) || (current_player.player_weapons.get(user_weapon_choice) instanceof SonarPulse)) {
+                    if ((current_player.player_weapons.get(user_weapon_choice) instanceof Bomb)){
+                        map_choice = 0;
+                    }
+                    else if ((current_player.player_weapons.get(user_weapon_choice) instanceof SonarPulse)) {
                         map_choice = displayMapMenu(current_player, opponent_player, ship_objects);
                     }
                     else {
@@ -177,7 +181,14 @@ public class Game {
                         turn(current_player, opponent_player, ship_objects);
                     }
                     else {
-                        current_player.player_maps.get(map_choice).printOffensiveGrid();
+                        if (current_player.player_weapons.get(user_weapon_choice) instanceof SpaceLaser){
+                            current_player.player_maps.get(0).printOffensiveGrid();
+                            current_player.player_maps.get(1).printOffensiveGrid();
+                            current_player.player_maps.get(2).printOffensiveGrid();
+                        }
+                        else{
+                            current_player.player_maps.get(map_choice).printOffensiveGrid();
+                        }
 
                         do {
                             invalid_input = false;
@@ -248,6 +259,7 @@ public class Game {
                             try {
                                 System.out.print("Which direction will you move fleet? (N, S, E, or W): ");
                                 fleet_direction_choice = input.next();
+                                fleet_direction_choice = fleet_direction_choice.toUpperCase();
                             } catch (InputMismatchException e){
                                 System.out.println("Invalid input, please enter a valid direction!\n");
                                 invalid_input = true;
@@ -332,7 +344,7 @@ public class Game {
 
     }
 
-    public boolean checkEndGame(newPlayer curr_player, newPlayer opponent_player, ArrayList<newShip> ship_objects) {
+    public boolean checkEndGame(Player curr_player, Player opponent_player, ArrayList<Ship> ship_objects) {
         boolean game_has_ended;
         if (curr_player.getSurrenderStatus()) {
             game_has_ended = true;
@@ -360,7 +372,7 @@ public class Game {
         System.out.println("7. Surrender");
     }
 
-    public void displayStartingMenu(newPlayer curr_player, ArrayList<newShip> ship_objects) {
+    public void displayStartingMenu(Player curr_player, ArrayList<Ship> ship_objects) {
         int map_choice = 0;
         boolean invalid_input;
         int user_choice = 0;
@@ -457,6 +469,7 @@ public class Game {
                             try {
                                 System.out.print("Ship direction (N, S, E, W): ");
                                 direction_choice = input.next();
+                                direction_choice = direction_choice.toUpperCase();
                             } catch (InputMismatchException e) {
                                 System.out.println("Invalid input, please enter a valid coordinate!\n");
                                 invalid_input = true;
@@ -499,7 +512,7 @@ public class Game {
         }
     }
 
-    public int displayMapMenu(newPlayer curr_player, newPlayer opponent_player, ArrayList<newShip> ship_objects) {
+    public int displayMapMenu(Player curr_player, Player opponent_player, ArrayList<Ship> ship_objects) {
         Scanner input = new Scanner(System.in);
         int map_choice = 0;
         boolean invalid_input;
@@ -527,7 +540,7 @@ public class Game {
         return map_choice - 1;
     }
 
-    public int displayWeaponMenu(newPlayer curr_player, newPlayer opponent_player, ArrayList<newShip> ship_objects) {
+    public int displayWeaponMenu(Player curr_player, Player opponent_player, ArrayList<Ship> ship_objects) {
         Scanner input = new Scanner(System.in);
         boolean invalid_input;
         int user_weapon_choice = 0;
@@ -555,7 +568,7 @@ public class Game {
         return user_weapon_choice - 1;
     }
 
-    public int displayBoostMenu(newPlayer curr_player, newPlayer opponent_player, ArrayList<newShip> ship_objects) {
+    public int displayBoostMenu(Player curr_player, Player opponent_player, ArrayList<Ship> ship_objects) {
         Scanner input = new Scanner(System.in);
         boolean invalid_input;
         int user_boost_choice = 0;
@@ -584,9 +597,10 @@ public class Game {
         return user_boost_choice - 1;
     }
 
-    public void createDisaster(newPlayer curr_player) {
+    public void createDisaster(Player curr_player) {
         Random rand = new Random();
         int rand_disaster = rand.nextInt(10);
+
         if (rand_disaster == 0) {
             Disaster hurr = new Hurricane();
             hurr.applyDisaster(curr_player);
@@ -605,7 +619,7 @@ public class Game {
     }
 
     //prints out current score of both players
-    public void showStatus(newPlayer player1, newPlayer player2, ArrayList<newShip> ship_objects) {
+    public void showStatus(Player player1, Player player2, ArrayList<Ship> ship_objects) {
         int total_ships_alive1 = player1.getPlayerMaps().get(0).getShipsAlive() + player1.getPlayerMaps().get(1).getShipsAlive() + player1.getPlayerMaps().get(2).getShipsAlive();
         int total_ships_alive2 = player2.getPlayerMaps().get(0).getShipsAlive() + player2.getPlayerMaps().get(1).getShipsAlive() + player2.getPlayerMaps().get(2).getShipsAlive();
         int ultimate_total_ships1 = player1.getPlayerMaps().get(0).getExistingShips().size() + player1.getPlayerMaps().get(1).getExistingShips().size() + player1.getPlayerMaps().get(2).getExistingShips().size();

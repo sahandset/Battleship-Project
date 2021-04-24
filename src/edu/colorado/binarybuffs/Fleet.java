@@ -5,13 +5,13 @@ import java.util.Random;
 
 public class Fleet{
 
-    private ArrayList<newShip> myShips;
+    private ArrayList<Ship> myShips;
 
-    public Fleet(ArrayList<newShip> shipsFleet){
+    public Fleet(ArrayList<Ship> shipsFleet){
         this.myShips = shipsFleet;
     }
 
-    public ArrayList<newShip> getShips(){
+    public ArrayList<Ship> getShips(){
         return myShips;
     }
 
@@ -31,7 +31,7 @@ public class Fleet{
         return "N";
     }
 
-    public boolean placeFleet(newPlayer curr_player){
+    public boolean placeFleet(Player curr_player){
         for (int i = 0; i < myShips.size(); i++){
             boolean placed = false;
             while (!placed) {
@@ -43,10 +43,10 @@ public class Fleet{
 
     //this places the ship on the designated ship: makes the executive decision
     //to place any submarine on the underwater map
-    public boolean placeShipRandomly(newPlayer curr_player, int i){
+    public boolean placeShipRandomly(Player curr_player, int i){
         String rand_direction = getRandDirection();
 
-        newShip shipy = myShips.get(i);
+        Ship shipy = myShips.get(i);
 
         if (shipy instanceof SubmersibleShip){
             Random rand = new Random();

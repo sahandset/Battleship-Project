@@ -13,5 +13,6 @@ public abstract class Animal {
     public String getName() {return this.name;}
 
     //useAnimal() is used in both sub classes of Narwhal and Jaws, is used to call function to perform respective functionality
-    public abstract void useAnimal(newPlayer curr_player, Map curr_player_map);
+    public abstract void useAnimal(Player curr_player, Map curr_player_map);
+
 }
