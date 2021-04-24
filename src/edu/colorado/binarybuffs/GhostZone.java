@@ -2,7 +2,9 @@ package edu.colorado.binarybuffs;
 import java.util.Random;
 import java.util.ArrayList;
 
-/** Ghost Zone extends Disaster superclass that scrambles the player's offensive grid information, occuring on either the ocean or underwater map
+/**
+ * Ghost Zone extends Disaster superclass that scrambles the player's offensive grid information, occurring on either
+ * the OceanMap or UnderwaterMap
  */
 public class GhostZone extends Disaster {
     private int ghost_zone_dimension;
@@ -11,15 +13,22 @@ public class GhostZone extends Disaster {
 
     private String [][] ghost_zone_map = new String[10][10];
 
-    /** GhostZone() constructor which sets ghost zone coordinates when a Disaster is created in Game class
+    /**
+     * GhostZone() constructor which sets ghost zone coordinates when a Disaster is created in Game class
      */
     public GhostZone() {
         this.setGhostZoneCoordinates();
     }
 
+    /**
+     *
+     * @return true if
+     */
     public boolean getGhosted(){
         return ghosted;
     }
+
+
 
     public ArrayList<Coordinate> getGhostZoneCoords(){
         return ghost_zone_coords;
@@ -29,7 +38,6 @@ public class GhostZone extends Disaster {
      * Creates a random value for dimension of ghost zone
      * New coordinate is created to act as starting coordinate (top left), traverses through dimensions and creates zone
      * performed in a do while loop in order to validate zone before actually creating it
-     * returns void
      */
     public void setGhostZoneCoordinates() {
 
@@ -51,15 +59,14 @@ public class GhostZone extends Disaster {
                     this.ghost_zone_coords.add(new Coordinate(i, j));
                 }
             }
-
         } while (this.validateGhostZone() == false);
-
     }
 
     /** applyDisaster() method to initiate disaster on the current player
      * Gets current statuses of player's offensive grid
-     * Creates a random value between 0 and 2for each iteration of the ghost zone coords and updates current cell status to random value
-     * returns void
+     * Creates a random value between 0 and 2 for each iteration of the ghost zone coords and updates current cell
+     * status to random value
+     * @param current_player the current player who's map's will be affected by the disaster event
      */
     public void applyDisaster(Player current_player) {
         System.out.println("Watch out, there is a Ghost Zone covering part of your offensive grid!");
@@ -77,7 +84,8 @@ public class GhostZone extends Disaster {
         ghosted = true;
     }
 
-    /** validateGhostZone() method to ensure that ghost zone is not created out of bounds
+    /**
+     * validateGhostZone() method to ensure that ghost zone is not created out of bounds
      * Traverses through the list of added ghost zone coordinates and checks whether coords are either less than 0 or greater than 10
      * returns boolean true for proper validation
      */
@@ -91,7 +99,7 @@ public class GhostZone extends Disaster {
         return true;
     }
 
-    /** toString method to print out location of ghost zone on respective map
+    /** toString() method that prints out location of ghost zone on respective map
      * Traverses through the list of added ghost zone coordinates
      * Prints out the character "&" to denote a ghost by row/column
      */
