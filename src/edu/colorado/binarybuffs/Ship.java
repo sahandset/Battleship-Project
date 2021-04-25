@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * Submarine
  * Spaceshuttle
  */
-public abstract class Ship {
+public abstract class Ship implements Component {
     private String ship_name;
     private int ship_size;
 
@@ -52,5 +52,26 @@ public abstract class Ship {
      */
     public String toString(){
         return getName();
+    }
+
+    /**
+     * Retreives the size of the fleet: in this case it returns 1
+     * @return int 1
+     */
+    @Override
+    public int getFleetSize(){
+        return 1;
+    }
+
+    /**
+     * Retrieves and arraylist of all the names of ships: in this case the arraylist
+     * contains the name of the ship object
+     * @return arraylist containing 1 name
+     */
+    @Override
+    public ArrayList<String> getShipNames(){
+        ArrayList<String> names = new ArrayList<>();
+        names.add(this.ship_name);
+        return names;
     }
 }

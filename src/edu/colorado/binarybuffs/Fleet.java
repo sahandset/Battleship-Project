@@ -3,7 +3,7 @@ package edu.colorado.binarybuffs;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Fleet{
+public class Fleet implements Component{
 
     private ArrayList<Ship> myShips;
 
@@ -108,5 +108,27 @@ public class Fleet{
             int rand_y = rand.nextInt(10);
             return curr_player.deployShip(myShips.get(i), rand_x, rand_y, rand_direction, 0);
         }
+    }
+
+    /**
+     * * Retreives the size of the fleet
+     * @return fleetSize()
+     */
+    @Override
+    public int getFleetSize() {
+        return myShips.size();
+    }
+
+    /**
+     * Retrieves and arraylist of all the names of ships in the fleet
+     * @return arraylist of shipnames
+     */
+    @Override
+    public ArrayList<String> getShipNames() {
+        ArrayList<String> names = new ArrayList<>();
+        for (Ship shipy: myShips){
+            names.add(shipy.getName());
+        }
+        return names;
     }
 }
