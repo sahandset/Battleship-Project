@@ -12,4 +12,4 @@ Our project is a new, updated version of the traditional Battleship game. The ga
 Please reference the project wiki for our milestone developments and project progression
 
 ## Project Documentation
-https://github.com/sahandset/Battleship-Project/blob/main/DOCUMENTS/Project_Documentation.pdf
+https://github.com/sahandset/Battleship-Project/blob/main/Project_Documentation.pdf
