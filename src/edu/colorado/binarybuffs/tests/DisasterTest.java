@@ -9,7 +9,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DisasterTest {
 
-
     /**
      * ghostZoneTest() tests that a Ghost Zone can be created and that when applied, it scrambles a player's offensive grid
      * at the corresponding coordinates where the disaster occurs

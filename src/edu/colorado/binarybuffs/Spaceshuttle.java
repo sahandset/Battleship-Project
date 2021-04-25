@@ -2,7 +2,7 @@ package edu.colorado.binarybuffs;
 
 import java.util.ArrayList;
 
-/** Spaceshuttle subclass extends Ship super class and implements interface OrbitableShip and creates a Spaceshuttle ship */
+/** Spaceshuttle subclass extends Ship super class and implements interface Orbitable and creates a Spaceshuttle ship */
 public class Spaceshuttle extends Ship implements OrbitableShip {
     private String ship_name = "Spaceshuttle";
     private static int ship_size = 10;
