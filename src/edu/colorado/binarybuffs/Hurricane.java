@@ -218,7 +218,7 @@ public class Hurricane extends Disaster{
                 }
                 for (Coordinate coordinate : movedCoordsList) {
                     int status = moved_coords_stati.get(coordinate);
-                    ocean_map.defensiveGrid.setCellStatus(status, coordinate.x, coordinate.y); /* */
+                    ocean_map.defensiveGrid.setCellStatus(status, coordinate.x, coordinate.y);
                 }
                 ocean_map.ship_coordinates.replace(ship_to_move, movedCoordsList);
                 Coordinate old_Capts_Coords = ocean_map.captains_quarters.get(ship_to_move);
