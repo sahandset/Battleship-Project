@@ -683,7 +683,7 @@ public class Game {
 
     /**
      * createDisaster() creates 1 of 3 disasters randomly before every turn
-     * Creates a random integer between 0 and 10
+     * Creates a random integer between 0 and 9
      * If random value is 0, create a hurricane object and apply disaster on the player
      * If random value is 1, create a ghost zone object and apply disaster on the player
      * If random value is 2, create a asteroid field object and apply disaster on the player
@@ -692,7 +692,6 @@ public class Game {
     public void createDisaster(Player curr_player) {
         Random rand = new Random();
         int rand_disaster = rand.nextInt(10);
-        rand_disaster = 0;
 
         if (rand_disaster == 0) {
             Disaster hurr = new Hurricane();
