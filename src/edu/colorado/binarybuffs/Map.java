@@ -18,8 +18,6 @@ public abstract class Map {
 
     public Grid offensiveGrid;
     public Grid defensiveGrid;
-    public Animal narwhal;
-    public Animal jaws;
 
     Hashtable<Ship, Coordinate> captains_quarters = new Hashtable<>();
 

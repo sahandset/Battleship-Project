@@ -6,7 +6,7 @@ public abstract class Weapon {
 
     /**
      * Constructor for creating Bomb object
-     */
+,      */
     public Weapon(){}
 
     /**
