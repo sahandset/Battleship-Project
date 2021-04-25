@@ -10,7 +10,7 @@ import java.util.Hashtable;
  * Each Map has a Defensive and Offensive Grid attribute that keeps track of cell statuses pertaining to a player's
  * own ships (defensive grid of each map) and their attacks on the opponent's Map objects (offensive grid of each map)
  *
- * [INSERT ANIMAL STUFF]
+ * Places a narwhal and jaws everytime a map is initiated
  */
 public abstract class Map {
 
@@ -45,8 +45,6 @@ public abstract class Map {
     public Map(){
         offensiveGrid = new Grid();
         defensiveGrid = new Grid();
-//        narwhal = new Narwhal();
-//        jaws = new Jaws();
     }
 
     /**
@@ -54,14 +52,6 @@ public abstract class Map {
      * @return name of map
      */
     public abstract String getName();
-
-    /**
-     * Returns the number of ships sunk on that Map
-     * @return size of the array containing ship objects that have been sunk
-     */
-    public int getNumSunkShips() {
-        return this.sunk_ships.size();
-    }
 
     /**
      * Returns the number of ships alive on that Map
@@ -124,9 +114,7 @@ public abstract class Map {
      * @return true if the ship was successfully placed, false otherwise
      */
     public boolean placeShip(Ship ship, int start_x, int start_y, String direction) {
-        //get the cords
         ArrayList<Coordinate> coords = ship.getCoords(start_x, start_y, direction);
-        //get the capts quart
         Coordinate captsQuart = ship.getCaptsCoords(start_x, start_y, direction);
 
         boolean ship_is_legit = this.validateShip(coords);
