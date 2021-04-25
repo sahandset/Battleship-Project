@@ -129,12 +129,6 @@ public abstract class Map {
         //get the capts quart
         Coordinate captsQuart = ship.getCaptsCoords(start_x, start_y, direction);
 
-        //validated it
-        //boolean ship_is_legit ...
-        //if(ship_is_legit){
-        //set cell status == 1 for each in coords
-        //add to hashtable of shipCoordinates
-        //add capts quarts to captainsQuarters
         boolean ship_is_legit = this.validateShip(coords);
 
         if (ship_is_legit){
@@ -155,11 +149,6 @@ public abstract class Map {
         }
 
     }
-
-    //validateShip(coords)
-        // went through each coord and checked out of bounds
-        // checked cell status
-        // returned true or false
 
     /**
      * Validates that certain types of ships are able to be deployed on certain maps (ex. Only Submersible Ships can

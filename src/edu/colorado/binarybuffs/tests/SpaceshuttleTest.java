@@ -11,6 +11,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SpaceshuttleTest {
 
+    /**
+     * MinesweeperGetCoords() tests that a Minesweeper generates the right x and y coordinates.
+     * Ships DO NOT know their own coordinates, this generator function helps other classes validate ship placements
+     */
     @Test
     public void SpaceshuttleGetCoords() {
         Spaceshuttle shut = new Spaceshuttle();
@@ -19,6 +23,10 @@ public class SpaceshuttleTest {
         assertEquals(0, results.get(0).y);
     }
 
+    /**
+     * SpaceshuttleGetCoords2() tests that a Space Shuttle generates the right x and y coordinates for multiple
+     * coordinate pairs. Ships DO NOT know their own coordinates, this generator function helps other classes validate ship placements
+     */
     @Test
     public void SpaceshuttleGetCoords2() {
         Spaceshuttle shut = new Spaceshuttle();
@@ -29,6 +37,10 @@ public class SpaceshuttleTest {
         assertEquals(6, results.get(3).y);
     }
 
+    /**
+     * SpaceshuttleGetCaptsCoords() tests that a Space Shuttle generates the right x and y coordinates for the Captain's
+     * Quarters. Ships DO NOT know their own coordinates, this generator function helps other classes interact with the captain's quarters
+     */
     @Test
     public void SpaceshuttleGetCaptsCoords() {
         Spaceshuttle shut = new Spaceshuttle();

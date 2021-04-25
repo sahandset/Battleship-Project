@@ -7,6 +7,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class LifesaverTest {
 
+    /**
+     * UseLifesaverOnce() tests that a Livesaver boost revives a sunken ship and if that ship can be subsequently resunk
+     */
     @Test
     public void UseLifesaverOnce() {
         Player player1 = new Player("Tanvi");
@@ -31,6 +34,9 @@ public class LifesaverTest {
 
     }
 
+    /**
+     * UseLifesaverTwice() tests that a Lifesaver boost can only be used twice by a player
+     */
     @Test
     public void UseLifesaverTwice() {
         Player player1 = new Player("Tanvi");
@@ -45,15 +51,21 @@ public class LifesaverTest {
         player1.deployShip(dest, 3,5,"south", 0);
 
         player2.useWeapon(0, 1,2, player1, 0, 2);
-        player1.useBoost(0, 0, 0);
+        boolean mine_saved = player1.useBoost(0, 0, 0);
         player2.useWeapon(0, 1,2, player1, 0, 2);
-        player1.useBoost(0, 0, 0);
+        boolean mine_saved_2 = player1.useBoost(0, 0, 0);
         player2.useWeapon(0, 1,2, player1, 0, 2);
-        player1.useBoost(0, 0, 0);
+        boolean mine_saved_3 = player1.useBoost(0, 0, 0);
 
+        assertEquals(true, mine_saved);
+        assertEquals(true, mine_saved_2);
+        assertEquals(false, mine_saved_3);
 
     }
 
+    /**
+     * UseLifesaverNotSunkShip() tests that a Lifesaver boost cannot be used on a ship that has not yet been sunk
+     */
     @Test
     public void UseLifesaverNotSunkShip() {
         Player player1 = new Player("Tanvi");
@@ -71,12 +83,13 @@ public class LifesaverTest {
         boolean destSaved = player1.useBoost(0, 0, 0);
 
         assertEquals(true, destHit);
-
         assertEquals(false, destSaved);
-
 
     }
 
+    /**
+     * UseLifesaverSubmarine() tests that a Livesaver boost can be used to revive a submarine
+     */
     @Test
     public void UseLifesaverSubmarine() {
         Player player1 = new Player("Tanvi");
@@ -97,10 +110,8 @@ public class LifesaverTest {
 
         boolean subSaved = player1.useBoost(0, 0, 1);
 
-
         assertEquals(true, mineHit);
         assertEquals(true, subSaved);
-
 
     }
 

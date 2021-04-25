@@ -6,6 +6,10 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SpaceLaserTest {
+
+    /**
+     * spaceLaserTest() tests that a space laser can be used on any map, and repeatedly, after the first ship has been sunk
+     */
     @Test
     public void spaceLaserTest() {
         Player player1 = new Player("Tanvi");
@@ -28,6 +32,9 @@ public class SpaceLaserTest {
 
     }
 
+    /**
+     * spaceLaserOnSpaceMapTest() tests the behavior of using a space laser on the space map
+     */
     @Test
     public void spaceLaserOnSpaceMapTest() {
         Player player1 = new Player("Tanvi");

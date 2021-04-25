@@ -8,6 +8,11 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class FleetTest {
+
+    /**
+     * CreateRandFleet() tests that a Fleet object's ships ArrayList is the right size and conains the right objects
+     * at a index
+     */
     @Test
     public void CreateRandFleet() {
         Minesweeper mine = new Minesweeper();
@@ -27,6 +32,9 @@ public class FleetTest {
         assertEquals("Minesweeper", ships.get(0).getName());
     }
 
+    /**
+     * PlaceRandFleet() tests that Fleet properly deploys the right ships to the right map
+     */
     @Test
     public void PlaceRandFleet() {
         Minesweeper mine = new Minesweeper();
@@ -52,6 +60,10 @@ public class FleetTest {
         assertEquals(1, shipsOnUnderwaterMap.size());
     }
 
+    /**
+     * AftermathOfRandFleet() tests that a weapon can be used on a ship object deployed and subsequently placed
+     * by the Fleet() Object after instantiation
+     */
     @Test
     public void AftermathOfRandFleet() {
         Minesweeper mine = new Minesweeper();

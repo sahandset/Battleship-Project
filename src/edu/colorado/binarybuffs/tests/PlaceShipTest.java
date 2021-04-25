@@ -6,6 +6,9 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PlaceShipTest {
+    /**
+     * placeShipTest() tests that ships are able to be validated and deployed on the OceanMap
+     */
     @Test
     public void placeShipTest() {
         Player player1 = new Player("Tanvi");
@@ -21,6 +24,10 @@ public class PlaceShipTest {
         assertEquals(true, player1.deployShip(bat, 3, 3, "east", 0));
     }
 
+    /**
+     * placeSurfaceShipUnderwater() tests that a ship that is not submersible (not able to be placed underwater) cannot
+     * be placed on the UnderwaterMap.
+     */
     @Test
     public void placeSurfaceShipUnderwater() {
         Player player1 = new Player("Tanvi");
@@ -31,6 +38,10 @@ public class PlaceShipTest {
         assertEquals(false, player1.deployShip(bat, 1, 1, "south", 1));
     }
 
+    /**
+     * placeShipOverlappingTest() tests that a ship cannot be placedsuch that its generated coordinates would consequently
+     * overlap with another ship that has been already been placed
+     */
     @Test
     public void placeShipOverlappingTest() {
         Player player1 = new Player("Tanvi");

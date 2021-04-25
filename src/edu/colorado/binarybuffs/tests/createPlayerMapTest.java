@@ -4,6 +4,9 @@ import org.junit.jupiter.api.Test;
 import static org.junit.Assert.assertEquals;
 
 public class createPlayerMapTest {
+    /**
+     * createPlayerMapTest() tests that different maps can be created and that they are appropriately named and accessed
+     */
     @Test
     public void createPlayerMapTest() {
         Player player1 = new Player("Tanvi");

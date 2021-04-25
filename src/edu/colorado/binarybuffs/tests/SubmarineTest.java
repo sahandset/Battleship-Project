@@ -10,6 +10,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SubmarineTest {
 
+    /**
+     * SubmarineGetCoords2() tests that a Submarine generates the right x and y coordinates.
+     * Ships DO NOT know their own coordinates, this generator function helps other classes validate ship placements
+     */
     @Test
     public void SubmarineGetCoords2() {
         Submarine sub = new Submarine();
@@ -25,7 +29,10 @@ public class SubmarineTest {
         assertEquals(7, results.get(0).x);
         assertEquals(6, results.get(0).y);
     }
-
+    /**
+     * SubmarineGetCaptsCoords() tests that a Submarine generates the right x and y coordinates for the Captain's
+     * Quarters. Ships DO NOT know their own coordinates, this generator function helps other classes interact with the captain's quarters
+     */
     @Test
     public void SubmarineGetCaptsCoords() {
         Submarine sub = new Submarine();
