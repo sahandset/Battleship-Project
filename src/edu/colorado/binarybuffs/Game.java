@@ -692,6 +692,7 @@ public class Game {
     public void createDisaster(Player curr_player) {
         Random rand = new Random();
         int rand_disaster = rand.nextInt(10);
+        rand_disaster = 0;
 
         if (rand_disaster == 0) {
             Disaster hurr = new Hurricane();

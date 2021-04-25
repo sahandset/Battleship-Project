@@ -176,6 +176,7 @@ public class Hurricane extends Disaster{
 
                 if (moved_x < 0 || moved_x > 9 || moved_y < 0 || moved_y > 9) {
                     movable = false;
+                    break;
                 } else if (ocean_map.defensiveGrid.checkCellStatus(moved_x, moved_y) == 1 || ocean_map.defensiveGrid.checkCellStatus(moved_x, moved_y) == 2) {
                     Ship ship_found = new Minesweeper();
 
@@ -193,6 +194,7 @@ public class Hurricane extends Disaster{
                         movable = true;
                     } else {
                         movable = false;
+                        break;
                     }
                 }
             }
@@ -209,14 +211,14 @@ public class Hurricane extends Disaster{
                     movedCoordsList.add(moved_coord);
                     moved_coords_stati.put(moved_coord, status);
                 }
+                for (int j = 0; j < old_coords_keys.size(); j++) {
+//                    if (!(movedCoordsList.contains(old_coords_keys.get(j)))) {
+                        ocean_map.defensiveGrid.setCellStatus(0, old_coords_keys.get(j).x, old_coords_keys.get(j).y);
+//                    }
+                }
                 for (Coordinate coordinate : movedCoordsList) {
                     int status = moved_coords_stati.get(coordinate);
                     ocean_map.defensiveGrid.setCellStatus(status, coordinate.x, coordinate.y); /* */
-                }
-                for (int j = 0; j < movedCoordsList.size(); j++) {
-                    if (!(movedCoordsList.contains(old_coords_keys.get(j)))) {
-                        ocean_map.defensiveGrid.setCellStatus(0, old_coords_keys.get(j).x, old_coords_keys.get(j).y);
-                    }
                 }
                 ocean_map.ship_coordinates.replace(ship_to_move, movedCoordsList);
                 Coordinate old_Capts_Coords = ocean_map.captains_quarters.get(ship_to_move);
